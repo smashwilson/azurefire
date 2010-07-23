@@ -1,0 +1,23 @@
+!!! Strict
+%html
+  %head
+    %meta{'http-equiv' => 'Content-Type', :content => "text/html; charset=iso-8859-1"}
+    %link{ :href => '/favicon.ico', :rel => 'shortcut icon' }
+    %link{ :href => '/azure.css', :type => 'text/css', :rel => 'stylesheet' }
+    %title azurefire
+  %body
+    %h1.banner azure<span>f</span>ire
+    .user-display#login
+      %p Welcome.
+    %ul.navigation
+      %li
+        %a.current{:href => '/news'} news
+      %li
+        %a{:href => '/about'} about
+    %ul.sub-navigation
+      %li
+        %a.current{:href => '/news/latest'} latest
+      %li
+        %a{:href => '/news/archive'} archive
+    .content
+      = yield

@@ -1,0 +1,64 @@
+$side-margin: 15%
+$azure-color: #0066ff
+
+*
+  margin: 0
+  padding: 0
+  font-family: Arial, sans-serif
+
+a
+  color: $azure-color
+  text-decoration: none
+
+a:hover, a.current
+  text-decoration: underline
+
+h1.banner
+  padding-top: 10px
+  height: 90px
+  text-indent: $side-margin
+  font-size: 35pt
+  font-weight: normal
+  letter-spacing: 30px
+  background: url(header.jpg) no-repeat center top
+  span
+    font-size: 50pt
+    color: $azure-color
+    font-family: "Times New Roman", serif
+    font-style: italic
+
+.user-display
+  padding: 5px $side-margin
+  font-size: 10pt
+  text-align: right
+  background: url(headerline.jpg) no-repeat center top
+
+ul.navigation
+  padding: 3px $side-margin
+  background-color: black
+  li
+    list-style: none
+    display: inline
+    padding: 3px 0
+    a
+      color: white
+      padding: 3px 15px
+      background: url(navbuttonup.gif) no-repeat
+    a:hover
+      background: url(navbuttondown.gif) no-repeat
+
+ul.sub-navigation
+  text-align: right
+  margin-right: $side-margin
+  li
+    font-size: 10pt
+    border-left: solid 1px black
+    display: inline
+    padding: 0 0.5em
+    a
+      color: black
+  li:first-child
+    border: none
+
+.content
+  margin: 1em $side-margin
