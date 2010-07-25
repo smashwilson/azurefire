@@ -9,15 +9,6 @@
     %h1.banner azure<span>f</span>ire
     .user-display#login
       %p Welcome.
-    %ul.navigation
-      %li
-        %a.current{:href => '/news'} news
-      %li
-        %a{:href => '/about'} about
-    %ul.sub-navigation
-      %li
-        %a.current{:href => '/news/latest'} latest
-      %li
-        %a{:href => '/news/archive'} archive
+    = navigation
     .content
       = yield
