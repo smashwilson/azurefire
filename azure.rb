@@ -1,6 +1,4 @@
 require 'sinatra'
-require 'sinatra/reloader' if development?
-require 'rack-flash'
 
 require 'haml'
 require 'sass'
@@ -17,6 +15,7 @@ get %r{/([^.]+).css} do |name|
   sass name.to_sym
 end
 
+# Keep debugging output nice and current in Eclipse.
 $stdout.sync = true
 
 before do
@@ -29,10 +28,6 @@ before do
     nav_item 'people', :default => true
     nav_item 'site'
   end
-end
-
-get '/' do
-  haml :latest
 end
 
 [ '/', '/news', '/news/latest' ].each do |route|
