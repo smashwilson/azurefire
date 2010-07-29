@@ -4,15 +4,25 @@
 # current menu structure.
 module Navigation
   
+  def nav_item_match? path, link, default
+    if default
+      return true if path == '/' or path == @subnav_parent
+    end
+    path.start_with? link
+  end
+  
   # Append a navigation item to the current navigation menu.  If a block is
   # provided, it will be invoked (to construct a subnavigation menu) when this
   # item is current.
-  def nav_item name, link = "/#{name}", &subnav_block
+  def nav_item name, options = {}, &subnav_block
     @navigation ||= []
+    link = options[:link] || "#{@subnav_parent}/#{name}"
+    default = options[:default] || false
     
     css_class = ''
-    if request.path_info.start_with? link
-      @subnavigation = subnav_block
+    if nav_item_match? request.path_info, link, default
+      @subnav_block = subnav_block
+      @next_subnav_parent = link
       css_class = " class='current' "
     end
     @navigation << "\t<li><a #{css_class} href='#{link}'>#{name}</a></li>\n"
@@ -22,8 +32,9 @@ module Navigation
   # subnavigation block, it will be invoked after the navigation items have
   # been reset to build a sub-navigation menu.
   def navigation klass = 'main-navigation'
-    items, subnav_block = @navigation, @subnavigation
-    @navigation, @subnavigation = [], nil
+    items, @navigation = @navigation, nil
+    subnav_block, @subnav_block = @subnav_block, nil
+    @next_subnav_parent, @subnav_parent = nil, @next_subnav_parent
     
     output = <<ENDNAV
 <ul class="#{klass}">
