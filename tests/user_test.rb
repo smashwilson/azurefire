@@ -1,28 +1,33 @@
 require 'test/unit'
 
-require 'user'
+require 'storage'
+require 'model/user'
 
 class UserTest < Test::Unit::TestCase
   
-  def test_serialize
+  def setup
+    super
+    @db = Storage.new 'usertest'
+    @db.create
+  end
+  
+  def test_set_password
     u = User.new
-    u.username = 'tester'
-    u.password = 'ultrasecret'
-    
-    expected = <<ZZZ
-password_hash: f99dcbb3dd40b1f3fa6ca2332fec02ff718a0502e6bb5b7ae78a6beb096c7806
-ZZZ
-    assert_equal expected, u.serialize
+    u.password = 'foo'
+    assert u.has_password?('foo')
   end
   
-  def test_deserialize
-    source = <<ZZZ
-password_hash: f99dcbb3dd40b1f3fa6ca2332fec02ff718a0502e6bb5b7ae78a6beb096c7806
-ZZZ
-    u = User.deserialize source
+  def test_roundtrip
+    u1 = User.new
+    u1.username = 'foo'
+    u1.password = 'bar'
     
-    assert_equal 'f99dcbb3', u.password_hash[0,8]
-    assert u.has_password?('ultrasecret')
+    u1.save @db
+    assert_equal u1, User.find('foo', @db)
   end
   
+  def teardown
+    super
+    @db.delete!
+  end
 end
