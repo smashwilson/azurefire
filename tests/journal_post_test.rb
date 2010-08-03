@@ -15,12 +15,12 @@ class JournalPostTest < StorageTestCase
     p.body = 'fun times'
     p.user = u
     
-    p.save @db
+    p.save
     
-    np = JournalPost.find 'hooray', @db
+    np = JournalPost.find 'hooray'
     assert_equal p.title, np.title
     assert_equal p.body, np.body
-    assert_equal p.user(@db), np.user
+    assert_equal p.user, np.user
     assert_equal p.timestamp, np.timestamp
   end
   
@@ -38,17 +38,17 @@ class JournalPostTest < StorageTestCase
   def test_validate_unique_clean_title
     p1 = JournalPost.new
     p1.title = 'some title'
-    p1.save @db
+    p1.save
     
     p2 = JournalPost.new
     p2.title = 'some title'
-    assert_raise(Persistent::ValidationException) { p2.save @db }
+    assert_raise(Persistent::ValidationException) { p2.save }
     
     p3 = JournalPost.new
     p3.title = 'some.  Title!'
-    assert_raise(Persistent::ValidationException) { p3.save @db }
+    assert_raise(Persistent::ValidationException) { p3.save }
     
-    assert_equal 1, JournalPost.all(@db).size
+    assert_equal 1, JournalPost.all.size
   end
   
 end

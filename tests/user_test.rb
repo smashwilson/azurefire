@@ -15,30 +15,30 @@ class UserTest < StorageTestCase
     u1.username = 'foo'
     u1.password = 'bar'
     
-    u1.save @db
-    assert_equal u1, User.find('foo', @db)
+    u1.save
+    assert_equal u1, User.find('foo')
   end
   
   def test_unique_username
     u1 = User.new
     u1.username = 'foo'
-    u1.save @db
+    u1.save
     
     u2 = User.new
     u2.username = 'foo'
-    assert_raise(Persistent::ValidationException) { u2.save @db }
+    assert_raise(Persistent::ValidationException) { u2.save }
   end
   
   def test_change_password
     u = User.new
     u.username = 'foo'
     u.password = 'bar'
-    u.save @db
+    u.save
     
     u.password = 'hooray'
-    u.save @db
+    u.save
     
-    u = User.find 'foo', @db
+    u = User.find 'foo'
     assert u.has_password?('hooray')
   end
 

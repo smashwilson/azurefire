@@ -5,12 +5,12 @@ require 'storage'
 class StorageTestCase < Test::Unit::TestCase
   
   def setup
-    @db = Storage.new(self.class.name.downcase)
-    @db.create
+    Storage.use self.class.name.downcase
+    Storage.current.create
   end
   
   def teardown
-    @db.delete!
+    Storage.current.delete!
   end
   
 end

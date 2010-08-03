@@ -15,8 +15,8 @@ class JournalPost < Persistent
     @username = u.username
   end
   
-  def user store = Storage.instance
-    User.find @username, store
+  def user
+    User.find @username
   end
   
   def clean_title

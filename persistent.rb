@@ -5,7 +5,10 @@ require 'fileutils'
 
 # Provide filesystem-based persistence with YAML.
 class Persistent
-  attr_accessor :persisted
+  
+  def initialize
+    @persisted = false
+  end
   
   def path
     "/#{directory}/#{key}.yaml"
@@ -19,21 +22,25 @@ class Persistent
     self.class.default_directory or '.'
   end
   
-  def save store = Storage.instance
-    store.transaction do
+  def save
+    Storage.current.transaction do
       validate!
-      store.write self
+      unless @persisted || unique_key?
+        invalid! "This #{self.class} already exists."
+      end
+      @persisted = true
+      Storage.current.write(self, self.path)
     end
   end
   
-  def validate! store ; end
+  def validate! ; end
   
   def invalid! message = "The #{self.class} cannot be saved."
     raise ValidationException.new(message)
   end
   
-  def unique_key_in! store
-    if self.class.all_keys(store)
+  def unique_key?
+    not self.class.all_keys.include?(key)
   end
   
   def clean_string string
@@ -62,29 +69,29 @@ class Persistent
       @directory = path
     end
     
-    def all_files store = Storage.instance
-      Dir[File.join(store.root, default_directory) + '/*.yaml']
+    def all_files
+      Dir[File.join(Storage.current.root, default_directory) + '/*.yaml']
     end
     
-    def all_keys store = Storage.instance
-      all_files(store).collect do |path|
+    def all_keys
+      all_files.collect do |path|
         File.basename path, '.yaml'
       end
     end
     
-    def all store = Storage.instance
-      all_files(store).collect do |path|
+    def all
+      all_files.collect do |path|
         inst = YAML::load_file path
         yield inst if block_given?
         inst
       end
     end
     
-    def find k = nil, store = Storage.instance
+    def find k = nil
       if k.nil?
-        all(store) { |each| return each if yield each }
+        all { |each| return each if yield each }
       else
-        p = File.join(store.root, default_directory) + "/#{k}.yaml"
+        p = File.join(Storage.current.root, default_directory) + "/#{k}.yaml"
         return nil unless File.exist? p
         YAML::load_file p
       end
