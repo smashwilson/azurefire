@@ -82,8 +82,7 @@ class JournalPostTest < StorageTestCase
     p4.timestamp = Time.parse('7/4/2010')
     p4.save
     
-    assert_equal [p3, p4], JournalPost.latest([u1, u2])
-    assert_equal [p4, p3], JournalPost.latest([u2, u1])
+    assert_equal [p3, p4], JournalPost.latest
   end
   
 end
