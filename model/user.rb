@@ -5,10 +5,7 @@ class User < Persistent
   directory 'user'
   
   attr_accessor :username, :password_hash
-  
-  def key
-    @username
-  end
+  key :username
   
   def == other
     username == other.username
@@ -25,4 +22,5 @@ class User < Persistent
   def digest plaintext
     Digest::SHA2.hexdigest(plaintext)
   end
+
 end

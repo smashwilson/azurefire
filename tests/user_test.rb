@@ -1,15 +1,8 @@
-require 'test/unit'
+require 'tests/storage_test_case'
 
-require 'storage'
 require 'model/user'
 
-class UserTest < Test::Unit::TestCase
-  
-  def setup
-    super
-    @db = Storage.new 'usertest'
-    @db.create
-  end
+class UserTest < StorageTestCase
   
   def test_set_password
     u = User.new
@@ -26,8 +19,27 @@ class UserTest < Test::Unit::TestCase
     assert_equal u1, User.find('foo', @db)
   end
   
-  def teardown
-    super
-    @db.delete!
+  def test_unique_username
+    u1 = User.new
+    u1.username = 'foo'
+    u1.save @db
+    
+    u2 = User.new
+    u2.username = 'foo'
+    assert_raise(Persistent::ValidationException) { u2.save @db }
   end
+  
+  def test_change_password
+    u = User.new
+    u.username = 'foo'
+    u.password = 'bar'
+    u.save @db
+    
+    u.password = 'hooray'
+    u.save @db
+    
+    u = User.find 'foo', @db
+    assert u.has_password?('hooray')
+  end
+
 end

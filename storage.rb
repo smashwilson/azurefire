@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'thread'
 
 class Storage
   attr_accessor :root, :mutex
@@ -14,22 +15,27 @@ class Storage
   
   def save persistent, path = persistent.path
     transaction do
-      return unless persistent.validate?(self)
+      unless persistent.persisted
+        #
+      end
+      
+      persistent.validate!(self)
+      persistent.persisted = true
       
       full_path = File.join @root, path
       full_dir = File.dirname full_path
-      FileUtils.mkdir_p full_dir unless Dir.exists?(full_dir)
+      FileUtils.mkdir_p full_dir unless File.exists?(full_dir)
       
       File.open(full_path, 'w') { |f| f << persistent.to_yaml }
     end
   end
   
   def create
-    FileUtils.mkdir_p @root unless Dir.exists?(@root)
+    FileUtils.mkdir_p @root unless File.exists?(@root)
   end
   
   def delete!
-    FileUtils.remove_entry_secure @root if Dir.exists?(@root)
+    FileUtils.remove_entry_secure @root if File.directory?(@root)
   end
   
   def self.instance
