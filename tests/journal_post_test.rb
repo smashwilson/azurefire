@@ -51,4 +51,39 @@ class JournalPostTest < StorageTestCase
     assert_equal 1, JournalPost.all.size
   end
   
+  def test_latest
+    u1 = User.new
+    u1.username = 'a'
+    
+    u2 = User.new
+    u2.username = 'b'
+    
+    p1 = JournalPost.new
+    p1.title = 'one'
+    p1.timestamp = Time.parse('7/1/2010')
+    p1.user = u1
+    p1.save
+    
+    p2 = JournalPost.new
+    p2.title = 'two'
+    p2.user = u2
+    p2.timestamp = Time.parse('7/2/2010')
+    p2.save
+    
+    p3 = JournalPost.new
+    p3.title = 'three'
+    p3.timestamp = Time.parse('7/3/2010')
+    p3.user = u1
+    p3.save
+    
+    p4 = JournalPost.new
+    p4.title = 'four'
+    p4.user = u2
+    p4.timestamp = Time.parse('7/4/2010')
+    p4.save
+    
+    assert_equal [p3, p4], JournalPost.latest([u1, u2])
+    assert_equal [p4, p3], JournalPost.latest([u2, u1])
+  end
+  
 end
