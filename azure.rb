@@ -2,11 +2,25 @@ require 'sinatra'
 
 require 'haml'
 require 'sass'
+require 'bluecloth'
 
 require 'navigation'
+require 'model/journal_post'
+
+configure :production do
+  Storage.use 'db'
+end
+
+configure :development do
+  Storage.use 'dev-db'
+end
 
 helpers do
   include Navigation
+  
+  def markdown text
+    BlueCloth.new(text, :escape_html => true).to_html
+  end
 end
 
 # Run stylesheets through sass.
@@ -32,6 +46,7 @@ end
 
 [ '/', '/news', '/news/latest' ].each do |route|
   get route do
+    @posts = JournalPost.latest
     haml :latest
   end
 end

@@ -82,7 +82,10 @@ class JournalPostTest < StorageTestCase
     p4.timestamp = Time.parse('7/4/2010')
     p4.save
     
-    assert_equal [p3, p4], JournalPost.latest
+    latest = JournalPost.latest
+    assert_equal 2, latest.size
+    assert latest.include?(p3)
+    assert latest.include?(p4)
   end
   
 end
