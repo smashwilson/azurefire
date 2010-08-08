@@ -1,15 +1,15 @@
+# Master source file for the azurefire website.
+
 require 'sinatra'
 
 require 'haml'
 require 'sass'
 require 'bluecloth'
 
-require 'navigation'
-require 'model/journal_post'
+# Keep debugging output nice and current in Eclipse.
+$stdout.sync = true
 
 helpers do
-  include Navigation
-  
   def markdown text
     BlueCloth.new(text, :escape_html => true).to_html
   end
@@ -21,38 +21,7 @@ get %r{/([^.]+).css} do |name|
   sass name.to_sym
 end
 
-# Keep debugging output nice and current in Eclipse.
-$stdout.sync = true
-
-before do
-  # Configure site navigation.
-  nav_item('news', :default => true) do
-    nav_item 'latest', :default => true
-    nav_item 'archive'
-  end
-  nav_item('about') do
-    nav_item 'people', :default => true
-    nav_item 'site'
-  end
-end
-
-[ '/', '/news', '/news/latest' ].each do |route|
-  get route do
-    @posts = JournalPost.latest
-    haml :latest
-  end
-end
-
-get '/news/archive' do
-  haml "<h1>news archive</h1>"
-end
-
-[ '/about', '/about/people' ].each do |route|
-  get route do
-    haml "<h1>about people</h1>"
-  end
-end
-
-get '/about/site' do
-  haml "<h1>about site</h1>"
-end
+# Load the site body.
+require 'site/navigation'
+require 'site/news'
+require 'site/about'

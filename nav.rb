@@ -1,10 +1,10 @@
 # Simple main and sub navigation.  Should be #included within a #helpers
-# block.  Use a set of #nav_item calls to build the menu structure, passing
+# block.  Use a set of #nav calls to build the menu structure, passing
 # blocks to defined subnavigation menus, then invoke #navigation to output the
 # current menu structure.
-module Navigation
+module NavigationHelper
   
-  def nav_item_match? path, link, default
+  def nav_match? path, link, default
     if default
       return true if path == '/' or path == @subnav_parent
     end
@@ -14,13 +14,13 @@ module Navigation
   # Append a navigation item to the current navigation menu.  If a block is
   # provided, it will be invoked (to construct a subnavigation menu) when this
   # item is current.
-  def nav_item name, options = {}, &subnav_block
+  def nav name, options = {}, &subnav_block
     @navigation ||= []
     link = options[:link] || "#{@subnav_parent}/#{name}"
     default = options[:default] || false
     
     css_class = ''
-    if nav_item_match? request.path_info, link, default
+    if nav_match? request.path_info, link, default
       @subnav_block = subnav_block
       @next_subnav_parent = link
       css_class = " class='current' "
