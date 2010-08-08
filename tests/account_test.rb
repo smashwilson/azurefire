@@ -46,4 +46,20 @@ class AccountTest < WebTestCase
     invalid_login 'blargh', 'blargh'
   end
   
+  def test_disallow_anonymous
+    get '/news/write'
+    assert last_response.not_found?
+  end
+  
+  def test_allow_authenticated
+    post '/account/login', :username => 'foo', :password => 'foo'
+    
+    get '/news'
+    parse
+    assert(@doc.css('a').any? { |node| node['href'] == '/news/write'})
+    
+    get '/news/write'
+    assert last_response.ok?
+  end
+  
 end

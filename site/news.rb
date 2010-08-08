@@ -10,5 +10,10 @@ require 'model/journal_post'
 end
 
 get '/news/archive' do
-  haml "<p class='content' style='font-style: italic'>news archive</p>"
+  haml '%p.empty news archive'
+end
+
+get '/news/write' do
+  admin_only!
+  haml '%p.empty news write'
 end

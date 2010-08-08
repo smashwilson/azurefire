@@ -2,10 +2,10 @@
 
 [ '/about', '/about/people' ].each do |route|
   get route do
-    haml "<p class='content' style='font-style: italic'>about people</p>"
+    haml '%p.empty about people'
   end
 end
 
 get '/about/site' do
-  haml "<p class='content' style='font-style: italic'>about site</p>"
+  haml '%p.empty about site'
 end

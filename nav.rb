@@ -16,6 +16,8 @@ module NavigationHelper
   # item is current.
   def nav name, options = {}, &subnav_block
     @navigation ||= []
+    
+    return if options[:admin] && ! logged_in?
     link = options[:link] || "#{@subnav_parent}/#{name}"
     default = options[:default] || false
     
@@ -25,6 +27,7 @@ module NavigationHelper
       @next_subnav_parent = link
       css_class = " class='current' "
     end
+    
     @navigation << "\t<li><a #{css_class} href='#{link}'>#{name}</a></li>\n"
   end
   
