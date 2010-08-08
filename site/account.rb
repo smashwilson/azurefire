@@ -3,9 +3,13 @@
 require 'model/user'
 
 helpers do
+  def username
+    session[:username]
+  end
+  
   # Return true if there's a User logged in, false if there isn't.
   def logged_in?
-    session[:username]
+    username
   end
   
   # Render a 404 response if no user is logged in.
@@ -15,20 +19,7 @@ helpers do
   
   # Render the text and link for the global layout's "user display" section.
   def welcome
-    if logged_in?
-      src = <<HML
-%p
-  Welcome, #{session[:username]}.
-  %a{:href => '/account/logout'} Log out.
-HML
-    else
-      src = <<HML
-%p
-  Welcome. Please
-  %a{:href => '/account/login'} Log in.
-HML
-    end
-    haml src, :layout => false
+    haml((logged_in? ? :welcome_user : :welcome_anon), :layout => false)
   end
 end
 

@@ -20,7 +20,7 @@ class AccountTest < WebTestCase
     post '/account/login', :username => 'foo', :password => 'foo'
     follow_redirect!
     assert last_request.url !~ /failed=true/
-        
+    
     assert_css '.user-display p a'
     assert_equal '/account/logout', @node['href']
     
