@@ -1,3 +1,7 @@
 # Ignore Eclipse metadata.
 .project
 .loadpath
+
+# Ignore persisted data.
+db/
+dev-db/
