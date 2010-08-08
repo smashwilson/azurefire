@@ -29,12 +29,12 @@ class WebTestCase < Test::Unit::TestCase
   end
   
   def assert_css css_string
-    parse unless @doc
+    parse
     assert_one @doc.css(css_string), css_string
   end
   
   def assert_xpath xpath_string
-    parse unless @doc
+    parse
     assert_one @doc.xpath(xpath_string), xpath_string
   end
   

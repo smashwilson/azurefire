@@ -1,5 +1,7 @@
 $side-margin: 15%
-$azure-color: #0066ff
+$azure-color: #06f
+$ok-color: #afa
+$error-color: #faa
 
 *
   margin: 0
@@ -60,5 +62,18 @@ ul.sub-navigation
   li:first-child
     border: none
 
+.flash
+  margin-bottom: 1em
+  padding: 1em
+
+.error
+  border: solid 2px red
+  background: $error-color
+
 .content
   margin: 1em $side-margin
+
+form
+  padding: 1em
+  border: solid 1px #999
+  background: #eee
