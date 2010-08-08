@@ -22,19 +22,23 @@ class Storage
   end
   
   def create
-    FileUtils.mkdir_p @root unless File.exists?(@root)
+    transaction do
+      FileUtils.mkdir_p @root unless File.exists?(@root)
+    end
   end
   
   def delete!
-    FileUtils.remove_entry_secure @root if File.directory?(@root)
+    transaction do
+      FileUtils.remove_entry_secure @root if File.directory?(@root)
+    end
   end
   
   def self.use root
-    @@current = new root
+    @current = new root
   end
   
   def self.current
-    @@current
+    @current or use(ENV['RACK_ENV'] == :production ? 'db' : 'dev-db')
   end
   
 end

@@ -7,14 +7,6 @@ require 'bluecloth'
 require 'navigation'
 require 'model/journal_post'
 
-configure :production do
-  Storage.use 'db'
-end
-
-configure :development do
-  Storage.use 'dev-db'
-end
-
 helpers do
   include Navigation
   
