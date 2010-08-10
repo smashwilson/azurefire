@@ -15,5 +15,11 @@ end
 
 get '/news/write' do
   admin_only!
-  haml '%p.empty news write'
+  haml :news_write
+end
+
+post '/news/write' do
+  admin_only!
+  JournalPost.from(username, params).save
+  haml :news_write
 end

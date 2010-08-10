@@ -31,6 +31,14 @@ class JournalPost < Persistent
     "#{@timestamp.strftime '%Y%m%d'}_#{clean_title}"
   end
   
+  def self.from username, hash
+    inst = self.new
+    inst.username = username
+    inst.title = hash[:title]
+    inst.body = hash[:body]
+    inst
+  end
+  
   # Return a collection of the latest-timestamped JournalPosts for each User.
   # Operates in a single pass through the directory.
   def self.latest
