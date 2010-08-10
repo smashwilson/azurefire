@@ -17,7 +17,7 @@ class JournalPostTest < StorageTestCase
     
     p.save
     
-    np = JournalPost.find 'hooray'
+    np = JournalPost.find { |each| each.title = 'hooray' }
     assert_equal p.title, np.title
     assert_equal p.body, np.body
     assert_equal p.user, np.user
@@ -32,20 +32,32 @@ class JournalPostTest < StorageTestCase
     
     p.title = "shouldn't this work too?!"
     assert_equal 'shouldnt_this_work_too', p.clean_title
-    assert_equal p.clean_title, p.key
   end
   
-  def test_validate_unique_clean_title
+  def test_generate_key
+    p = JournalPost.new
+    p.title = 'A title that, needs cleaning!'
+    p.timestamp = Time.parse('Aug 1, 2010 4:32am')
+    
+    assert_equal '20100801_a_title_that_needs_cleaning', p.key
+  end
+  
+  def test_validate_uniqueness
+    t = Time.now
+    
     p1 = JournalPost.new
     p1.title = 'some title'
+    p1.timestamp = t
     p1.save
     
     p2 = JournalPost.new
     p2.title = 'some title'
+    p2.timestamp = t
     assert_raise(Persistent::ValidationException) { p2.save }
     
     p3 = JournalPost.new
     p3.title = 'some.  Title!'
+    p3.timestamp = t
     assert_raise(Persistent::ValidationException) { p3.save }
     
     assert_equal 1, JournalPost.all.size

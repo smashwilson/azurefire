@@ -4,7 +4,7 @@ class JournalPost < Persistent
   directory 'post'
   
   attr_accessor :title, :username, :timestamp, :body
-  key :clean_title
+  key :stub
   
   def initialize
     super
@@ -25,6 +25,10 @@ class JournalPost < Persistent
   
   def clean_title
     clean_string title
+  end
+  
+  def stub
+    "#{@timestamp.strftime '%Y%m%d'}_#{clean_title}"
   end
   
   # Return a collection of the latest-timestamped JournalPosts for each User.

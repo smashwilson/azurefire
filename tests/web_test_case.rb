@@ -38,4 +38,15 @@ class WebTestCase < Test::Unit::TestCase
     assert_one @doc.xpath(xpath_string), xpath_string
   end
   
+  def login
+    unless User.find('foo')
+      u = User.new
+      u.username = 'foo'
+      u.password = 'foo'
+      u.save
+    end
+    
+    post '/account/login', :username => 'foo', :password => 'foo'
+  end
+  
 end

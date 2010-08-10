@@ -74,22 +74,23 @@ class Persistent
     end
     
     def all_keys
-      all_files.collect do |path|
-        File.basename path, '.yaml'
+      all_files.collect do |p|
+        File.basename p, '.yaml'
       end
     end
     
     def all
-      all_files.collect do |path|
-        inst = YAML::load_file path
+      all_files.collect do |p|
+        inst = YAML::load_file p
         yield inst if block_given?
         inst
       end
     end
     
     def find k = nil
-      if k.nil?
+      if block_given?
         all { |each| return each if yield each }
+        nil
       else
         p = File.join(Storage.current.root, default_directory) + "/#{k}.yaml"
         return nil unless File.exist? p
