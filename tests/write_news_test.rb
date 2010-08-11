@@ -8,7 +8,7 @@ class WriteNewsTest < WebTestCase
   def test_write_post
     login
     
-    post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'submit'
+    post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'Submit'
     follow_redirect!
     
     p = JournalPost.find { |each| each.title = 'hurf' }
@@ -24,7 +24,7 @@ class WriteNewsTest < WebTestCase
   def test_save_draft
     login
     
-    post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'preview'
+    post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'Preview'
     follow_redirect!
     
     assert_equal 0, JournalPost.all.size
@@ -52,8 +52,24 @@ class WriteNewsTest < WebTestCase
     assert_equal 'durf durf durf', @node.content
   end
   
+  def test_discard_draft_after_post
+    login
+    
+    d = Draft.new
+    d.title = 'hurf'
+    d.body = 'durf durf durf'
+    d.username = 'foo'
+    d.save
+    
+    post '/news/write', :title => d.title, :body => d.body, :submit => 'Submit'
+    follow_redirect!
+    
+    assert_equal 1, JournalPost.all.size
+    assert_nil Draft.find('foo')
+  end
+  
   def test_disallow_anonymous_post
-    post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'submit'
+    post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'Submit'
     assert last_response.not_found?
     
     assert_equal 0, JournalPost.all.size

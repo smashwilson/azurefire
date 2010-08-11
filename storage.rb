@@ -10,15 +10,23 @@ class Storage
   end
   
   def transaction
-    @mutex.synchronize { yield }
+    @mutex.synchronize { yield self }
+  end
+  
+  def full_path_of path
+    File.join @root, path
   end
   
   def write persistent, path
-    full_path = File.join @root, path
+    full_path = full_path_of path
     full_dir = File.dirname full_path
     
     FileUtils.mkdir_p full_dir unless File.exists?(full_dir)
     File.open(full_path, 'w') { |f| f << persistent.to_yaml }
+  end
+  
+  def remove path
+    File.delete(full_path_of(path))
   end
   
   def create

@@ -28,8 +28,10 @@ end
 
 post '/news/write' do
   admin_only!
-  if params[:submit] == 'submit'
+  if params[:submit] == 'Submit'
     p = JournalPost.from(username, params).save
+    d = Draft.find(username)
+    d.delete! unless d.nil?
     redirect "/news/write/#{p.url_slug}"
   else
     d = Draft.find(username) || Draft.new

@@ -23,15 +23,23 @@ class Persistent
   end
   
   def save
-    Storage.current.transaction do
+    Storage.current.transaction do |s|
       validate!
       unless @persisted || unique_key?
         invalid! "This #{self.class} already exists."
       end
       @persisted = true
-      Storage.current.write(self, self.path)
+      s.write(self, self.path)
     end
     self
+  end
+  
+  def delete!
+    raise "Can't delete non-persisted object" unless @persisted
+    Storage.current.transaction do |s|
+      s.remove(self.path)
+      @persisted = false
+    end
   end
   
   def validate! ; end
