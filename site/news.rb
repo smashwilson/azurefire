@@ -1,6 +1,7 @@
 # Routes and utilities for the /news section of the page.
 
 require 'model/journal_post'
+require 'model/draft'
 
 [ '/', '/news', '/news/latest' ].each do |route|
   get route do
@@ -15,11 +16,25 @@ end
 
 get '/news/write' do
   admin_only!
+  @post = JournalPost.new
+  haml :news_write
+end
+
+get '/news/write/:year/:month/:day/:title' do |*args|
+  admin_only!
+  @post = JournalPost.find_url(*args)
   haml :news_write
 end
 
 post '/news/write' do
   admin_only!
-  JournalPost.from(username, params).save
-  haml :news_write
+  if params[:submit] == 'submit'
+    p = JournalPost.from(username, params).save
+    redirect "/news/write/#{p.url_slug}"
+  else
+    d = Draft.find(username) || Draft.new
+    d.update username, params
+    d.save
+    redirect '/news/write'
+  end
 end

@@ -31,6 +31,7 @@ class Persistent
       @persisted = true
       Storage.current.write(self, self.path)
     end
+    self
   end
   
   def validate! ; end

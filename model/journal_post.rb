@@ -4,7 +4,7 @@ class JournalPost < Persistent
   directory 'post'
   
   attr_accessor :title, :username, :timestamp, :body
-  key :stub
+  key :file_slug
   
   def initialize
     super
@@ -27,16 +27,35 @@ class JournalPost < Persistent
     clean_string title
   end
   
-  def stub
+  def file_slug
     "#{@timestamp.strftime '%Y%m%d'}_#{clean_title}"
   end
   
+  def url_slug
+    [
+      @timestamp.year.to_s.rjust(4, '0'),
+      @timestamp.month.to_s.rjust(2, '0'),
+      @timestamp.day.to_s.rjust(2, '0'),
+      clean_title
+    ].join '/'
+  end
+  
+  def update username, hash
+    @username = username
+    @title = hash[:title]
+    @body = hash[:body]
+  end
+  
+  # Create a new JournalPost based on POST parameters.
   def self.from username, hash
     inst = self.new
-    inst.username = username
-    inst.title = hash[:title]
-    inst.body = hash[:body]
+    inst.update username, hash
     inst
+  end
+  
+  # #find a JournalPost from the database based on information encoded in its #url_slug.
+  def self.find_url year, month, day, title
+    find "#{year.rjust(4, '0')}#{month.rjust(2, '0')}#{day.rjust(2, '0')}_#{title}"
   end
   
   # Return a collection of the latest-timestamped JournalPosts for each User.

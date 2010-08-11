@@ -100,4 +100,22 @@ class JournalPostTest < StorageTestCase
     assert latest.include?(p4)
   end
   
+  def test_generate_url
+    p = JournalPost.new
+    p.title = 'foo! bar, baz.'
+    p.timestamp = Time.parse('Aug 1, 2010 3:14am')
+    
+    assert_equal '2010/08/01/foo_bar_baz', p.url_slug
+  end
+  
+  def test_find_by_url
+    p = JournalPost.new
+    p.title = 'something else'
+    p.timestamp = Time.parse('Feb 1, 2011 3pm')
+    p.save
+    
+    f = JournalPost.find_url('2011', '2', '1', 'something_else')
+    assert_equal p.title, f.title
+  end
+  
 end
