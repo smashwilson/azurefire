@@ -68,6 +68,24 @@ class WriteNewsTest < WebTestCase
     assert_nil Draft.find('foo')
   end
   
+  def test_render_preview
+    login
+    
+    d = Draft.new
+    d.title = 'hurf'
+    d.body = 'durf durf *durf* durf'
+    d.username = 'foo'
+    d.save
+    
+    get '/news/write'
+    
+    assert_css '#preview .title'
+    assert_equal 'hurf', @node.content
+    
+    assert_css '#preview p em'
+    assert_equal 'durf', @node.content
+  end
+  
   def test_disallow_anonymous_post
     post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'Submit'
     assert last_response.not_found?

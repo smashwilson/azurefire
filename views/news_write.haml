@@ -7,3 +7,6 @@
   %p
     %input{ :type => 'submit', :name => 'submit', :value => 'Submit' }
     %input{ :type => 'submit', :name => 'preview', :value => 'Preview' }
+#preview.post
+  %h2.title= @post.title
+  = markdown @post.body
