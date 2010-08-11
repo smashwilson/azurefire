@@ -34,6 +34,24 @@ class WriteNewsTest < WebTestCase
     assert_equal 'durf durf durf', d.body
   end
   
+  def test_begin_with_draft
+    login
+    
+    d = Draft.new
+    d.title = 'hurf'
+    d.body = 'durf durf durf'
+    d.username = 'foo'
+    d.save
+    
+    get '/news/write'
+    
+    assert_css 'input.title'
+    assert_equal 'hurf', @node['value']
+    
+    assert_css 'textarea'
+    assert_equal 'durf durf durf', @node.content
+  end
+  
   def test_disallow_anonymous_post
     post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'submit'
     assert last_response.not_found?

@@ -16,7 +16,7 @@ end
 
 get '/news/write' do
   admin_only!
-  @post = JournalPost.new
+  @post = Draft.find(username) || Draft.new
   haml :news_write
 end
 
