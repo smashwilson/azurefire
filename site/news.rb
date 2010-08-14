@@ -6,7 +6,7 @@ require 'model/draft'
 [ '/', '/news', '/news/latest' ].each do |route|
   get route do
     @posts = JournalPost.latest
-    haml :latest
+    haml :news_latest
   end
 end
 
@@ -39,4 +39,10 @@ post '/news/write' do
     d.save
     redirect '/news/write'
   end
+end
+
+get '/news/:year/:month/:day/:title' do |*args|
+  @post = JournalPost.find_url(*args)
+  halt 404 unless @post
+  haml :news_post
 end
