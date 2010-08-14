@@ -3,10 +3,11 @@
   - @post.comments.each do |c|
     %li
       = haml :partial_comment, :locals => { :comment => c }, :layout => false
-  %li.new
+  %li.new{ :class => logged_in? ? 'administrator' : nil }
     %form{ :method => 'post' }
-      %p
-        %input{ :type => 'text', :name => 'name' }
+      - unless logged_in?
+        %p
+          %input{ :type => 'text', :class => 'name', :name => 'name' }
       %p
         %textarea{ :name => 'body' }
       %p

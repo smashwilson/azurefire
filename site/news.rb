@@ -54,6 +54,10 @@ post '/news/:year/:month/:day/:title' do |*args|
   halt 404 unless @post
   comment = Comment.from params
   comment.journal_post = @post
+  if logged_in?
+    comment.administrator = true
+    comment.name = username
+  end
   comment.save
   redirect "/news/#{args.join '/'}"
 end

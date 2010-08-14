@@ -28,6 +28,11 @@ class WebTestCase < Test::Unit::TestCase
     @node = nodes[0]
   end
   
+  def assert_no_css css_string
+    parse
+    assert_equal 0, @doc.css(css_string).size
+  end
+  
   def assert_css css_string
     parse
     assert_one @doc.css(css_string), css_string

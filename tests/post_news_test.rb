@@ -62,4 +62,18 @@ class PostNewsTest < WebTestCase
     assert_equal 'i disagree!', @node.content
   end
   
+  def test_administrator_comment
+    login
+    
+    get '/news/2010/08/01/hurf'
+    
+    assert_no_css 'form input.name'
+    
+    post '/news/2010/08/01/hurf', :body => "shut up, that's why", :submit => 'Submit'
+    follow_redirect!
+    
+    assert_css 'div.comment.administrator p.name'
+    assert_equal 'foo', @node.content.strip
+  end
+  
 end
