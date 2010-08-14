@@ -1,2 +1,7 @@
 - @posts.each do |p|
   = haml :partial_post, :locals => { :post => p }, :layout => false
+  %ul.controls
+    %li
+      %a{ :href => "/news/#{p.url_slug}" } comments (0)
+    %li
+      %a{ :href => "/news/write/#{p.url_slug}" } edit

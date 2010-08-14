@@ -29,4 +29,24 @@ class LatestNewsTest < WebTestCase
     assert_equal 'things', @node.content
   end
   
+  def test_post_controls
+    p1 = JournalPost.new
+    p1.title = 'foo'
+    p1.body = 'bar'
+    p1.timestamp = Time.parse('Aug 1, 2010 10am')
+    p1.save
+    
+    login
+    get '/news/latest'
+    puts last_response.body
+    
+    parse
+    nodes = @doc.css('ul.controls li a')
+    names = nodes.collect { |each| each.content }
+    links = nodes.collect { |each| each['href'] }
+    
+    assert_equal ['comments (0)', 'edit'], names
+    assert_equal ['/news/2010/08/01/foo', '/news/write/2010/08/01/foo'], links
+  end
+  
 end
