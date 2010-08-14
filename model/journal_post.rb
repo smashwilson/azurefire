@@ -46,6 +46,10 @@ class JournalPost < Persistent
     @body = hash[:body]
   end
   
+  def comments
+    Comment.for_post self
+  end
+  
   # Create a new JournalPost based on POST parameters.
   def self.from username, hash
     inst = self.new

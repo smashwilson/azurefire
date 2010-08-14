@@ -48,8 +48,12 @@ class Persistent
     raise ValidationException.new(message)
   end
   
+  def all_keys
+    Storage.current.keys directory
+  end
+  
   def unique_key?
-    not self.class.all_keys.include?(key)
+    not all_keys.include?(key)
   end
   
   def clean_string string
@@ -79,18 +83,16 @@ class Persistent
     end
     
     def all_files
-      Dir[File.join(Storage.current.root, default_directory) + '/*.yaml']
+      Storage.current.files default_directory
     end
     
     def all_keys
-      all_files.collect do |p|
-        File.basename p, '.yaml'
-      end
+      Storage.current.keys default_directory
     end
     
     def all
       all_files.collect do |p|
-        inst = YAML::load_file p
+        inst = Storage.current.read p
         yield inst if block_given?
         inst
       end
@@ -101,9 +103,7 @@ class Persistent
         all { |each| return each if yield each }
         nil
       else
-        p = File.join(Storage.current.root, default_directory) + "/#{k}.yaml"
-        return nil unless File.exist? p
-        YAML::load_file p
+        Storage.current.read "#{default_directory}/#{k}.yaml"
       end
     end
     

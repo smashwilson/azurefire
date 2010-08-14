@@ -2,6 +2,7 @@ require 'tests/storage_test_case'
 require 'time'
 
 require 'model/journal_post'
+require 'model/comment'
 
 class JournalPostTest < StorageTestCase
   
@@ -116,6 +117,21 @@ class JournalPostTest < StorageTestCase
     
     f = JournalPost.find_url('2011', '2', '1', 'something_else')
     assert_equal p.title, f.title
+  end
+  
+  def test_find_comments
+    p = JournalPost.new
+    p.title = 'stuff'
+    p.timestamp = Time.parse('Aug 1, 2010 4pm')
+    p.save
+    
+    c = Comment.new
+    c.body = 'this totally sucks!'
+    c.journal_post = p
+    c.save
+    
+    rs = p.comments
+    assert_equal ['this totally sucks!'], rs.collect { |each| each.body } 
   end
   
 end
