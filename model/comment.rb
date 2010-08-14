@@ -28,7 +28,7 @@ class Comment < Persistent
   end
   
   def <=> other
-    (self.timestamp <=> other.timestamp) * -1
+    self.timestamp <=> other.timestamp
   end
   
   def journal_post= post
