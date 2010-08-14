@@ -28,14 +28,15 @@ end
 
 post '/news/write' do
   admin_only!
+  params[:username] = username
   if params[:submit] == 'Submit'
-    p = JournalPost.from(username, params).save
+    p = JournalPost.from(params).save
     d = Draft.find(username)
     d.delete! unless d.nil?
     redirect "/news/write/#{p.url_slug}"
   else
     d = Draft.find(username) || Draft.new
-    d.update username, params
+    d.update params
     d.save
     redirect '/news/write'
   end
@@ -45,4 +46,14 @@ get '/news/:year/:month/:day/:title' do |*args|
   @post = JournalPost.find_url(*args)
   halt 404 unless @post
   haml :news_post
+end
+
+# Comment post
+post '/news/:year/:month/:day/:title' do |*args|
+  @post = JournalPost.find_url(*args)
+  halt 404 unless @post
+  comment = Comment.from params
+  comment.journal_post = @post
+  comment.save
+  redirect "/news/#{args.join '/'}"
 end

@@ -34,6 +34,10 @@ class Persistent
     self
   end
   
+  def update hash
+    #
+  end
+  
   def delete!
     raise "Can't delete non-persisted object" unless @persisted
     Storage.current.transaction do |s|
@@ -65,6 +69,12 @@ class Persistent
   end
   
   class << self
+    
+    def from hash
+      inst = new
+      inst.update hash
+      inst
+    end
     
     def key_accessor
       @key_accessor

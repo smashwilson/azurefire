@@ -54,4 +54,12 @@ class PostNewsTest < WebTestCase
     assert_css 'ul.comments li.new form'
   end
   
+  def test_add_comment
+    post '/news/2010/08/01/hurf', :name => 'mcfoo', :body => '*i disagree!*', :submit => 'Submit'
+    follow_redirect!
+    
+    assert_css 'ul.comments li em'
+    assert_equal 'i disagree!', @node.content
+  end
+  
 end

@@ -5,11 +5,18 @@ class Comment < Persistent
   directory 'comments'
   key :microseconds
   
+  include Comparable
+  
   def initialize
     super
     @timestamp = Time.now
     @name = ''
     @administrator = false
+  end
+  
+  def update hash
+    @name = hash[:name]
+    @body = hash[:body]
   end
   
   def directory
@@ -20,6 +27,10 @@ class Comment < Persistent
     "#{@timestamp.to_i}-#{@timestamp.usec}"
   end
   
+  def <=> other
+    (self.timestamp <=> other.timestamp) * -1
+  end
+  
   def journal_post= post
     @journal_post_key = post.key
   end
@@ -27,7 +38,7 @@ class Comment < Persistent
   def self.for_post post
     Storage.current.files("comments/#{post.key}").collect do |fname|
       Storage.current.read fname
-    end
+    end.sort
   end
   
 end

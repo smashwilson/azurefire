@@ -1,5 +1,7 @@
 require 'persistent'
 
+require 'model/comment'
+
 class JournalPost < Persistent
   directory 'post'
   
@@ -40,21 +42,14 @@ class JournalPost < Persistent
     ].join '/'
   end
   
-  def update username, hash
-    @username = username
+  def update hash
+    @username = hash[:username]
     @title = hash[:title]
     @body = hash[:body]
   end
   
   def comments
     Comment.for_post self
-  end
-  
-  # Create a new JournalPost based on POST parameters.
-  def self.from username, hash
-    inst = self.new
-    inst.update username, hash
-    inst
   end
   
   # #find a JournalPost from the database based on information encoded in its #url_slug.
