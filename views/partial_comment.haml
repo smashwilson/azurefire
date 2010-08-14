@@ -1,0 +1,6 @@
+.comment.markdown{ :id => comment.key }
+  - if comment.name != ''
+    %p.name
+      = comment.name
+  = markdown comment.body
+  

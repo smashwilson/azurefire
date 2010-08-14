@@ -1,16 +1,20 @@
 require 'tests/web_test_case'
 
 require 'model/journal_post'
+require 'model/comment'
 
 class PostNewsTest < WebTestCase
   
+  def setup
+    super
+    @p = JournalPost.new
+    @p.title = 'hurf'
+    @p.body = 'durf durf durf'
+    @p.timestamp = Time.parse 'Aug 1, 2010 10am'
+    @p.save
+  end
+  
   def test_single_post_view
-    p = JournalPost.new
-    p.title = 'hurf'
-    p.body = 'durf durf durf'
-    p.timestamp = Time.parse 'Aug 1, 2010 10am'
-    p.save
-    
     get '/news/2010/08/01/hurf'
     assert last_response.ok?
     
@@ -24,6 +28,30 @@ class PostNewsTest < WebTestCase
   def test_missing_post
     get '/news/2000/10/01/blah'
     assert last_response.not_found?
+  end
+  
+  def test_show_comments
+    c1 = Comment.new
+    c1.body = '`code!`'
+    c1.name = 'mcfeegle'
+    c1.journal_post = @p
+    c1.save
+    
+    c2 = Comment.new
+    c2.body = '*this is emphasized*'
+    c2.name = 'rogr'
+    c2.journal_post = @p
+    c2.save
+    
+    get '/news/2010/08/01/hurf'
+    
+    assert_css 'ul.comments li code'
+    assert_equal 'code!', @node.content
+    
+    assert_css 'ul.comments li em'
+    assert_equal 'this is emphasized', @node.content
+    
+    assert_css 'ul.comments li.new form'
   end
   
 end

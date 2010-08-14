@@ -1,13 +1,15 @@
 require 'persistent'
 
 class Comment < Persistent
-  attr_accessor :name, :body, :timestamp, :journal_post_key
+  attr_accessor :name, :body, :timestamp, :administrator, :journal_post_key
   directory 'comments'
   key :microseconds
   
   def initialize
     super
     @timestamp = Time.now
+    @name = ''
+    @administrator = false
   end
   
   def directory

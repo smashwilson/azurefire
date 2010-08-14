@@ -1,1 +1,14 @@
 = haml :partial_post, :locals => { :post => @post }, :layout => false
+%ul.comments
+  - @post.comments.each do |c|
+    %li
+      = haml :partial_comment, :locals => { :comment => c }, :layout => false
+  %li.new
+    %form{ :method => 'post' }
+      %p
+        %input{ :type => 'text', :name => 'name' }
+      %p
+        %textarea{ :name => 'body' }
+      %p
+        %input{ :type => 'submit', :value => 'Submit' }
+        %input{ :type => 'submit', :value => 'Preview' }
