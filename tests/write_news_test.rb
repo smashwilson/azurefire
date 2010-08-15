@@ -3,6 +3,8 @@ require 'tests/web_test_case'
 require 'model/journal_post'
 require 'model/draft'
 
+require 'time'
+
 class WriteNewsTest < WebTestCase
     
   def test_write_post
