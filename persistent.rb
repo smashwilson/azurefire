@@ -61,14 +61,6 @@ class Persistent
     not all_keys.include?(key)
   end
   
-  def clean_string string
-    r = string.gsub /['".()\{\}\[\]]/, ''
-    r = r.gsub /[^a-zA-Z0-9]+/, '_'
-    r = r.gsub /^_+/, ''
-    r = r.gsub /_+$/, ''
-    r.downcase
-  end
-  
   class << self
     
     def from hash
@@ -116,6 +108,14 @@ class Persistent
       else
         Storage.current.read "#{default_directory}/#{k}.yaml"
       end
+    end
+    
+    def clean_string string
+      r = string.gsub /['".()\{\}\[\]]/, ''
+      r = r.gsub /[^a-zA-Z0-9]+/, '_'
+      r = r.gsub /^_+/, ''
+      r = r.gsub /_+$/, ''
+      r.downcase
     end
     
   end

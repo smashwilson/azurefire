@@ -26,7 +26,7 @@ class JournalPost < Persistent
   end
   
   def clean_title
-    clean_string title
+    self.class.clean_string title
   end
   
   def file_slug
