@@ -1,5 +1,8 @@
 require 'tests/web_test_case'
 
+require 'model/journal_post'
+require 'model/comment'
+
 class LatestNewsTest < WebTestCase
   
   def test_default_navigation
@@ -46,6 +49,24 @@ class LatestNewsTest < WebTestCase
     
     assert_equal ['comments (0)', 'edit'], names
     assert_equal ['/news/2010/08/01/foo', '/news/edit/2010/08/01/foo'], links
+  end
+  
+  def test_anonymous_post_controls
+    p1 = JournalPost.new
+    p1.title = 'foo'
+    p1.body = 'bar'
+    p1.timestamp = Time.parse('Aug 1, 2010 10am')
+    p1.save
+    
+    get '/news/latest'
+    
+    parse
+    nodes = @doc.css('ul.controls li a')
+    names = nodes.collect { |each| each.content }
+    links = nodes.collect { |each| each['href'] }
+    
+    assert_equal ['comments (0)'], names
+    assert_equal ['/news/2010/08/01/foo'], links
   end
   
 end
