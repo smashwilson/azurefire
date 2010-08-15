@@ -1,4 +1,7 @@
 = haml :partial_post, :locals => { :post => @post }, :layout => false
+%h2.comment-count
+  = @post.comment_count
+  comments
 %ul.comments
   - @post.comments.each do |c|
     %li
