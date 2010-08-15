@@ -5,6 +5,7 @@ require 'fileutils'
 
 # Provide filesystem-based persistence with YAML.
 class Persistent
+  attr_reader :persisted
   
   def initialize
     @persisted = false
@@ -119,6 +120,6 @@ class Persistent
     
   end
   
-  class ValidationException < Exception ; end
+  class ValidationException < StandardError ; end
   
 end
