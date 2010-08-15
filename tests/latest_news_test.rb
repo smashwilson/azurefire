@@ -20,7 +20,7 @@ class LatestNewsTest < WebTestCase
   def test_render_post
     p1 = JournalPost.new
     p1.title = 'First title'
-    p1.body = 'things'
+    p1.body = '*things*'
     p1.save
     
     get '/news/latest'
@@ -28,7 +28,7 @@ class LatestNewsTest < WebTestCase
     assert_css '.post h2.title'
     assert_equal 'First title', @node.content
     
-    assert_css '.post p'
+    assert_css '.post em'
     assert_equal 'things', @node.content
   end
   
