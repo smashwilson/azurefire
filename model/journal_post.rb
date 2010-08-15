@@ -52,9 +52,9 @@ class JournalPost < Persistent
     Comment.for_post self
   end
   
-  # #find a JournalPost from the database based on information encoded in its #url_slug.
+  # Find a JournalPost from the database based on information encoded in its #url_slug.
   def self.find_url year, month, day, title
-    find "#{year.rjust(4, '0')}#{month.rjust(2, '0')}#{day.rjust(2, '0')}_#{title}"
+    find "#{year.to_s.rjust(4, '0')}#{month.to_s.rjust(2, '0')}#{day.to_s.rjust(2, '0')}_#{title}"
   end
   
   # Return a collection of the latest-timestamped JournalPosts for each User.
