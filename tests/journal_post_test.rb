@@ -134,4 +134,20 @@ class JournalPostTest < StorageTestCase
     assert_equal ['this totally sucks!'], rs.collect { |each| each.body } 
   end
   
+  def test_comment_count
+    p = JournalPost.new
+    p.title = 'stuff'
+    p.timestamp = Time.parse('Aug 1, 2010 4pm')
+    p.save
+    
+    5.times do
+      c = Comment.new
+      c.body = 'this totally sucks!'
+      c.journal_post = p
+      c.save
+    end
+    
+    assert_equal 5, p.comment_count
+  end
+  
 end

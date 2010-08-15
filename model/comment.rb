@@ -35,10 +35,18 @@ class Comment < Persistent
     @journal_post_key = post.key
   end
   
-  def self.for_post post
-    Storage.current.files("comments/#{post.key}").collect do |fname|
-      Storage.current.read fname
-    end.sort
+  class << self
+  
+    def files_for_post post
+      Storage.current.files("comments/#{post.key}")
+    end
+  
+    def all_for_post post
+      files_for_post(post).collect do |fname|
+        Storage.current.read fname
+      end.sort
+    end
+  
   end
   
 end

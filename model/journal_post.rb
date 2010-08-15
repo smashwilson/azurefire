@@ -48,8 +48,12 @@ class JournalPost < Persistent
     @body = hash[:body]
   end
   
+  def comment_count
+    Comment.files_for_post(self).size
+  end
+  
   def comments
-    Comment.for_post self
+    Comment.all_for_post self
   end
   
   # Find a JournalPost from the database based on information encoded in its #url_slug.

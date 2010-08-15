@@ -32,7 +32,7 @@ class CommentTest < StorageTestCase
       c.save
     end
     
-    rs = Comment.for_post(p)
+    rs = Comment.all_for_post(p)
     assert_equal 10, rs.size
     assert(rs.all? { |each| each.body == 'comment'})
   end
