@@ -39,6 +39,13 @@ class LatestNewsTest < WebTestCase
     p1.timestamp = Time.parse('Aug 1, 2010 10am')
     p1.save
     
+    5.times do
+      c = Comment.new
+      c.body = 'you suck!'
+      c.journal_post = p1
+      c.save
+    end
+    
     login
     get '/news/latest'
     
@@ -47,7 +54,7 @@ class LatestNewsTest < WebTestCase
     names = nodes.collect { |each| each.content }
     links = nodes.collect { |each| each['href'] }
     
-    assert_equal ['comments (0)', 'edit'], names
+    assert_equal ['comments (5)', 'edit'], names
     assert_equal ['/news/2010/08/01/foo', '/news/edit/2010/08/01/foo'], links
   end
   
