@@ -1,7 +1,10 @@
 = haml :partial_post, :locals => { :post => @post }, :layout => false
-%h2.comment-count
-  = @post.comment_count
-  comments
+%ul.controls
+  %li.comment-count
+    = "comments (#{@post.comment_count})"
+  - if logged_in?
+    %li
+      %a{ :href => "/news/edit/#{@post.url_slug}" } edit
 %ul.comments
   - @post.comments.each do |c|
     %li

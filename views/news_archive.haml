@@ -1,0 +1,7 @@
+%ul.results
+  - @results.each_with_index do |post, index|
+    %li{ :class => ('odd' if index.odd?) }
+      %span.timestamp= post.timestamp.strftime '%d %b %Y %I:%M%P'
+      %a{ :href => "/news/#{post.url_slug}" }= post.title
+      %span.separator \\
+      %span.name= post.username

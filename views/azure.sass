@@ -1,5 +1,6 @@
 $side-margin: 15%
 $azure-color: #06f
+$azure-bg-color: #cef
 $fire-color: #f50
 $ok-color: #afa
 $error-color: #faa
@@ -105,12 +106,6 @@ ul.controls
   li:first-child
     margin-left: 0
 
-h2.comment-count
-  margin: 15px 0 5px 0
-  font-size: 80%
-  font-weight: normal
-  font-style: italic
-
 ul.comments
   list-style-type: none
   li
@@ -139,8 +134,24 @@ form.post
   border: solid 1px #999
   background: #eee
   textarea
+    margin: 0.5em 0
     width: 100%
     height: 30em
 
 #preview
   padding: 1em
+
+ul.results
+  list-style-type: none
+  border: solid 1px #999
+  li
+    padding: 5px 0.5em
+    span
+      color: #999
+    span.timestamp
+      margin-right: 5px
+    span.separator
+      margin-left: 5px
+      font-weight: bold
+  li.odd
+    background: $azure-bg-color

@@ -16,6 +16,11 @@ use Rack::Session::Cookie,
 # Keep debugging output nice and current in Eclipse.
 $stdout.sync = true
 
+configure :development do |c|
+  require 'sinatra/reloader'
+  c.also_reload 'model/*.rb'
+end
+
 helpers do
   # Safely convert user-entered +text+ into HTML with BlueCloth.
   def markdown text

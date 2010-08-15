@@ -48,6 +48,10 @@ class JournalPost < Persistent
     @body = hash[:body]
   end
   
+  def <=> other
+    (@timestamp <=> other.timestamp) * -1
+  end
+  
   def comment_count
     Comment.files_for_post(self).size
   end

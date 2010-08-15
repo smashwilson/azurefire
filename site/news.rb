@@ -11,7 +11,8 @@ require 'model/draft'
 end
 
 get '/news/archive' do
-  haml '%p.empty news archive'
+  @results = JournalPost.all.sort
+  haml :news_archive
 end
 
 get '/news/write' do
