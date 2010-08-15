@@ -38,7 +38,6 @@ class LatestNewsTest < WebTestCase
     
     login
     get '/news/latest'
-    puts last_response.body
     
     parse
     nodes = @doc.css('ul.controls li a')
