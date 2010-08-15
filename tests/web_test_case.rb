@@ -19,6 +19,11 @@ class WebTestCase < Test::Unit::TestCase
     Storage.current.delete!
   end
   
+  def ok!
+    puts last_response.errors if last_response.errors
+    assert last_response.ok?
+  end
+  
   def parse
     @doc = Nokogiri::HTML(last_response.body)
   end
