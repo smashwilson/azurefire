@@ -33,7 +33,8 @@ post '/news/write' do
   if params[:submit] == 'Submit'
     if params[:persisted]
       ts = Time.at(params[:timestamp].to_i)
-      p = JournalPost.find_url ts.year, ts.month, ts.day, params[:title]
+      clean_title = Persistent.clean_string params[:title]
+      p = JournalPost.find_url ts.year, ts.month, ts.day, clean_title
       halt 404 if p.nil?
     else
       p = JournalPost.new

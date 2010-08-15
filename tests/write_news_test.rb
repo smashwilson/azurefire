@@ -88,7 +88,7 @@ class WriteNewsTest < WebTestCase
   
   def test_save_edited_post
     p = JournalPost.new
-    p.title = 'hurf'
+    p.title = 'Hurf! Hurf!'
     p.body = 'durf durf durf'
     p.timestamp = Time.parse('Aug 1 2010')
     p.save
@@ -100,7 +100,7 @@ class WriteNewsTest < WebTestCase
     
     assert_equal 1, JournalPost.all.size
     saved = JournalPost.all.first
-    assert_equal 'hurf', saved.title
+    assert_equal 'Hurf! Hurf!', saved.title
     assert_equal 'durfa durfa durf', saved.body
     assert_equal Time.parse('Aug 1 2010'), saved.timestamp
   end
