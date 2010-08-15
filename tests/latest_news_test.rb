@@ -45,7 +45,7 @@ class LatestNewsTest < WebTestCase
     links = nodes.collect { |each| each['href'] }
     
     assert_equal ['comments (0)', 'edit'], names
-    assert_equal ['/news/2010/08/01/foo', '/news/write/2010/08/01/foo'], links
+    assert_equal ['/news/2010/08/01/foo', '/news/edit/2010/08/01/foo'], links
   end
   
 end

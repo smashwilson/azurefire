@@ -20,7 +20,7 @@ get '/news/write' do
   haml :news_write
 end
 
-get '/news/write/:year/:month/:day/:title' do |*args|
+get '/news/edit/:year/:month/:day/:title' do |*args|
   admin_only!
   @post = JournalPost.find_url(*args)
   haml :news_write
@@ -44,7 +44,7 @@ post '/news/write' do
     
     d = Draft.find(username)
     d.delete! unless d.nil?
-    redirect "/news/write/#{p.url_slug}"
+    redirect "/news/edit/#{p.url_slug}"
   else
     d = Draft.find(username) || Draft.new
     d.update params
