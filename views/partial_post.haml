@@ -1,6 +1,6 @@
 .post.markdown
   %h2.title= post.title
   .metadata
-    %p.name= post.username
-    %p.timestamp= post.timestamp.strftime '%A, %d %B %Y %I:%M%P'
+    %span.name= post.username
+    %span.timestamp= post.timestamp.strftime '%A, %d %B %Y %I:%M%P'
   = markdown post.body

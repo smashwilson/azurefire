@@ -6,11 +6,12 @@
   - @post.comments.each do |c|
     %li
       = haml :partial_comment, :locals => { :comment => c }, :layout => false
-  %li.new{ :class => logged_in? ? 'administrator' : nil }
-    %form{ :method => 'post' }
+  %li.new
+    %form{ :method => 'post', :class => logged_in? ? 'administrator' : nil }
       - unless logged_in?
         %p
-          %input{ :type => 'text', :class => 'name', :name => 'name' }
+          %label{ :for => 'name' } name (optional)
+          %input{ :type => 'text', :id => 'name', :class => 'name', :name => 'name' }
       %p
         %textarea{ :name => 'body' }
       %p

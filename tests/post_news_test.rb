@@ -21,10 +21,10 @@ class PostNewsTest < WebTestCase
     assert_css '.post h2.title'
     assert_equal 'hurf', @node.content
     
-    assert_css '.post .metadata p.name'
+    assert_css '.post .metadata span.name'
     assert_equal 'foo', @node.content
     
-    assert_css '.post .metadata p.timestamp'
+    assert_css '.post .metadata span.timestamp'
     assert_equal 'Sunday, 01 August 2010 10:00am', @node.content
     
     assert_css '.post em'
