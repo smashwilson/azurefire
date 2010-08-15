@@ -29,8 +29,18 @@ end
 post '/news/write' do
   admin_only!
   params[:username] = username
+      
   if params[:submit] == 'Submit'
-    p = JournalPost.from(params).save
+    if params[:persisted]
+      ts = Time.at(params[:timestamp].to_i)
+      p = JournalPost.find_url ts.year, ts.month, ts.day, params[:title]
+      halt 404 if p.nil?
+    else
+      p = JournalPost.new
+    end
+    p.update params
+    p.save
+    
     d = Draft.find(username)
     d.delete! unless d.nil?
     redirect "/news/write/#{p.url_slug}"

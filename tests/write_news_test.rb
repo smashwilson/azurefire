@@ -86,6 +86,25 @@ class WriteNewsTest < WebTestCase
     assert_equal 'durf', @node.content
   end
   
+  def test_save_edited_post
+    p = JournalPost.new
+    p.title = 'hurf'
+    p.body = 'durf durf durf'
+    p.timestamp = Time.parse('Aug 1 2010')
+    p.save
+    
+    login
+    post '/news/write', :title => p.title, :body => 'durfa durfa durf',
+      :persisted => true, :timestamp => p.timestamp.to_i, :submit => 'Submit'
+    follow_redirect!
+    
+    assert_equal 1, JournalPost.all.size
+    saved = JournalPost.all.first
+    assert_equal 'hurf', saved.title
+    assert_equal 'durfa durfa durf', saved.body
+    assert_equal Time.parse('Aug 1 2010'), saved.timestamp
+  end
+  
   def test_disallow_anonymous_post
     post '/news/write', :title => 'hurf', :body => 'durf durf durf', :submit => 'Submit'
     assert last_response.not_found?
