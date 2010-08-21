@@ -2,6 +2,7 @@
 
 require 'model/journal_post'
 require 'model/draft'
+require 'model/archive_query'
 
 [ '/', '/news', '/news/latest' ].each do |route|
   get route do
@@ -10,8 +11,9 @@ require 'model/draft'
   end
 end
 
-get '/news/archive' do
-  @results = JournalPost.all.sort
+get %r{/news/archive(/([^/]+))?} do |_, query|
+  @query = ArchiveQuery.from query
+  @results = @query.results
   haml :news_archive
 end
 

@@ -24,14 +24,14 @@ class ArchiveQueryTest < StorageTestCase
     q = ArchiveQuery.new
     
     assert_equal 'all posts', q.to_s
-    assert_equal @all, q.results
+    assert_equal @all.sort, q.results
   end
   
   def test_query_by_user
     q = ArchiveQuery.from 'foo'
     
     assert_equal 'posts by <strong>foo</strong>', q.to_s
-    assert_equal @all.select { |post| post.username == 'foo' }, q.results
+    assert_equal @all.select { |post| post.username == 'foo' }.sort, q.results
   end
   
 end

@@ -20,4 +20,19 @@ class ArchiveNewsTest < WebTestCase
     assert_equal 30, @doc.css('ul.results li').size
   end
   
+  def test_search_by_user
+    1.upto 30 do |i|
+      p = JournalPost.new
+      p.title = "post #{i}"
+      p.username = i.odd? ? 'foo' : 'other'
+      p.save
+    end
+    
+    get '/news/archive/foo'
+    
+    parse
+    assert_equal 15, @doc.css('ul.results li').size
+    assert @doc.css('ul.results li span.name').all? { |n| n.content == 'foo' }
+  end
+  
 end

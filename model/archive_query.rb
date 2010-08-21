@@ -16,7 +16,7 @@ class ArchiveQuery
   end
   
   def results
-    JournalPost.select { |post| matches? post }
+    JournalPost.select { |post| matches? post }.sort
   end
   
   def matches? post
@@ -26,6 +26,7 @@ class ArchiveQuery
   # Parse a Query object from a user-provided query string.
   def self.from string
     inst = self.new
+    return inst unless string
     inst.terms += string.split(/_+/)
     inst
   end
