@@ -20,7 +20,7 @@ class ArchiveNewsTest < WebTestCase
     assert_equal 30, @doc.css('ul.results li').size
   end
   
-  def test_search_by_user
+  def test_query_by_user
     1.upto 30 do |i|
       p = JournalPost.new
       p.title = "post #{i}"
@@ -33,6 +33,13 @@ class ArchiveNewsTest < WebTestCase
     parse
     assert_equal 15, @doc.css('ul.results li').size
     assert @doc.css('ul.results li span.name').all? { |n| n.content == 'foo' }
+  end
+  
+  def test_display_current_query
+    get '/news/archive/foo'
+    
+    assert_css 'div.query p.current'
+    assert_equal 'You are currently viewing posts by foo.', @node.content
   end
   
 end
