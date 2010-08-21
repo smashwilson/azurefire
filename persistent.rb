@@ -101,6 +101,12 @@ class Persistent
       end
     end
     
+    def select
+      results = []
+      all { |each| results << each if yield each }
+      results
+    end
+    
     def find k = nil
       if block_given?
         all { |each| return each if yield each }
