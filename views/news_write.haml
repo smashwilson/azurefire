@@ -1,5 +1,5 @@
 %form.post{ :method => 'post', :action => '/news/write' }
-  %input{ :type => 'hidden', :name => 'persisted', :value => @post.persisted }
+  %input{ :type => 'hidden', :name => 'persisted', :value => ! @post.draft? }
   %input{ :type => 'hidden', :name => 'timestamp', :value => @post.timestamp.to_i }
   %p
     %input.title{ :type => 'text', :name => 'title', :value => @post.title }

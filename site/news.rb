@@ -32,9 +32,10 @@ end
 post '/news/write' do
   admin_only!
   params[:username] = username
-      
+  
   if params[:submit] == 'Submit'
-    if params[:persisted]
+    if params[:persisted] == 'persisted'
+      puts params.inspect
       ts = Time.at(params[:timestamp].to_i)
       clean_title = Persistent.clean_string params[:title]
       p = JournalPost.find_url ts.year, ts.month, ts.day, clean_title
