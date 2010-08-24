@@ -97,7 +97,7 @@ class WriteNewsTest < WebTestCase
     
     login
     post '/news/write', :title => p.title, :body => 'durfa durfa durf',
-      :persisted => true, :timestamp => p.timestamp.to_i, :submit => 'Submit'
+      :persisted => 'persisted', :timestamp => p.timestamp.to_i, :submit => 'Submit'
     follow_redirect!
     
     assert_equal 1, JournalPost.all.size
@@ -112,6 +112,14 @@ class WriteNewsTest < WebTestCase
     assert last_response.not_found?
     
     assert_equal 0, JournalPost.all.size
+  end
+  
+  def test_scrub_crlf
+    post '/news/write', :title => 'hurf', :body => "durf\r\ndurf",
+      :persisted => '', :timestamp => Time.now.to_i, :submit => 'Submit'
+    follow_redirect!
+    
+    
   end
   
 end

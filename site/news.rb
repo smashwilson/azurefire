@@ -33,6 +33,8 @@ post '/news/write' do
   admin_only!
   params[:username] = username
   
+  puts params[:body].inspect
+  
   if params[:submit] == 'Submit'
     if params[:persisted] == 'persisted'
       puts params.inspect
