@@ -114,12 +114,4 @@ class WriteNewsTest < WebTestCase
     assert_equal 0, JournalPost.all.size
   end
   
-  def test_scrub_crlf
-    post '/news/write', :title => 'hurf', :body => "durf\r\ndurf",
-      :persisted => '', :timestamp => Time.now.to_i, :submit => 'Submit'
-    follow_redirect!
-    
-    
-  end
-  
 end
