@@ -6,12 +6,16 @@ require 'haml'
 require 'sass'
 require 'bluecloth'
 
+require 'rack-flash'
+
 # Use encrypted cookie-based session handling.
 use Rack::Session::Cookie,
   :key => 'azure.session',
   :path => '/',
   :expire_after => 86400, # 1 day
   :secret => '2c26-b46b68Qfc68ff99'
+
+use Rack::Flash
 
 # Keep debugging output nice and current in Eclipse.
 $stdout.sync = true

@@ -33,8 +33,12 @@ post '/news/write' do
   admin_only!
   params[:username] = username
   
+  d = Draft.find(username) || Draft.new
+  d.update params
+  d.save
+  
   if params[:submit] == 'Submit'
-    if params[:persisted] == 'persisted'
+    if params[:persisted] == 'value'
       ts = Time.at(params[:timestamp].to_i)
       clean_title = Persistent.clean_string params[:title]
       p = JournalPost.find_url ts.year, ts.month, ts.day, clean_title
@@ -43,15 +47,18 @@ post '/news/write' do
       p = JournalPost.new
     end
     p.update params
-    p.save
+    begin
+      p.save
+    rescue Persistent::ValidationException => e
+      flash[:error] = "Oh, shit! #{e.to_s}"
+      redirect '/news/write'
+    end
     
-    d = Draft.find(username)
-    d.delete! unless d.nil?
+    d.delete!
+    
+    flash[:success] = 'The post has been saved.'
     redirect "/news/edit/#{p.url_slug}"
   else
-    d = Draft.find(username) || Draft.new
-    d.update params
-    d.save
     redirect '/news/write'
   end
 end

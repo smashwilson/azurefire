@@ -21,6 +21,9 @@ class WriteNewsTest < WebTestCase
     assert_equal 'hurf', @node['value']
     assert_css 'textarea'
     assert_equal 'durf durf durf', @node.content
+    
+    assert_css '.success'
+    assert_equal 'The post has been saved.', @node.content
   end
   
   def test_save_draft
@@ -97,7 +100,7 @@ class WriteNewsTest < WebTestCase
     
     login
     post '/news/write', :title => p.title, :body => 'durfa durfa durf',
-      :persisted => 'persisted', :timestamp => p.timestamp.to_i, :submit => 'Submit'
+      :persisted => 'value', :timestamp => p.timestamp.to_i, :submit => 'Submit'
     follow_redirect!
     
     assert_equal 1, JournalPost.all.size
@@ -105,6 +108,24 @@ class WriteNewsTest < WebTestCase
     assert_equal 'Hurf! Hurf!', saved.title
     assert_equal 'durfa durfa durf', saved.body
     assert_equal Time.parse('Aug 1 2010'), saved.timestamp
+    
+    assert_css '.success'
+    assert_equal 'The post has been saved.', @node.content
+  end
+  
+  def test_duplicate_post
+    p = JournalPost.new
+    p.title = 'hurf'
+    p.body = 'durf durf durf'
+    p.timestamp = Time.now
+    p.save
+    
+    login
+    post '/news/write', :title => 'hurf', :body => 'duuurf?', :submit => 'Submit'
+    follow_redirect!
+    
+    assert_equal 1, JournalPost.all.size
+    assert_css '.error'
   end
   
   def test_disallow_anonymous_post

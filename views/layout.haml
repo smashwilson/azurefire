@@ -10,5 +10,8 @@
     .user-display
       = welcome
     = navigation
+    - [:success, :error].each do |type|
+      - if flash.has? type
+        .flash{ :class => type }= flash[type]
     .content
       = yield
