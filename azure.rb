@@ -31,7 +31,7 @@ end
 helpers do
   # Safely convert user-entered +text+ into HTML with BlueCloth.
   def markdown text
-    BlueCloth.new(text, :escape_html => true).to_html
+    RDiscount.new(text || '', :filter_html).to_html
   end
 end
 
