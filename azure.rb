@@ -1,10 +1,14 @@
 # Master source file for the azurefire website.
 
+$: << '.'
+require 'rubygems'
+require 'bundler/setup'
+
 require 'sinatra'
 
 require 'haml'
 require 'sass'
-require 'bluecloth'
+require 'rdiscount'
 
 require 'rack-flash'
 
