@@ -1,5 +1,5 @@
+require_relative '../persistent'
 require 'digest'
-require 'persistent'
 
 class User < Persistent
   directory 'user'

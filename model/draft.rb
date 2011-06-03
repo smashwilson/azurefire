@@ -1,4 +1,4 @@
-require 'model/journal_post'
+require_relative 'journal_post'
 
 class Draft < JournalPost
   key :username

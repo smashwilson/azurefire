@@ -1,7 +1,7 @@
-require 'tests/storage_test_case'
+require_relative 'storage_test_case'
 
-require 'model/comment'
-require 'model/journal_post'
+require_relative '../model/comment'
+require_relative '../model/journal_post'
 
 class CommentTest < StorageTestCase
   

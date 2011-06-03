@@ -1,7 +1,7 @@
-require 'tests/web_test_case'
+require_relative 'web_test_case'
 
-require 'model/journal_post'
-require 'model/comment'
+require_relative '../model/journal_post'
+require_relative '../model/comment'
 
 class PostNewsTest < WebTestCase
   

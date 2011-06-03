@@ -1,6 +1,6 @@
-require 'persistent'
+require_relative '../persistent'
 
-require 'model/comment'
+require_relative 'comment'
 
 class JournalPost < Persistent
   directory 'post'

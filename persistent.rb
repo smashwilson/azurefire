@@ -1,7 +1,7 @@
 require 'yaml'
-
-require 'storage'
 require 'fileutils'
+
+require_relative 'storage'
 
 # Provide filesystem-based persistence with YAML.
 class Persistent

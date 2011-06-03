@@ -1,6 +1,6 @@
 # Routes and utilities for manipulating user accounts.
 
-require 'model/user'
+require_relative '../model/user'
 
 helpers do
   def username

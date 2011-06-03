@@ -1,8 +1,8 @@
-require 'tests/storage_test_case'
-require 'time'
+require_relative 'storage_test_case'
+require_relative '../model/journal_post'
+require_relative '../model/comment'
 
-require 'model/journal_post'
-require 'model/comment'
+require 'time'
 
 class JournalPostTest < StorageTestCase
   

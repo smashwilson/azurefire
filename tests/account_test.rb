@@ -1,4 +1,4 @@
-require 'tests/web_test_case'
+require_relative 'web_test_case'
 
 class AccountTest < WebTestCase
   

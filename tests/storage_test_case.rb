@@ -1,6 +1,6 @@
 require 'test/unit'
 
-require 'storage'
+require_relative '../storage'
 
 class StorageTestCase < Test::Unit::TestCase
   

@@ -1,8 +1,7 @@
-require 'tests/web_test_case'
+require_relative 'web_test_case'
+require_relative '../model/journal_post'
 
 require 'time'
-
-require 'model/journal_post'
 
 class ArchiveNewsTest < WebTestCase
   

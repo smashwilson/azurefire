@@ -1,6 +1,6 @@
 # Site navigation.
 
-require 'nav'
+require_relative '../nav'
 
 helpers do
   include NavigationHelper

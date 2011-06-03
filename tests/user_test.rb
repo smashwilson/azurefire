@@ -1,6 +1,6 @@
-require 'tests/storage_test_case'
+require_relative 'storage_test_case'
 
-require 'model/user'
+require_relative '../model/user'
 
 class UserTest < StorageTestCase
   

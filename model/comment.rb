@@ -1,4 +1,4 @@
-require 'persistent'
+require_relative '../persistent'
 
 class Comment < Persistent
   attr_accessor :name, :body, :timestamp, :administrator, :journal_post_key

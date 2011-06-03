@@ -1,4 +1,4 @@
-require 'azure'
+require_relative '../azure'
 
 require 'test/unit'
 require 'rack/test'

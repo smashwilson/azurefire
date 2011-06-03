@@ -1,8 +1,8 @@
 # Routes and utilities for the /news section of the page.
 
-require 'model/journal_post'
-require 'model/draft'
-require 'model/archive_query'
+require_relative '../model/journal_post'
+require_relative '../model/draft'
+require_relative '../model/archive_query'
 
 [ '/', '/news', '/news/latest' ].each do |route|
   get route do
