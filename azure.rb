@@ -1,6 +1,5 @@
 # Master source file for the azurefire website.
 
-$: << '.'
 require 'rubygems'
 require 'bundler/setup'
 
@@ -43,9 +42,9 @@ get %r{/([^.]+).css} do |name|
 end
 
 # Load the helpers used to define the site navigation.
-require 'site/navigation'
+require_relative 'site/navigation'
 
 # Load the site body.
-require 'site/news'
-require 'site/about'
-require 'site/account'
+require_relative 'site/news'
+require_relative 'site/about'
+require_relative 'site/account'

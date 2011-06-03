@@ -2,7 +2,7 @@
 
 desc 'Initialize the production database so that I can log in.'
 task :bootstrap do
-  require 'model/user'
+  require_relative 'model/user'
   
   me = User.new
   me.username = 'smash'
@@ -12,5 +12,5 @@ end
 
 desc 'Execute all unit tests.'
 task :test do
-  require 'tests/all'
+  require_relative 'tests/all'
 end
