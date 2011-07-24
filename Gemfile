@@ -5,6 +5,7 @@ gem 'haml'
 gem 'sass'
 gem 'rdiscount'
 gem 'nokogiri'
+gem 'json'
 
 gem 'rack-flash'
 gem 'rack-test'
