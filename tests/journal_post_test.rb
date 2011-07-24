@@ -22,6 +22,7 @@ CONTENT
   
   def test_extract_metadata
     post = JournalPost.from(path 'metadata.md')
+    assert_equal 'metadata', post.filename
     assert_equal 'Metadata Madness', post.title
     assert_equal 'Francis Archer Key', post.username
     assert_equal (Time.parse '2011-01-01 08:00'), post.timestamp

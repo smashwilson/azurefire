@@ -5,7 +5,7 @@ require_relative '../persistent'
 require_relative 'comment'
 
 class JournalPost < Persistent
-  attr_accessor :title, :username, :timestamp, :body
+  attr_accessor :title, :username, :filename, :timestamp, :body
   
   def == other
     other.url_slug == url_slug
@@ -25,6 +25,7 @@ class JournalPost < Persistent
     @title = hash[:title]
     @body = hash[:body]
     @timestamp = hash[:timestamp]
+    @filename = hash[:filename]
   end
   
   def <=> other
@@ -37,6 +38,7 @@ class JournalPost < Persistent
       owner_info = Etc.getpwuid(f.stat.uid)
       metadata[:username] = owner_info ? owner_info.name : 'unknown'
       metadata[:timestamp] = f.ctime
+      metadata[:filename] = File.basename(f.path, '.md')
       f.read nil
     end
     

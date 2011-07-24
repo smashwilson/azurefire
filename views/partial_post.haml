@@ -3,4 +3,4 @@
   .metadata
     %span.name= post.username
     %span.timestamp= post.timestamp.strftime '%A, %d %B %Y %I:%M%P'
-  = markdown post.body
+  != post.body
