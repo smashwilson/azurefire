@@ -1,16 +1,15 @@
 require 'test/unit'
 
-require_relative '../storage'
-
 class StorageTestCase < Test::Unit::TestCase
-  
-  def setup
-    Storage.use self.class.name.downcase
-    Storage.current.create!
+
+  def fixture ; 'fixtures' ; end
+
+  def root
+    File.join(File.dirname(__FILE__), fixture)
   end
   
-  def teardown
-    Storage.current.delete!
+  def path file
+    "#{root}/#{file}"
   end
-  
+
 end
