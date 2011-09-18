@@ -3,7 +3,7 @@ require 'time'
 require 'nokogiri'
 
 require_relative '../model/journal_post'
-require_relative '../baker/journal_post_metadata'
+require_relative '../bakery/journal_post_metadata'
 require_relative 'storage_test_case'
 
 class JournalPostTest < StorageTestCase
@@ -12,7 +12,7 @@ class JournalPostTest < StorageTestCase
     meta = JournalPostMetadata.new
     meta.slug = 'hello'
 
-    path = JournalPost.path_for(meta, @settings)
+    path = JournalPost.path_for(meta)
     assert_equal(temp_path('posts/hello.html'), path)
   end
 

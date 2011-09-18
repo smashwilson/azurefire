@@ -29,7 +29,7 @@ class StorageTestCase < Test::Unit::TestCase
 
   def setup
     create_temp
-    @settings = Settings.new({
+    Settings.current = Settings.new({
       "post-dirs" => [fixt_root],
       "post-ext" => "md",
       "data-root" => temp_root

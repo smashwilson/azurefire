@@ -16,8 +16,12 @@ class Settings
     new(JSON.parse(string))
   end
 
-  def self.instance
-    @instance ||= load(File.read(DefaultPath))
+  def self.current= settings
+    Thread.current[:settings] = settings
+  end
+
+  def self.current
+    Thread.current[:settings] ||= load(File.read(DefaultPath))
   end
 
 end
