@@ -16,4 +16,12 @@ class JournalPostTest < StorageTestCase
     assert_equal(temp_path('posts/hello.html'), path)
   end
 
+  def test_comment_path
+    meta = JournalPostMetadata.new
+    meta.slug = 'hello'
+
+    comment_path = JournalPost.comment_path_for(meta)
+    assert_equal(temp_path('comments/hello'), comment_path)
+  end
+
 end
