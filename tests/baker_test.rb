@@ -22,6 +22,9 @@ class BakerTest < StorageTestCase
     assert_equal('sample', doc.at_css('.header span.author').content)
     assert_equal('Sat 17 Sep 2011  8:00am', doc.at_css('.header span.timestamp').content)
     assert_equal('Sample Post', doc.at_css('.header h2.title').content)
+
+    assert File.exist?(temp_path 'comments/sample-post/index')
+    assert_equal('', File.read(temp_path 'comments/sample-post/index'))
   end
 
   def test_disallow_route

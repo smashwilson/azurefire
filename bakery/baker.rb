@@ -32,15 +32,23 @@ class Baker
 
   def bake_post path
     File.open(path, 'r') do |inf|
+      # Load and verify the post metadata.
       meta = JournalPostMetadata.load(inf)
       next nil unless validate_meta?(meta)
 
+      # Bake the post content into html using the post template.
       outpath = JournalPost.path_for(meta)
       FileUtils.mkdir_p(File.dirname(outpath))
       File.open(outpath, 'w') do |outf|
         body = RDiscount.new(inf.read, :filter_html).to_html
         outf.print(post_engine.render(Object.new, :meta => meta, :body => body))
       end
+
+      # Create the comment directory and empty index.
+      commentpath = JournalPost.comment_path_for(meta)
+      FileUtils.mkdir_p(commentpath)
+      File.open(File.join(commentpath, 'index'), 'w+') { |f| }
+
       meta
     end
   end
