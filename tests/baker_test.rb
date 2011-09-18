@@ -37,4 +37,13 @@ class BakerTest < StorageTestCase
     assert_equal('Post title "news" collides with an existing route', b.errors[0].reason)
   end
 
+  def test_invalid_json
+    b = Baker.new
+    meta = b.bake_post(fixt_path 'invalid-json.md.err')
+
+    assert_nil meta
+    assert_equal(1, b.errors.size)
+    assert_equal('Malformed JSON header in post "invalid-json.md.err".', b.errors[0].reason)
+  end
+
 end

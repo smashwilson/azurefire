@@ -33,8 +33,10 @@ class Baker
   def bake_post path
     File.open(path, 'r') do |inf|
       # Load and verify the post metadata.
-      meta = JournalPostMetadata.load(inf)
-      next nil unless validate_meta?(meta)
+      meta = validate_meta(File.basename(inf.path)) do
+        JournalPostMetadata.load(inf)
+      end
+      next nil if meta.nil?
 
       # Bake the post content into html using the post template.
       outpath = JournalPost.path_for(meta)
@@ -53,12 +55,20 @@ class Baker
     end
   end
 
-  def validate_meta? meta
-    if SiteRoutes.include?(meta.slug)
-      errors << PostError.new(meta, "Post title \"#{meta.slug}\" collides with an existing route")
-      return false
+  def validate_meta(filename)
+    m = nil
+    begin
+      m = yield
+    rescue JSON::ParserError
+      errors << PostError.new(m, "Malformed JSON header in post \"#{filename}\".")
+      return nil
     end
-    true
+
+    if SiteRoutes.include?(m.slug)
+      errors << PostError.new(m, "Post title \"#{m.slug}\" collides with an existing route")
+      return nil
+    end
+    m
   end
 
 end
