@@ -46,4 +46,26 @@ class BakerTest < StorageTestCase
     assert_equal('Malformed JSON header in post "invalid-json.md.err".', b.errors[0].reason)
   end
 
+  def test_bake
+    b = Baker.new
+
+    b.bake! do |progress|
+      case progress.meta.slug
+      when 'sample-post'
+        assert_equal(2, progress.total)
+        assert_equal(0, progress.errors)
+        assert_not_nil(progress.meta)
+      when 'other-post'
+        assert_equal(2, progress.total)
+        assert_equal(0, progress.errors)
+        assert_not_nil(progress.meta)
+      end
+    end
+
+    assert File.exist?(temp_path 'posts/sample-post.html')
+    assert File.exist?(temp_path 'posts/other-post.html')
+    assert File.exist?(temp_path 'comments/sample-post/index')
+    assert File.exist?(temp_path 'comments/other-post/index')
+  end
+
 end

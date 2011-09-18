@@ -6,14 +6,6 @@ require 'fileutils'
 require_relative '../settings'
 require_relative '../model/journal_post'
 
-class PostError
-  attr_accessor :meta, :reason
-
-  def initialize meta, reason
-    @meta, @reason = meta, reason
-  end
-end
-
 class Baker
   attr_reader :errors
 
@@ -21,6 +13,18 @@ class Baker
 
   def initialize
     @errors = []
+  end
+
+  def bake!
+    post_paths = Settings.current.post_dirs.map do |post_dir|
+      Dir["#{post_dir}/*.#{Settings.current.post_ext}"]
+    end.flatten
+
+    progress = BakerProgress.new(post_paths.size)
+    post_paths.each do |path|
+      progress.increment bake_post(path)
+      yield progress if block_given?
+    end
   end
 
   def post_engine
@@ -69,6 +73,28 @@ class Baker
       return nil
     end
     m
+  end
+
+  class BakerProgress
+    attr_accessor :total, :current, :errors, :meta
+
+    def initialize total
+      @total, @current, @errors, @meta = total, 0, 0, nil
+    end
+
+    def increment meta
+      @current += 1
+      @errors += 1 if meta.nil?
+      @meta = meta
+    end
+  end
+
+  class PostError
+    attr_accessor :meta, :reason
+
+    def initialize meta, reason
+      @meta, @reason = meta, reason
+    end
   end
 
 end
