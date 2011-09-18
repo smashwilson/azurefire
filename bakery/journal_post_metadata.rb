@@ -4,6 +4,12 @@ require 'etc'
 class JournalPostMetadata
   attr_accessor :title, :slug, :timestamp, :author, :tags
 
+  include Comparable
+
+  def <=> other
+    (timestamp <=> other) * -1
+  end
+
   def self.load(file)
     header = file.gets("\n\n")
     data = JSON.parse(header)
