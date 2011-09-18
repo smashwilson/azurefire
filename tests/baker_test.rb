@@ -2,7 +2,7 @@ require 'time'
 require 'nokogiri'
 
 require_relative 'storage_test_case'
-require_relative '../baker/baker'
+require_relative '../bakery/baker'
 
 class BakerTest < StorageTestCase
 

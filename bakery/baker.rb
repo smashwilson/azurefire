@@ -6,11 +6,11 @@ require_relative '../settings'
 require_relative '../model/journal_post'
 
 class Baker
-  
+
   def initialize settings = Settings.instance
     @settings = settings
   end
-  
+
   def bake_post path
     File.open(path, 'r') do |inf|
       meta = JournalPostMetadata.load(inf)
@@ -22,5 +22,5 @@ class Baker
       meta
     end
   end
-  
+
 end
