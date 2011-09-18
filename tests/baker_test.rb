@@ -17,6 +17,11 @@ class BakerTest < StorageTestCase
     assert_equal(['sample', 'lorem'], meta.tags)
 
     assert File.exist?(temp_path 'posts/sample-post.html')
+
+    doc = Nokogiri::XML(File.read(temp_path 'posts/sample-post.html'))
+    assert_equal('sample', doc.at_css('.header span.author').content)
+    assert_equal('Sat 17 Sep 2011  8:00am', doc.at_css('.header span.timestamp').content)
+    assert_equal('Sample Post', doc.at_css('.header h2.title').content)
   end
 
 end
