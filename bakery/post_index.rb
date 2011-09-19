@@ -21,7 +21,7 @@ class PostIndex
   # Return a String representing this Index's entry for a provided journal
   # post.
   def write_meta meta
-    meta.slug
+    raise '#write_meta not overloaded'
   end
 
   def create! posts

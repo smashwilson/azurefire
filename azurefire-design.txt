@@ -43,5 +43,5 @@ about/
    - data/posts/slug.html [*]
    - data/comments/slug/index << empty [*]
   - use all posts to build indices
-   - data/posts/frontpage.index << "slug" for top 5 timestamps
-   - data/posts/archive.index << "timestamp \t tag,tag \t author \t slug \t Title" for all posts
+   - data/posts/frontpage.index << "slug" for top 5 timestamps [*]
+   - data/posts/archive.index << "timestamp \t tag,tag \t author \t slug \t Title" for all posts [*]
