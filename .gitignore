@@ -3,8 +3,8 @@
 .loadpath
 
 # Ignore persisted data.
-db/
-dev-db/
+settings.json
+data/
 
 # Ignore sass cache.
 .sass-cache/
