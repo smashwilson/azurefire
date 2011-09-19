@@ -13,7 +13,7 @@ class FrontpageIndex < PostIndex
   end
 
   def metas posts
-    posts.sort.take(@count)
+    posts.take(@count)
   end
 
   def write_meta meta

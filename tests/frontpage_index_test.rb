@@ -25,7 +25,7 @@ class FrontpageIndexTest < StorageTestCase
 
     i = FrontpageIndex.new
     i.count = 3
-    i.create! metas
+    i.create! metas.sort
 
     lines = File.read(temp_path 'posts/frontpage.index').split("\n")
     assert_equal("10", lines[0])

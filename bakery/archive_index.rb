@@ -7,7 +7,7 @@ class ArchiveIndex < PostIndex
   end
 
   def metas posts
-    posts.sort
+    posts
   end
 
   def write_meta meta

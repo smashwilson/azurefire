@@ -36,7 +36,7 @@ class ArchiveIndexTest < StorageTestCase
     meta1.slug = 'second'
 
     i = ArchiveIndex.new
-    i.create! [meta0, meta1]
+    i.create! [meta0, meta1].sort
 
     lines = File.read(temp_path 'posts/archive.index').split("\n")
     assert_equal("2011-09-19 16:00:00 -0400\tfoo,thing\tauthor\tsecond\tSecond", lines[0])
