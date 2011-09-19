@@ -1,0 +1,47 @@
+azurefire design
+
+= outline
+
+ - header: QOTD
+news/
+ - last 5 blog posts
+ - each post has:
+  - timestamp
+  - author
+  - title
+  - body
+  - tags
+  - comment ct <= permalink
+<post>/
+  - post as above, with full comments
+  - add comment ->
+   - write haml to comment dir, filename == hash
+   - append data/comments/slug/index
+archive/
+ - list of most recent posts, ordered by date
+ - query by boolean tag exp (modifies rss feed)
+about/
+ - for each author, hardcoded:
+  - picture
+  - bio
+.rss
+ - query by boolean tag exp
+
+= rake
+ - build:
+  - read spec from root to get in/out dirs [*]
+  - read all files with right ext [*]
+   - format: "JSON \n\n body EOF" JSON keys override settings below [*]
+   - author == username [*]
+   - timestamp == file mod time [*]
+   - title == filename [*]
+   - slug == title slugged [*]
+   - verify: [*]
+    - json is well-formed [*]
+    - slug doesn't collide with a route or another post [*]
+  - use haml template, write out to out dir [*]
+   - data/posts/slug.html [*]
+   - data/comments/slug/index << empty [*]
+  - use all posts to build indices
+   - data/posts/frontpage.index << "slug" for top 5 timestamps
+   - data/posts/archive.index << "timestamp \t tag,tag \t author \t slug \t Title" for all posts
