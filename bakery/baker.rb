@@ -13,6 +13,7 @@ class Baker
 
   def initialize
     @errors = []
+    @indices = [ArchiveIndex.new, FrontpageIndex.new]
   end
 
   def bake!
@@ -21,10 +22,14 @@ class Baker
     end.flatten
 
     progress = BakerProgress.new(post_paths.size)
-    post_paths.each do |path|
-      progress.increment bake_post(path)
+    metas = post_paths.map do |path|
+      meta = bake_post(path)
+      progress.increment meta
       yield progress if block_given?
-    end
+      meta
+    end.reject { |e| e.nil? }.sort
+
+    @indices.each { |ind| ind.create! metas }
   end
 
   def post_engine

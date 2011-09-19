@@ -66,6 +66,9 @@ class BakerTest < StorageTestCase
     assert File.exist?(temp_path 'posts/other-post.html')
     assert File.exist?(temp_path 'comments/sample-post/index')
     assert File.exist?(temp_path 'comments/other-post/index')
+
+    assert File.exist?(temp_path 'posts/archive.index')
+    assert File.exist?(temp_path 'posts/frontpage.index')
   end
 
 end
