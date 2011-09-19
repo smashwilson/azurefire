@@ -2,6 +2,14 @@ require_relative 'post_index'
 
 class ArchiveIndex < PostIndex
 
+  def path
+    'posts/archive.index'
+  end
+
+  def metas posts
+    posts.sort
+  end
+
   def write_meta meta
     str = ""
     str << meta.timestamp.to_s << "\t"

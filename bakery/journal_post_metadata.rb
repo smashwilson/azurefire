@@ -7,7 +7,11 @@ class JournalPostMetadata
   include Comparable
 
   def <=> other
-    (timestamp <=> other) * -1
+    (timestamp <=> other.timestamp) * -1
+  end
+
+  def to_s
+    "#{self.class}(#{slug})"
   end
 
   def self.load(file)
