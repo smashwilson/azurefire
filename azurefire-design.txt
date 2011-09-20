@@ -27,7 +27,7 @@ about/
 .rss
  - query by boolean tag exp
 
-= rake
+= rake [*]
  - bake: [*]
   - read spec from root to get in/out dirs [*]
   - read all files with right ext [*]
@@ -42,6 +42,6 @@ about/
   - use haml template, write out to out dir [*]
    - data/posts/slug.html [*]
    - data/comments/slug/index << empty [*]
-  - use all posts to build indices
+  - use all posts to build indices [*]
    - data/posts/frontpage.index << "slug" for top 5 timestamps [*]
    - data/posts/archive.index << "timestamp \t tag,tag \t author \t slug \t Title" for all posts [*]
