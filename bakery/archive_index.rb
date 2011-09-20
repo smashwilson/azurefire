@@ -1,13 +1,9 @@
-require_relative 'post_index'
+require 'fileutils'
 
-class ArchiveIndex < PostIndex
+class ArchiveIndex
 
   def path
-    'posts/archive.index'
-  end
-
-  def metas posts
-    posts
+    File.join(Settings.current.data_root, 'posts/archive.index')
   end
 
   def write_meta meta
@@ -18,6 +14,15 @@ class ArchiveIndex < PostIndex
     str << meta.slug << "\t"
     str << meta.title
     str
+  end
+
+  def create! posts
+    FileUtils.mkdir_p(File.dirname(path))
+    File.open(path, 'w') do |outf|
+      posts.each do |meta|
+        outf.puts write_meta(meta)
+      end
+    end
   end
 
 end
