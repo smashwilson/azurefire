@@ -28,4 +28,9 @@ class Settings
     Thread.current[:settings] ||= load(File.read(DefaultPath))
   end
 
+  # Convenience method to quickly generate paths under the data root.
+  def self.data_path *paths
+    File.join(current.data_root, *paths)
+  end
+
 end

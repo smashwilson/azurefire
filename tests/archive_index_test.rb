@@ -1,4 +1,5 @@
 require 'time'
+require 'fileutils'
 
 require_relative 'storage_test_case'
 
@@ -6,6 +7,22 @@ require_relative '../bakery/archive_index'
 require_relative '../bakery/journal_post_metadata'
 
 class ArchiveIndexTest < StorageTestCase
+
+  def create_fake_index
+    FileUtils.mkdir_p(temp_path 'posts')
+
+    [ "first", "third" ].each do |name|
+      File.open(temp_path("posts/#{name}.html"), 'w') do |f|
+        f.print "#{name} content"
+      end
+    end
+
+    File.open(temp_path('posts/archive.index'), 'w') do |f|
+      f.puts "2011-09-03 16:00:00 -0400\ttag\tauthor\tthird\tThird"
+      f.puts "2011-09-02 16:00:00 -0400\ttag\tauthor\tsecond\tSecond"
+      f.puts "2011-09-01 16:00:00 -0400\ttag\tauthor\tfirst\tFirst"
+    end
+  end
 
   def test_index_entry
     meta = JournalPostMetadata.new
@@ -41,6 +58,31 @@ class ArchiveIndexTest < StorageTestCase
     lines = File.read(temp_path 'posts/archive.index').split("\n")
     assert_equal("2011-09-19 16:00:00 -0400\tfoo,thing\tauthor\tsecond\tSecond", lines[0])
     assert_equal("2011-09-18 16:00:00 -0400\tfoo,bar,baz\tauthor\tfirst\tFirst", lines[1])
+  end
+
+  def test_enumerate_content
+    create_fake_index
+
+    i = ArchiveIndex.new
+
+    ps = []
+    i.each_post { |p| ps << p }
+    assert_equal('third', ps[0].meta.slug)
+    assert_equal('second', ps[1].meta.slug)
+    assert_equal('first', ps[2].meta.slug)
+    assert_equal(3, ps.size)
+  end
+
+  def test_partial_enumeration
+    create_fake_index
+
+    i = ArchiveIndex.new
+    ps = []
+    i.each_post do |post|
+      ps << post
+      :stop if post.meta.slug == 'second'
+    end
+    assert_equal(2, ps.size)
   end
 
 end
