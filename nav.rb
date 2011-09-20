@@ -17,7 +17,6 @@ module NavigationHelper
   def nav name, options = {}, &subnav_block
     @navigation ||= []
 
-    return if options[:admin] && ! logged_in?
     link = options[:link] || "#{@subnav_parent}/#{name}"
     default = options[:default] || false
 

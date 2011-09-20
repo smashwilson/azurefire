@@ -33,7 +33,7 @@ class BakerTest < StorageTestCase
 
     assert_nil meta
     assert_equal(1, b.errors.size)
-    assert_equal('news', b.errors[0].meta.slug)
+    assert_match(/route-collision\.md\.err$/, b.errors[0].filename)
     assert_equal('Post title "news" collides with an existing route', b.errors[0].reason)
   end
 
@@ -68,7 +68,6 @@ class BakerTest < StorageTestCase
     assert File.exist?(temp_path 'comments/other-post/index')
 
     assert File.exist?(temp_path 'posts/archive.index')
-    assert File.exist?(temp_path 'posts/frontpage.index')
   end
 
 end

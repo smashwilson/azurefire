@@ -25,14 +25,8 @@ $stdout.sync = true
 
 configure :development do |c|
   require 'sinatra/reloader'
+  c.also_reload 'bakery/*.rb'
   c.also_reload 'model/*.rb'
-end
-
-helpers do
-  # Safely convert user-entered +text+ into HTML with BlueCloth.
-  def markdown text
-    RDiscount.new(text || '', :filter_html).to_html
-  end
 end
 
 # Run stylesheets through sass.
@@ -45,6 +39,5 @@ end
 require_relative 'site/navigation'
 
 # Load the site body.
-require_relative 'site/news'
 require_relative 'site/about'
-require_relative 'site/account'
+require_relative 'site/news'
