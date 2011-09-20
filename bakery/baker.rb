@@ -6,6 +6,10 @@ require 'fileutils'
 require_relative '../settings'
 require_relative '../model/journal_post'
 
+require_relative 'journal_post_metadata'
+require_relative 'archive_index'
+require_relative 'frontpage_index'
+
 class Baker
   attr_reader :errors
 

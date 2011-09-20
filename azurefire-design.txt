@@ -28,7 +28,7 @@ about/
  - query by boolean tag exp
 
 = rake
- - build:
+ - bake: [*]
   - read spec from root to get in/out dirs [*]
   - read all files with right ext [*]
    - format: "JSON \n\n body EOF" JSON keys override settings below [*]
