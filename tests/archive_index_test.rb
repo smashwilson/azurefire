@@ -1,10 +1,10 @@
 require 'time'
 require 'fileutils'
 
-require_relative 'storage_test_case'
-
 require_relative '../bakery/archive_index'
-require_relative '../bakery/journal_post_metadata'
+require_relative '../model/journal_post_metadata'
+
+require_relative 'storage_test_case'
 
 class ArchiveIndexTest < StorageTestCase
 

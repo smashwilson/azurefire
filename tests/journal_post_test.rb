@@ -2,9 +2,10 @@ require 'time'
 require 'fileutils'
 require 'nokogiri'
 
-require_relative '../model/journal_post'
-require_relative '../bakery/journal_post_metadata'
 require_relative 'storage_test_case'
+
+require_relative '../model/journal_post'
+require_relative '../model/journal_post_metadata'
 
 class JournalPostTest < StorageTestCase
 

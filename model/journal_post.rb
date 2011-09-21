@@ -1,7 +1,8 @@
 require 'forwardable'
 
-require_relative '../bakery/journal_post_metadata'
 require_relative '../settings'
+
+require_relative 'journal_post_metadata'
 
 class JournalPost
   extend Forwardable
