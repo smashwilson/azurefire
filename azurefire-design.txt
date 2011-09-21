@@ -18,14 +18,14 @@ news/
 <post>/
   - GET view post ->
    - 404 if not found
-   - post as above, with full comments
-   - new comment form
+   - post as above, with full comments [*]
+   - new comment form [*]
    - live preview of Markdown rendering
    - next/previous links
   - POST add comment ->
    - 404 if not found
-   - write haml to comment dir, filename == hash [..]
-   - append data/comments/slug/index
+   - write haml to comment dir, filename == hash [*]
+   - append data/comments/slug/index [*]
 archive/
  - list of most recent posts, ordered by date
  - query by boolean tag exp (modifies rss feed)
