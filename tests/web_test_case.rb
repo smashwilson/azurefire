@@ -12,11 +12,11 @@ class WebTestCase < Test::Unit::TestCase
   end
 
   def setup
-    Storage.use 'test-db'
+    #
   end
 
   def teardown
-    Storage.current.delete!
+    #
   end
 
   def ok!
@@ -46,17 +46,6 @@ class WebTestCase < Test::Unit::TestCase
   def assert_xpath xpath_string
     parse
     assert_one @doc.xpath(xpath_string), xpath_string
-  end
-
-  def login
-    unless User.find('foo')
-      u = User.new
-      u.username = 'foo'
-      u.password = 'foo'
-      u.save
-    end
-
-    post '/account/login', :username => 'foo', :password => 'foo'
   end
 
 end

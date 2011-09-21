@@ -29,15 +29,47 @@ configure :development do |c|
   c.also_reload 'model/*.rb'
 end
 
+# Site nagivation.
+require_relative 'nav'
+
+helpers do
+  include NavigationHelper
+end
+
+before do
+  nav 'news', :default => true
+  nav 'archive'
+  nav 'about'
+end
+
 # Run stylesheets through sass.
 get %r{/([^.]+).css} do |name|
   content_type 'text/css', :charset => 'utf-8'
   sass name.to_sym
 end
 
-# Load the helpers used to define the site navigation.
-require_relative 'site/navigation'
+# About page
+get '/about' do
+  haml '%p.empty about page'
+end
 
-# Load the site body.
-require_relative 'site/about'
-require_relative 'site/news'
+# News page
+[ '/', '/news' ].each do |route|
+  get route do
+    halt 404, 'pending!'
+  end
+end
+
+get %r{/archive(/([^/]+))?} do |_, query|
+  halt 404, 'pending!'
+end
+
+# News post permalink
+get '/:slug' do |slug|
+  halt 404, 'pending!'
+end
+
+# Comment post
+post '/:slug' do |slug|
+  halt 404, 'pending!'
+end
