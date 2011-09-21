@@ -81,7 +81,7 @@ class Baker
         # Create the comment directory and empty index.
         commentpath = JournalPost.comment_path_for(meta)
         FileUtils.mkdir_p(commentpath)
-        File.open(File.join(commentpath, 'index'), 'w+') { |f| }
+        File.open(File.join(commentpath, 'index'), 'a') { |f| }
 
         meta
       end

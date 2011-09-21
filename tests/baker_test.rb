@@ -78,22 +78,28 @@ class BakerTest < StorageTestCase
     meta = b.bake_post(fixt_path 'sample.md')
     post = JournalPost.new(meta)
 
-    comment = Comment.new
-    comment.name = 'foo'
-    comment.content = 'Expected comment content'
+    comment0 = Comment.new
+    comment0.name = 'foo'
+    comment0.content = 'Expected comment content'
 
-    b.bake_comment! post, comment
+    b.bake_comment! post, comment0
 
-    comment_file = temp_path "comments/sample-post/#{comment.hash}.html"
+    comment_file = temp_path "comments/sample-post/#{comment0.hash}.html"
     assert File.exist?(comment_file)
     comment_doc = Nokogiri::HTML(File.read(comment_file))
     assert_equal('foo', comment_doc.at_css('p.name').content)
     assert_equal('Expected comment content', comment_doc.at_css('.markdown p').content)
 
+    comment1 = Comment.new
+    comment1.name = 'other'
+    comment1.content = 'Another expected comment'
+
+    b.bake_comment! post, comment1
+
     index_file = temp_path "comments/sample-post/index"
     assert File.exist?(index_file)
     entries = File.read(index_file).split("\n")
-    assert_equal([comment.hash], entries)
+    assert_equal([comment0.hash, comment1.hash], entries)
   end
 
 end

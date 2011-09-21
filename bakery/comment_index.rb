@@ -12,7 +12,7 @@ class CommentIndex
   end
 
   def append comment
-    File.open(path, 'w+') do |f|
+    File.open(path, 'a') do |f|
       f.puts comment.hash
     end
   end
