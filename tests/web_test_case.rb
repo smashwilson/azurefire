@@ -4,24 +4,21 @@ require 'test/unit'
 require 'rack/test'
 require 'nokogiri'
 
-class WebTestCase < Test::Unit::TestCase
+ENV['RACK_ENV'] = 'test'
+
+require_relative 'storage_test_case'
+
+class WebTestCase < StorageTestCase
+
   include Rack::Test::Methods
 
   def app
     Sinatra::Application
   end
 
-  def setup
-    #
-  end
-
-  def teardown
-    #
-  end
-
   def ok!
     puts last_response.errors if last_response.errors
-    assert last_response.ok?
+    assert last_response.ok?, "Last response #{last_response.status}:\n#{last_response.body}"
   end
 
   def parse

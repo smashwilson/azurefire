@@ -1,5 +1,9 @@
 require 'fileutils'
 
+require_relative '../settings'
+require_relative '../model/journal_post'
+require_relative '../model/journal_post_metadata'
+
 # A file-backed data structure that records metadata about journal posts, stored
 # in order by their creation timestamp, newest first.
 #

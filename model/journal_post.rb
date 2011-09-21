@@ -27,6 +27,10 @@ class JournalPost
     File.read(path)
   end
 
+  def comment_count
+    0
+  end
+
   def self.path_for meta
     Settings.data_path 'posts', "#{meta.slug}.html"
   end

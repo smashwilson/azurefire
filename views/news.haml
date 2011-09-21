@@ -1,8 +1,6 @@
 - @posts.each do |p|
-  = haml :partial_post, :locals => { :post => p }, :layout => false
-  %ul.controls
-    %li
-      %a{ :href => "/news/#{p.url_slug}" }= "comments (#{p.comment_count})"
-    - if logged_in?
+  .post
+    != p.content
+    %ul.controls
       %li
-        %a{ :href => "/news/edit/#{p.url_slug}" } edit
+        %a{ :href => "/#{p.slug}" }= "comments (#{p.comment_count})"

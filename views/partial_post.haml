@@ -1,6 +1,6 @@
-.post.markdown
-  .header
-    %span.author= meta.author
-    %span.timestamp= meta.timestamp.strftime '%a %e %b %Y %l:%M%P'
-    %h2.title= meta.title
+.header
+  %span.author= meta.author
+  %span.timestamp= meta.timestamp.strftime '%a %e %b %Y %l:%M%P'
+  %h2.title= meta.title
+.markdown
   != body

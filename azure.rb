@@ -20,17 +20,20 @@ use Rack::Session::Cookie,
 
 use Rack::Flash
 
-# Keep debugging output nice and current in Eclipse.
-$stdout.sync = true
-
 configure :development do |c|
   require 'sinatra/reloader'
   c.also_reload 'bakery/*.rb'
   c.also_reload 'model/*.rb'
+
+  # Keep debugging output nice and current in Eclipse.
+  $stdout.sync = true
 end
 
-# Site nagivation.
+# Load required source files.
 require_relative 'nav'
+require_relative 'bakery/archive_index'
+
+# Site navigation.
 
 helpers do
   include NavigationHelper
@@ -56,7 +59,8 @@ end
 # News page
 [ '/', '/news' ].each do |route|
   get route do
-    halt 404, 'pending!'
+    @posts = ArchiveIndex.new.recent_posts(5)
+    haml :news
   end
 end
 
