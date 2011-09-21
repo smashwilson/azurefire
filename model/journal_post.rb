@@ -1,6 +1,7 @@
 require 'forwardable'
 
 require_relative '../settings'
+require_relative '../bakery/baker'
 require_relative '../bakery/comment_index'
 
 require_relative 'journal_post_metadata'
@@ -42,6 +43,11 @@ class JournalPost
 
   def comments
     []
+  end
+
+  def add_comment comment
+    b = Baker.new
+    b.bake_comment! self, comment
   end
 
   def self.path_for meta
