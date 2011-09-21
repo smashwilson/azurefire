@@ -31,12 +31,23 @@ class JournalPost
     0
   end
 
+  def comments
+    []
+  end
+
   def self.path_for meta
     Settings.data_path 'posts', "#{meta.slug}.html"
   end
 
   def self.comment_path_for meta
     Settings.data_path 'comments', meta.slug
+  end
+
+  def self.with_slug slug
+    meta = JournalPostMetadata.new
+    meta.slug = slug
+    post = new(meta)
+    post.baked? ? post : nil
   end
 
 end

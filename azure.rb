@@ -70,7 +70,8 @@ end
 
 # News post permalink
 get '/:slug' do |slug|
-  halt 404, 'pending!'
+  @post = JournalPost.with_slug slug
+  haml :single_post
 end
 
 # Comment post

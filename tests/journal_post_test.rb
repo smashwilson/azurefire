@@ -42,4 +42,20 @@ class JournalPostTest < StorageTestCase
     assert_equal("Expected post content\n", post.content)
   end
 
+  def test_create_from_slug
+    FileUtils.mkdir_p(temp_path 'posts')
+    File.open(temp_path('posts/exists.html'), 'w') do |f|
+      f.puts "Expected post content"
+    end
+
+    post = JournalPost.with_slug 'exists'
+    assert_not_nil post
+    assert_equal("Expected post content\n", post.content)
+  end
+
+  def test_detect_missing_slug
+    missing = JournalPost.with_slug 'missing'
+    assert missing.nil?
+  end
+
 end

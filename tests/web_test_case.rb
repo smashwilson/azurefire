@@ -19,6 +19,7 @@ class WebTestCase < StorageTestCase
   def ok!
     puts last_response.errors if last_response.errors
     assert last_response.ok?, "Last response #{last_response.status}:\n#{last_response.body}"
+    parse
   end
 
   def parse
@@ -31,17 +32,17 @@ class WebTestCase < StorageTestCase
   end
 
   def assert_no_css css_string
-    parse
+    parse unless @doc
     assert_equal 0, @doc.css(css_string).size
   end
 
   def assert_css css_string
-    parse
+    parse unless @doc
     assert_one @doc.css(css_string), css_string
   end
 
   def assert_xpath xpath_string
-    parse
+    parse unless @doc
     assert_one @doc.xpath(xpath_string), xpath_string
   end
 

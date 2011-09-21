@@ -1,20 +1,17 @@
-= haml :partial_post, :locals => { :post => @post }, :layout => false
+.post
+  != @post.content
 %ul.controls
   %li.comment-count
     = "comments (#{@post.comment_count})"
-  - if logged_in?
-    %li
-      %a{ :href => "/news/edit/#{@post.url_slug}" } edit
 %ul.comments
   - @post.comments.each do |c|
     %li
       = haml :partial_comment, :locals => { :comment => c }, :layout => false
   %li.new
-    %form{ :method => 'post', :class => logged_in? ? 'administrator' : nil }
-      - unless logged_in?
-        %p
-          %label{ :for => 'name' } name (optional)
-          %input{ :type => 'text', :id => 'name', :class => 'name', :name => 'name' }
+    %form{ :method => 'post' }
+      %p
+        %label{ :for => 'name' } name (optional)
+        %input{ :type => 'text', :id => 'name', :class => 'name', :name => 'name' }
       %p
         %textarea{ :name => 'body' }
       %p

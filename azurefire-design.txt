@@ -4,16 +4,17 @@ azurefire design
 
  - header: QOTD
 news/
- - last 5 blog posts
+ - last 5 blog posts [*]
  - each post has:
-  - timestamp
-  - author
-  - title
-  - body
+  - timestamp [*]
+  - author [*]
+  - title [*]
+  - body [*]
   - tags
   - comment ct <= permalink
 <post>/
   - post as above, with full comments
+  - next/previous links
   - add comment ->
    - write haml to comment dir, filename == hash
    - append data/comments/slug/index
