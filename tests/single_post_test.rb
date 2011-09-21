@@ -19,7 +19,14 @@ class SinglePostTest < WebTestCase
   end
 
   def test_post_comment
-    assert(false, 'pending')
+    post '/post-10', { :name => 'someone', :body => "# heading\n\nbody"}
+    follow_redirect!
+    ok!
+
+    assert_equal(2, @doc.css('ul.comments li').size)
+    assert_equal('someone', @doc.at_css('ul.comments .name').content)
+    assert_equal('heading', @doc.at_css('ul.comments .markdown h1').content)
+    assert_equal('body', @doc.at_css('ul.comments .markdown p').content)
   end
 
 end

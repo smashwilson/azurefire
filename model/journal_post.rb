@@ -41,13 +41,13 @@ class JournalPost
     0
   end
 
-  def comments
-    []
-  end
-
   def add_comment comment
     b = Baker.new
     b.bake_comment! self, comment
+  end
+
+  def each_rendered_comment
+    comment_index.each { |c| yield c }
   end
 
   def self.path_for meta

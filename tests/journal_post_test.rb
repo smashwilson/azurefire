@@ -58,4 +58,25 @@ class JournalPostTest < StorageTestCase
     assert missing.nil?
   end
 
+  def test_enumerate_comments
+    FileUtils.mkdir_p(temp_path 'posts')
+    File.open(temp_path('posts/exists.html'), 'w') do |f|
+      f.puts "Expected post content"
+    end
+
+    post = JournalPost.with_slug 'exists'
+    [ 'one', 'two', 'three' ].each do |num|
+      post.add_comment(Comment.new.tap do |c|
+        c.name = num
+        c.content = num + ' content'
+      end)
+    end
+
+    cs = []
+    post.each_rendered_comment { |c| cs << c }
+    assert(cs[0].include? 'one content')
+    assert(cs[1].include? 'two content')
+    assert(cs[2].include? 'three content')
+  end
+
 end
