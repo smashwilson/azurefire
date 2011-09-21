@@ -18,4 +18,8 @@ class SinglePostTest < WebTestCase
     assert(@doc.at_css('.markdown p').content.include? ' ten ')
   end
 
+  def test_post_comment
+    assert(false, 'pending')
+  end
+
 end

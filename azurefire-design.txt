@@ -2,21 +2,27 @@ azurefire design
 
 = outline
 
+layout
  - header: QOTD
 news/
  - last 5 blog posts [*]
  - each post has:
   - timestamp [*]
   - author [*]
+   - author icons
   - title [*]
   - body [*]
-  - tags
+  - tags [*]
+   - tags are links to archive search
   - comment ct <= permalink
 <post>/
-  - post as above, with full comments
-  - next/previous links
-  - add comment ->
-   - write haml to comment dir, filename == hash
+  - GET view post ->
+   - post as above, with full comments
+   - new comment form
+   - live preview of Markdown rendering
+   - next/previous links
+  - POST add comment ->
+   - write haml to comment dir, filename == hash [..]
    - append data/comments/slug/index
 archive/
  - list of most recent posts, ordered by date
@@ -27,6 +33,20 @@ about/
   - bio
 .rss
  - query by boolean tag exp
+
+Future
+ - highlight administrator comments
+ - deploy to production via git push
+ - deploy posts via git push
+  - auto-checkout, rebake, report errors
+ - local post preview
+
+CSS work
+ - style author/timestamp line
+ - style tag list
+ - author icon in left margin
+ - more space between posts
+ - doublecheck .markdown styling
 
 = rake [*]
  - bake: [*]
@@ -39,7 +59,9 @@ about/
    - slug == title slugged [*]
    - verify: [*]
     - json is well-formed [*]
-    - slug doesn't collide with a route or another post [*]
+    - json contains correct keys: no missing uninferred ones, no extra mistypes
+    - slug doesn't collide with a route [*]
+    - slug doesn't collide with an existing post
   - use haml template, write out to out dir [*]
    - data/posts/slug.html [*]
    - data/comments/slug/index << empty [*]

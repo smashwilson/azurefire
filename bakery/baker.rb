@@ -36,11 +36,30 @@ class Baker
       @index.create! metas
     end
 
+    def comment_engine
+      @comment_template_path ||= Settings.current.view_root + '/partial_comment.haml'
+      @comment_template ||= File.read(@comment_template_path)
+      @comment_engine ||= Haml::Engine.new(@comment_template,
+        :filename => @comment_template_path)
+    end
+
+    def bake_comment! post, comment
+      FileUtils.mkdir_p(post.comment_path)
+      path = File.join(post.comment_path, "#{comment.hash}.html")
+      File.open(path, 'w') do |cfile|
+        body = RDiscount.new(comment.content, :filter_html).to_html
+        cfile.print(comment_engine.render(Object.new,
+          :comment => comment, :body => body))
+      end
+
+      post.comment_index.append(comment)
+    end
+
     def post_engine
       @post_template_path ||= Settings.current.view_root + '/partial_post.haml'
       @post_template ||= File.read(@post_template_path)
       @post_engine ||= Haml::Engine.new(@post_template,
-      :filename => @post_template_path)
+        :filename => @post_template_path)
     end
 
     def bake_post path
