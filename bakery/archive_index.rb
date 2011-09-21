@@ -1,11 +1,18 @@
 require 'fileutils'
 
+# A file-backed data structure that records metadata about journal posts, stored
+# in order by their creation timestamp, newest first.
+#
+# This index is created by the Baker during rake processing.
 class ArchiveIndex
 
+  # Filesystem path at which the index data is stored, relative to the current
+  # data root.
   def path
-    File.join(Settings.current.data_root, 'posts/archive.index')
+    File.join(Settings.current.data_root, 'posts', 'archive.index')
   end
 
+  # Encode JournalPostMetadata as a tab-delimited string.
   def write_meta meta
     str = ""
     str << meta.timestamp.to_s << "\t"
@@ -16,6 +23,8 @@ class ArchiveIndex
     str
   end
 
+  # Decode a JournalPostMetadata from a tab-delimited string created with
+  # #write_meta.
   def read_meta line
     meta = JournalPostMetadata.new
     timestamp_s, tags_s, meta.author, meta.slug, meta.title = *line.split("\t")
@@ -24,6 +33,10 @@ class ArchiveIndex
     meta
   end
 
+  # Given a pre-sorted sequence of JournalPostMetadata instances, create a new
+  # post index. Assumes that the posts are pre-sorted by the Baker so that
+  # multiple indices can be generated without sorting the post collection more
+  # than once.
   def create! posts
     FileUtils.mkdir_p(File.dirname(path))
     File.open(path, 'w') do |outf|
@@ -33,6 +46,9 @@ class ArchiveIndex
     end
   end
 
+  # Efficiently enumerate, in order, a sequence of JournalPostMetadata instances
+  # created from an existing index file. The enumeration will be stop (with an
+  # orderly close of the index file) if the associated block returns +:stop+.
   def each_post
     return [] unless File.exist?(path)
     File.open(path, 'r') do |f|
@@ -40,6 +56,7 @@ class ArchiveIndex
     end
   end
 
+  # Return an Array containing metadata for the +count+ most recent posts.
   def recent_posts count
     recent = []
     each_post do |post|
@@ -51,6 +68,8 @@ class ArchiveIndex
 
   protected
 
+  # Utility method extracted from #each_post so that the iteration can be
+  # terminated prematurely without leaving the file handle open.
   def each_post_from f
     f.lines do |line|
       return if (yield JournalPost.new(read_meta line)) == :stop
