@@ -1,8 +1,14 @@
+require 'forwardable'
+
 require_relative '../bakery/journal_post_metadata'
 require_relative '../settings'
 
 class JournalPost
+  extend Forwardable
+
   attr_reader :meta
+
+  def_delegators :@meta, :title, :slug, :timestamp, :author, :tags
 
   def initialize meta = JournalPostMetadata.new
     @meta = meta

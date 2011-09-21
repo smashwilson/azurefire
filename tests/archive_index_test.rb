@@ -67,10 +67,7 @@ class ArchiveIndexTest < StorageTestCase
 
     ps = []
     i.each_post { |p| ps << p }
-    assert_equal('third', ps[0].meta.slug)
-    assert_equal('second', ps[1].meta.slug)
-    assert_equal('first', ps[2].meta.slug)
-    assert_equal(3, ps.size)
+    assert_equal(['third', 'second', 'first'], ps.map(&:slug))
   end
 
   def test_partial_enumeration
@@ -80,7 +77,7 @@ class ArchiveIndexTest < StorageTestCase
     ps = []
     i.each_post do |post|
       ps << post
-      :stop if post.meta.slug == 'second'
+      :stop if post.slug == 'second'
     end
     assert_equal(['third', 'second'], ps.map(&:slug))
   end
