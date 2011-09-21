@@ -8,22 +8,28 @@ class NewsTest < WebTestCase
     'fixtures/set'
   end
 
-  def bake_posts
+  def setup
+    super
     Baker.new.bake!
   end
 
   def test_show_most_recent
-    bake_posts
-
     get '/'
     ok!
 
-    parse
     posts = @doc.css('div.post')
 
     exp_titles = ['Post 20', 'Post 19', 'Post 18', 'Post 17', 'Post 16']
     act_titles = posts.css('.header h2.title').map(&:content)
     assert_equal(exp_titles, act_titles)
+  end
+
+  def test_show_tags
+    get '/'
+    ok!
+
+    tags = @doc.at_css('div.post').css('ul.tags li').map(&:content)
+    assert_equal(['numbered'], tags)
   end
 
 end

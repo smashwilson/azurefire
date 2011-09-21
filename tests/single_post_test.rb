@@ -6,12 +6,12 @@ class SinglePostTest < WebTestCase
     'fixtures/set'
   end
 
-  def bake_posts
+  def setup
+    super
     Baker.new.bake!
   end
 
   def test_show_body
-    bake_posts
     get '/post-10'
     ok!
 
