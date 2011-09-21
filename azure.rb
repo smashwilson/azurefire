@@ -31,7 +31,10 @@ end
 
 # Load required source files.
 require_relative 'nav'
+require_relative 'model/comment'
+require_relative 'model/journal_post'
 require_relative 'bakery/archive_index'
+require_relative 'bakery/baker'
 
 # Site navigation.
 
@@ -76,5 +79,11 @@ end
 
 # Comment post
 post '/:slug' do |slug|
-  halt 404, 'pending!'
+  @post = JournalPost.with_slug slug
+  comment = Comment.new
+  comment.name = params[:name]
+  comment.content = params[:body]
+  b = Baker.new
+  b.bake_comment! @post, comment
+  redirect to("/#{slug}")
 end
