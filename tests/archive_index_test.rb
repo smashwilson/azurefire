@@ -82,7 +82,15 @@ class ArchiveIndexTest < StorageTestCase
       ps << post
       :stop if post.meta.slug == 'second'
     end
-    assert_equal(2, ps.size)
+    assert_equal(['third', 'second'], ps.map(&:slug))
+  end
+
+  def test_recent_posts
+    create_fake_index
+
+    i = ArchiveIndex.new
+    ps = i.recent_posts(2)
+    assert_equal(['third', 'second'], ps.map(&:slug))
   end
 
 end

@@ -40,6 +40,15 @@ class ArchiveIndex
     end
   end
 
+  def recent_posts count
+    recent = []
+    each_post do |post|
+      recent << post
+      :stop if recent.size >= count
+    end
+    recent
+  end
+
   protected
 
   def each_post_from f
