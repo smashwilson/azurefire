@@ -14,7 +14,7 @@ news/
   - body [*]
   - tags [*]
    - tags are links to archive search
-  - comment ct <= permalink
+  - comment ct <= permalink [*]
 <post>/
   - GET view post ->
    - 404 if not found

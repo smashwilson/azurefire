@@ -29,4 +29,19 @@ class SinglePostTest < WebTestCase
     assert_equal('body', @doc.at_css('ul.comments .markdown p').content)
   end
 
+  def test_show_comment_count
+    post '/post-10', { :name => 'first', :body => 'First comment'}
+    follow_redirect!
+
+    post '/post-10', { :name => 'second', :body => 'Second comment'}
+    follow_redirect!
+
+    post '/post-10', { :name => 'third', :body => 'Third comment'}
+    follow_redirect!
+
+    ok!
+
+    assert_equal('comments (3)', @doc.at_css('li.comment-count').content.strip)
+  end
+
 end

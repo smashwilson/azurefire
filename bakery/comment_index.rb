@@ -29,4 +29,8 @@ class CommentIndex
     end
   end
 
+  def size
+    File.readlines(path).size
+  end
+
 end

@@ -65,11 +65,11 @@ class JournalPostTest < StorageTestCase
     end
 
     post = JournalPost.with_slug 'exists'
-    [ 'one', 'two', 'three' ].each do |num|
-      post.add_comment(Comment.new.tap do |c|
-        c.name = num
-        c.content = num + ' content'
-      end)
+    ['one', 'two', 'three'].each do |num|
+      c = Comment.new
+      c.name = num
+      c.content = num + ' content'
+      post.add_comment c
     end
 
     cs = []
@@ -77,6 +77,23 @@ class JournalPostTest < StorageTestCase
     assert(cs[0].include? 'one content')
     assert(cs[1].include? 'two content')
     assert(cs[2].include? 'three content')
+  end
+
+  def test_count_comments
+    FileUtils.mkdir_p(temp_path 'posts')
+    File.open(temp_path('posts/exists.html'), 'w') do |f|
+      f.puts "Expected post content"
+    end
+
+    post = JournalPost.with_slug 'exists'
+    ['one', 'two', 'three'].each do |num|
+      c = Comment.new
+      c.name = num
+      c.content = num + ' content'
+      post.add_comment c
+    end
+
+    assert_equal(3, post.comment_count)
   end
 
 end
