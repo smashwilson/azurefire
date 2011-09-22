@@ -77,12 +77,14 @@ end
 # News post permalink
 get '/:slug' do |slug|
   @post = JournalPost.with_slug slug
+  halt 404 unless @post
   haml :single_post
 end
 
 # Comment post
 post '/:slug' do |slug|
   @post = JournalPost.with_slug slug
+  halt 404 unless @post
   comment = Comment.new
   comment.name = params[:name]
   comment.content = params[:body]

@@ -17,13 +17,13 @@ news/
   - comment ct <= permalink [*]
 <post>/
   - GET view post ->
-   - 404 if not found
+   - 404 if not found [*]
    - post as above, with full comments [*]
    - new comment form [*]
    - live preview of Markdown rendering
    - next/previous links
-  - POST add comment ->
-   - 404 if not found
+  - POST add comment -> [*]
+   - 404 if not found [*]
    - write haml to comment dir, filename == hash [*]
    - append data/comments/slug/index [*]
 archive/

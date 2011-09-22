@@ -11,6 +11,11 @@ class SinglePostTest < WebTestCase
     Baker.new.bake!
   end
 
+  def test_unrecognized_post
+    get '/nonsense'
+    assert_equal(404, last_response.status)
+  end
+
   def test_show_body
     get '/post-10'
     ok!
@@ -27,6 +32,11 @@ class SinglePostTest < WebTestCase
     assert_equal('someone', @doc.at_css('ul.comments .name').content)
     assert_equal('heading', @doc.at_css('ul.comments .markdown h1').content)
     assert_equal('body', @doc.at_css('ul.comments .markdown p').content)
+  end
+
+  def test_post_comment_to_missing_post
+    post '/huuurf', { :name => 'me', :body => 'in your face!'}
+    assert_equal(404, last_response.status)
   end
 
   def test_show_comment_count
