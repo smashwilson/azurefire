@@ -42,9 +42,11 @@ helpers do
 end
 
 before do
-  nav 'news', :default => true
-  nav 'archive'
-  nav 'about'
+  menu do
+    nav 'news', :default => true
+    nav 'archive'
+    nav 'about'
+  end
 end
 
 # Run stylesheets through sass.

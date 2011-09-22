@@ -11,6 +11,11 @@ module NavigationHelper
     path.start_with? link
   end
 
+  def menu
+    @navigation = []
+    yield
+  end
+
   # Append a navigation item to the current navigation menu.  If a block is
   # provided, it will be invoked (to construct a subnavigation menu) when this
   # item is current.
