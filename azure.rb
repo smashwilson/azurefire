@@ -49,6 +49,8 @@ before do
   end
 end
 
+not_found { haml :'404' }
+
 # Run stylesheets through sass.
 get %r{/([^.]+).css} do |name|
   content_type 'text/css', :charset => 'utf-8'
