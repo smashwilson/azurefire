@@ -74,10 +74,16 @@ get %r{/archive(/([^/]+))?} do |_, query|
   halt 404, 'pending!'
 end
 
+# Live markdown preview
+post '/markdown-preview' do
+  RDiscount.new(params[:body], :filter_html).to_html
+end
+
 # News post permalink
 get '/:slug' do |slug|
   @post = JournalPost.with_slug slug
   halt 404 unless @post
+  @js = ['single-post']
   haml :single_post
 end
 

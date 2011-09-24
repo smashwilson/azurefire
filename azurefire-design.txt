@@ -20,7 +20,7 @@ news/
    - 404 if not found [*]
    - post as above, with full comments [*]
    - new comment form [*]
-   - live preview of Markdown rendering
+   - live preview of Markdown rendering [*]
    - next/previous links
   - POST add comment -> [*]
    - 404 if not found [*]
@@ -70,3 +70,4 @@ CSS work
   - use all posts to build indices [*]
    - data/posts/frontpage.index << "slug" for top 5 timestamps [*]
    - data/posts/archive.index << "timestamp \t tag,tag \t author \t slug \t Title" for all posts [*]
+   - remember next/prev slugs while building index

@@ -54,4 +54,11 @@ class SinglePostTest < WebTestCase
     assert_equal('comments (3)', @doc.at_css('li.comment-count').content.strip)
   end
 
+  def test_live_preview
+    post '/markdown-preview', { :body => '# heading line' }
+    ok!
+
+    assert_equal('<h1>heading line</h1>', last_response.body.chomp)
+  end
+
 end

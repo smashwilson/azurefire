@@ -12,7 +12,7 @@
         %label{ :for => 'name' } name (optional)
         %input{ :type => 'text', :id => 'name', :class => 'name', :name => 'name' }
       %p
-        %textarea{ :name => 'body' }
+        %textarea{ :id => 'comment-body', :name => 'body' }
       %p
         %input{ :type => 'submit', :value => 'Submit' }
-        %input{ :type => 'submit', :value => 'Preview' }
+    %div{ :id => 'comment-preview' }
