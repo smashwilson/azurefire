@@ -13,7 +13,7 @@ news/
   - title [*]
   - body [*]
   - tags [*]
-   - tags are links to archive search
+   - tags are links to archive search [*]
   - comment ct <= permalink [*]
 <post>/
   - GET view post ->
@@ -27,7 +27,7 @@ news/
    - write haml to comment dir, filename == hash [*]
    - append data/comments/slug/index [*]
 archive/
- - list of most recent posts, ordered by date
+ - list of most recent posts, ordered by date [*]
  - query by boolean tag exp (modifies rss feed)
 about/
  - for each author, hardcoded:

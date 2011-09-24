@@ -1,9 +1,12 @@
 .query
-  %p.current= "You are currently viewing #{@query}."
+  -# %p.current= "You are currently viewing #{@query}."
 %ul.results
-  - @results.each_with_index do |post, index|
+  - @posts.each_with_index do |post, index|
     %li{ :class => ('odd' if index.odd?) }
-      %span.timestamp= post.timestamp.strftime '%d %b %Y %I:%M%P'
+      %span.timestamp= post.timestamp.strftime '%a %e %b %Y %l:%M%P'
       %span.separator \\
-      %span.name= post.username
-      %a{ :href => "/news/#{post.url_slug}" }= post.title
+      %span.author= post.author
+      %a{ :href => to(post.slug) }= post.title
+      %ul.tags
+        - post.tags.each do |tag|
+          %a{ :href => "/archive/#{tag}" }= tag

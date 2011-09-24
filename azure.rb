@@ -70,8 +70,12 @@ end
   end
 end
 
+# Archive page
 get %r{/archive(/([^/]+))?} do |_, query|
-  halt 404, 'pending!'
+  i = ArchiveIndex.new
+  @posts = []
+  i.each_post { |p| @posts << p }
+  haml :archive
 end
 
 # Live markdown preview

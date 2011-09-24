@@ -28,7 +28,7 @@ class NewsTest < WebTestCase
     get '/'
     ok!
 
-    tags = @doc.at_css('div.post').css('ul.tags li').map(&:content)
+    tags = @doc.at_css('div.post').css('ul.tags a').map(&:content)
     assert_equal(['numbered'], tags)
   end
 
