@@ -1,10 +1,10 @@
-require_relative '../azure'
-
 require 'test/unit'
 require 'rack/test'
 require 'nokogiri'
 
 ENV['RACK_ENV'] = 'test'
+
+require_relative '../azure'
 
 require_relative 'storage_test_case'
 

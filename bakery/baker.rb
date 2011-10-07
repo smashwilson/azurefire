@@ -91,8 +91,8 @@ class Baker
       m = nil
       begin
         m = yield
-      rescue JSON::ParserError
-        errors << PostError.new(filename, "Malformed JSON header in post \"#{filename}\".")
+      rescue MetadataError => e
+        errors << PostError.new(filename, e.message)
         return nil
       end
 

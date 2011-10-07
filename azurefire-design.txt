@@ -4,17 +4,6 @@ azurefire design
 
 layout
  - header: QOTD
-news/
- - last 5 blog posts [*]
- - each post has:
-  - timestamp [*]
-  - author [*]
-   - author icons
-  - title [*]
-  - body [*]
-  - tags [*]
-   - tags are links to archive search [*]
-  - comment ct <= permalink [*]
 <post>/
   - GET view post ->
    - 404 if not found [*]

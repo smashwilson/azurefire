@@ -2,6 +2,10 @@ require 'time'
 require 'json'
 require 'etc'
 
+# An exception to raise if metadata is incomplete or malformed.
+class MetadataError < StandardError
+end
+
 # A JournalPost's title, URL slug, timestamp, and other non-content data.
 # Extracted from a JournalPost because many components (like the Baker, and
 # the site archive) care only about metadata, and it's wasteful to shuffle
@@ -26,9 +30,27 @@ class JournalPostMetadata
   # header. Missing metadata will be inferred from the file attributes when
   # possible: for example, the post author will be the file's owner, and so on.
   def self.load(file)
+    basename = File.basename(file.path)
     header = file.gets("\n\n")
-    data = JSON.parse(header)
+    begin
+      data = JSON.parse(header)
+    rescue JSON::ParserError
+      raise MetadataError.new("Malformed JSON header in post \"#{basename}\".")
+    end
     stat = File.stat(file.path)
+
+    # Ensure that only valid keys are present in the JSON header.
+    expected_keys = %w{title slug timestamp author tags}
+    unrecognized = data.keys - expected_keys
+    unless unrecognized.empty?
+      keystr = if unrecognized.size == 1
+        "key \"#{unrecognized[0]}\""
+      else
+        "keys " + unrecognized.map { |k| "\"#{k}\"" }.join(', ')
+      end
+
+      raise MetadataError.new("Unrecognized JSON header #{keystr} in post \"#{basename}\".")
+    end
 
     new.tap do |inst|
       inst.title = data['title'] || File.basename(file.path, '.md')

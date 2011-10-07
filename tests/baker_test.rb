@@ -48,6 +48,15 @@ class BakerTest < StorageTestCase
     assert_equal('Malformed JSON header in post "invalid-json.md.err".', b.errors[0].reason)
   end
 
+  def test_unrecognized_json_key
+    b = Baker.new
+    meta = b.bake_post(fixt_path 'extra-json-key.md.err')
+
+    assert_nil meta
+    assert_equal(1, b.errors.size)
+    assert_equal('Unrecognized JSON header key "tiiiiitle" in post "extra-json-key.md.err".', b.errors[0].reason)
+  end
+
   def test_bake
     b = Baker.new
 

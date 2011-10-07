@@ -29,6 +29,11 @@ configure :development do |c|
   $stdout.sync = true
 end
 
+configure :test do |c|
+  # Don't produce log messages among that nice row of "rake test" dots.
+  c.disable :logging
+end
+
 # Load required source files.
 require_relative 'nav'
 require_relative 'model/comment'
