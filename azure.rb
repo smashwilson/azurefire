@@ -92,6 +92,7 @@ end
 get '/:slug' do |slug|
   @post = JournalPost.with_slug slug
   halt 404 unless @post
+  @next, @prev = @post.next, @post.prev
   @js = ['single-post']
   haml :single_post
 end

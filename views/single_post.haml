@@ -1,3 +1,8 @@
+.local-nav
+  - if @prev
+    %a.prev{ :href => "/#{@prev.slug}" }= @prev.title
+  - if @next
+    %a.next{ :href => "/#{@next.slug}" }= @next.title
 .post
   != @post.content
 %ul.controls

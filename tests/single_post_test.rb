@@ -61,4 +61,17 @@ class SinglePostTest < WebTestCase
     assert_equal('<h1>heading line</h1>', last_response.body.chomp)
   end
 
+  def test_generate_next_prev
+    get '/post-10'
+    ok!
+
+    nlink = @doc.at_css('a.next')
+    assert_equal('/post-11', nlink['href'])
+    assert_equal('Post 11', nlink.content)
+
+    plink = @doc.at_css('a.prev')
+    assert_equal('/post-9', plink['href'])
+    assert_equal('Post 9', plink.content)
+  end
+
 end
