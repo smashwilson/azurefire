@@ -41,4 +41,28 @@ class ArchiveTest < WebTestCase
     assert_equal(expected, titles)
   end
 
+  def test_show_empty_query
+    get '/archive'
+    ok!
+
+    q = @doc.at_css('.query p.current').content
+    assert_equal('You are currently viewing all posts.', q)
+  end
+
+  def test_show_single_query
+    get '/archive/special'
+    ok!
+
+    q = @doc.at_css('.query p.current').content
+    assert_equal('You are currently viewing posts tagged special.', q)
+  end
+
+  def test_show_multiple_query
+    get '/archive/special_multiple-of-five'
+    ok!
+
+    q = @doc.at_css('.query p.current').content
+    assert_equal('You are currently viewing posts tagged special or multiple-of-five.', q)
+  end
+
 end

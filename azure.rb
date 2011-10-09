@@ -78,8 +78,8 @@ end
 # Archive page
 get %r{/archive(/([^/]+))?} do |_, query|
   i = ArchiveIndex.new
-  q = ArchiveQuery.new(query)
-  @posts = i.posts_matching q
+  @query = ArchiveQuery.new(query)
+  @posts = i.posts_matching @query
   haml :archive
 end
 

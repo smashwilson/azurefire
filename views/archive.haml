@@ -1,5 +1,5 @@
 .query
-  -# %p.current= "You are currently viewing #{@query}."
+  %p.current= "You are currently viewing #{@query}."
 %ul.results
   - @posts.each_with_index do |post, index|
     %li{ :class => ('odd' if index.odd?) }
