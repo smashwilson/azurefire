@@ -2,6 +2,8 @@ require_relative 'web_test_case'
 
 class ArchiveTest < WebTestCase
 
+  # Posts numbered 1 to 20; posts 5, 10, 15, and 20 are tagged "multiple-of-five";
+  # posts numbered 3, 7 and 15 are tagged "special".
   def fixture
     'fixtures/set'
   end
@@ -25,6 +27,18 @@ class ArchiveTest < WebTestCase
     second = results[1]
     assert_equal('Mon 19 Sep 2011  8:00am', second.at_css('span.timestamp').content)
     assert_equal('Post 19', second.at_css('a').content)
+  end
+
+  def test_query_by_tag
+    get '/archive/special_multiple-of-five'
+    ok!
+
+    results = @doc.css('ul.results > li')
+    assert_equal(6, results.size)
+
+    expected = [20, 15, 10, 7, 5, 3].map { |n| "Post #{n}" }
+    titles = results.map { |r| r.at_css('a').content }
+    assert_equal(expected, titles)
   end
 
 end

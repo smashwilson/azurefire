@@ -38,6 +38,7 @@ require_relative 'nav'
 require_relative 'model/comment'
 require_relative 'model/journal_post'
 require_relative 'model/archive_index'
+require_relative 'model/archive_query'
 
 # Site navigation.
 
@@ -77,8 +78,8 @@ end
 # Archive page
 get %r{/archive(/([^/]+))?} do |_, query|
   i = ArchiveIndex.new
-  @posts = []
-  i.each_post { |p| @posts << p }
+  q = ArchiveQuery.new(query)
+  @posts = i.posts_matching q
   haml :archive
 end
 

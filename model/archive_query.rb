@@ -2,7 +2,7 @@ class ArchiveQuery
   attr_accessor :tags
 
   def initialize query_string
-    @tags = query_string.split(/_/).reject { |t| t.empty? }
+    @tags = (query_string || '').split(/_/).reject { |t| t.empty? }
   end
 
   def matches? post

@@ -29,7 +29,7 @@ class NewsTest < WebTestCase
     ok!
 
     tags = @doc.at_css('div.post').css('ul.tags a').map(&:content)
-    assert_equal(['numbered'], tags)
+    assert_equal(%w{numbered multiple-of-five}, tags)
   end
 
 end
