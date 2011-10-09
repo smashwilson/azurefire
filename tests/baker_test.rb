@@ -57,6 +57,16 @@ class BakerTest < StorageTestCase
     assert_equal('Unrecognized JSON header key "tiiiiitle" in post "extra-json-key.md.err".', b.errors[0].reason)
   end
 
+  def test_duplicate_slug
+    b = Baker.new
+    b.bake_post(fixt_path 'sample.md')
+    meta = b.bake_post(fixt_path 'sample-duplicate.md.err')
+
+    assert_nil meta
+    assert_equal(1, b.errors.size)
+    assert_equal('Post path "sample-post" is duplicated in "sample.md" and "sample-duplicate.md.err".', b.errors[0].reason)
+  end
+
   def test_bake
     b = Baker.new
 

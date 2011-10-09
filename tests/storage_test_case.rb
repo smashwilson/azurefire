@@ -24,7 +24,8 @@ class StorageTestCase < Test::Unit::TestCase
   end
 
   def create_temp
-    Dir.mkdir(temp_root) && temp_root
+    teardown
+    Dir.mkdir(temp_root)
   end
 
   def setup
