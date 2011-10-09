@@ -70,6 +70,15 @@ class ArchiveIndex
     recent
   end
 
+  # Return an Array containing metadata for posts that match an ArchiveQuery.
+  def posts_matching query
+    matches = []
+    each_post do |post|
+      matches << post if query.matches? post
+    end
+    matches
+  end
+
   protected
 
   # Utility method extracted from #each_post so that the iteration can be

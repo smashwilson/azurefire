@@ -2,6 +2,7 @@ require 'time'
 require 'fileutils'
 
 require_relative '../model/archive_index'
+require_relative '../model/archive_query'
 require_relative '../model/journal_post_metadata'
 
 require_relative 'storage_test_case'
@@ -18,9 +19,9 @@ class ArchiveIndexTest < StorageTestCase
     end
 
     File.open(temp_path('posts/archive.index'), 'w') do |f|
-      f.puts "2011-09-03 16:00:00 -0400\ttag\tauthor\tthird\tThird"
-      f.puts "2011-09-02 16:00:00 -0400\ttag\tauthor\tsecond\tSecond"
-      f.puts "2011-09-01 16:00:00 -0400\ttag\tauthor\tfirst\tFirst"
+      f.puts "2011-09-03 16:00:00 -0400\ttagone,tagtwo\tauthor\tthird\tThird"
+      f.puts "2011-09-02 16:00:00 -0400\ttagone\tauthor\tsecond\tSecond"
+      f.puts "2011-09-01 16:00:00 -0400\ttagtwo\tauthor\tfirst\tFirst"
     end
   end
 
@@ -67,7 +68,7 @@ class ArchiveIndexTest < StorageTestCase
 
     ps = []
     i.each_post { |p| ps << p }
-    assert_equal(['third', 'second', 'first'], ps.map(&:slug))
+    assert_equal(%w{third second first}, ps.map(&:slug))
   end
 
   def test_partial_enumeration
@@ -79,7 +80,7 @@ class ArchiveIndexTest < StorageTestCase
       ps << post
       :stop if post.slug == 'second'
     end
-    assert_equal(['third', 'second'], ps.map(&:slug))
+    assert_equal(%w{third second}, ps.map(&:slug))
   end
 
   def test_recent_posts
@@ -87,7 +88,20 @@ class ArchiveIndexTest < StorageTestCase
 
     i = ArchiveIndex.new
     ps = i.recent_posts(2)
-    assert_equal(['third', 'second'], ps.map(&:slug))
+    assert_equal(%w{third second}, ps.map(&:slug))
+  end
+
+  def test_query_posts
+    create_fake_index
+    i = ArchiveIndex.new
+
+    q = ArchiveQuery.new 'tagtwo'
+    ps = i.posts_matching(q)
+    assert_equal(%w{third first}, ps.map(&:slug))
+
+    q = ArchiveQuery.new 'tagone'
+    ps = i.posts_matching(q)
+    assert_equal(%w{third second}, ps.map(&:slug))
   end
 
 end
