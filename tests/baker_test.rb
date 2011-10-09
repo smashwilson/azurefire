@@ -82,20 +82,32 @@ class BakerTest < StorageTestCase
     b.bake! do |progress|
       case progress.meta.slug
       when 'sample-post'
-        assert_equal(2, progress.total)
+        assert_equal(3, progress.total)
         assert_equal(0, progress.errors)
         assert_not_nil(progress.meta)
       when 'other-post'
-        assert_equal(2, progress.total)
+        assert_equal(3, progress.total)
+        assert_equal(0, progress.errors)
+        assert_not_nil(progress.meta)
+      when 'third-post'
+        assert_equal(3, progress.total)
         assert_equal(0, progress.errors)
         assert_not_nil(progress.meta)
       end
     end
 
     assert File.exist?(temp_path 'posts/sample-post.html')
-    assert File.exist?(temp_path 'posts/other-post.html')
+    assert_equal "other-post\tOther Post", File.read(temp_path 'posts/next/sample-post')
     assert File.exist?(temp_path 'comments/sample-post/index')
+
+    assert File.exist?(temp_path 'posts/other-post.html')
+    assert_equal "sample-post\tSample Post", File.read(temp_path 'posts/prev/other-post')
+    assert_equal "third-post\tThird Post", File.read(temp_path 'posts/next/other-post')
     assert File.exist?(temp_path 'comments/other-post/index')
+
+    assert File.exist?(temp_path 'posts/third-post.html')
+    assert_equal "other-post\tOther Post", File.read(temp_path 'posts/prev/third-post')
+    assert File.exist?(temp_path 'comments/third-post/index')
 
     assert File.exist?(temp_path 'posts/archive.index')
   end

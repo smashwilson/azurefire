@@ -29,6 +29,14 @@ class JournalPost
     CommentIndex.new(self)
   end
 
+  def next
+    adjacent(self.class.next_path_for(@meta))
+  end
+
+  def prev
+    adjacent(self.class.prev_path_for(@meta))
+  end
+
   def baked?
     File.exist?(path)
   end
@@ -58,10 +66,28 @@ class JournalPost
     Settings.data_path 'comments', meta.slug
   end
 
+  def self.next_path_for meta
+    Settings.data_path 'posts', 'next', meta.slug
+  end
+
+  def self.prev_path_for meta
+    Settings.data_path 'posts', 'prev', meta.slug
+  end
+
   def self.with_slug slug
     meta = JournalPostMetadata.new
     meta.slug = slug
     post = new(meta)
+    post.baked? ? post : nil
+  end
+
+  protected
+
+  def adjacent path
+    return nil unless File.exist? path
+    meta = JournalPostMetadata.new
+    meta.slug, meta.title = File.read(path).split("\t")
+    post = self.class.new(meta)
     post.baked? ? post : nil
   end
 

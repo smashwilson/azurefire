@@ -10,7 +10,7 @@ layout
    - post as above, with full comments [*]
    - new comment form [*]
    - live preview of Markdown rendering [*]
-   - next/previous links
+   - next/previous links [..]
   - POST add comment -> [*]
    - 404 if not found [*]
    - write haml to comment dir, filename == hash [*]
@@ -32,6 +32,7 @@ Future
  - deploy posts via git push
   - auto-checkout, rebake, report errors
  - local post preview
+ - spaces in tags (auto-convert to -)
 
 CSS work
  - style author/timestamp line
@@ -41,25 +42,6 @@ CSS work
  - doublecheck .markdown styling
 
 = rake [*]
- - bake: [*]
-  - read spec from root to get in/out dirs [*]
-  - read all files with right ext [*]
-   - format: "JSON \n\n body EOF" JSON keys override settings below [*]
-   - author == username [*]
-   - timestamp == file mod time [*]
-   - title == filename [*]
-   - slug == title slugged [*]
-   - verify: [*]
-    - json is well-formed [*]
-    - json contains correct keys: no missing uninferred ones, no extra mistypes [*]
-    - slug doesn't collide with a route [*]
-    - slug doesn't collide with an existing post [*]
-    - tags do not contain invalid characters [*]
-  - use haml template, write out to out dir [*]
-   - data/posts/slug.html [*]
-   - data/comments/slug/index << empty [*]
   - use all posts to build indices [*]
-   - data/posts/frontpage.index << "slug" for top 5 timestamps [*]
-   - data/posts/archive.index << "timestamp \t tag,tag \t author \t slug \t Title" for all posts [*]
-   - remember next/prev slugs while building index
+   - remember next/prev slugs while building index [*]
    - use basic file-based locking to protect concurrent index modifications

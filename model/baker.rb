@@ -15,12 +15,18 @@ class Baker
   SiteRoutes = ['news', 'archive', 'about']
 
   def initialize
+    @index = ArchiveIndex.new
+    reset
+  end
+
+  def reset
     @errors = []
     @filenames_by_slug = {}
-    @index = ArchiveIndex.new
   end
 
   def bake!
+    reset
+
     post_paths = Settings.current.post_dirs.map do |post_dir|
       Dir["#{post_dir}/*.#{Settings.current.post_ext}"]
     end.flatten
@@ -34,6 +40,7 @@ class Baker
     end
     metas = metas.reject { |e| e.nil? }.sort
 
+    tie_all metas
     @index.create! metas
   end
 
@@ -119,6 +126,30 @@ class Baker
     end
 
     m
+  end
+
+  def tie_all metas
+    unless metas.empty?
+      # Remove stale previous pointers from the first and last posts.
+      path = JournalPost.prev_path_for(metas[0])
+      File.delete(path) if File.exist? path
+      path = JournalPost.next_path_for(metas[-1])
+      File.delete(path) if File.exist? path
+    end
+
+    metas.inject { |a, b| tie_adjacent(a, b) ; b }
+  end
+
+  def tie_adjacent current, prev
+    # Tie the current post as the successor to prev.
+    next_path = JournalPost.next_path_for(prev)
+    FileUtils.mkdir_p(File.dirname(next_path))
+    File.open(next_path, 'w') { |outf| outf << "#{current.slug}\t#{current.title}" }
+
+    # Tie the previous post as the predecessor to current.
+    prev_path = JournalPost.prev_path_for(current)
+    FileUtils.mkdir_p(File.dirname(prev_path))
+    File.open(prev_path, 'w') { |outf| outf << "#{prev.slug}\t#{prev.title}" }
   end
 
   class BakerProgress
