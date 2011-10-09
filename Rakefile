@@ -2,7 +2,7 @@
 
 desc 'Discover and preprocess all news posts.'
 task :bake do
-  require_relative 'bakery/baker'
+  require_relative 'model/baker'
 
   b = Baker.new
   b.bake! do |p|

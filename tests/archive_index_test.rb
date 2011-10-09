@@ -1,7 +1,7 @@
 require 'time'
 require 'fileutils'
 
-require_relative '../bakery/archive_index'
+require_relative '../model/archive_index'
 require_relative '../model/journal_post_metadata'
 
 require_relative 'storage_test_case'

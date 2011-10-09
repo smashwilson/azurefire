@@ -4,8 +4,8 @@ require 'rdiscount'
 require 'fileutils'
 
 require_relative '../settings'
-require_relative '../model/journal_post'
-require_relative '../model/journal_post_metadata'
+require_relative 'journal_post'
+require_relative 'journal_post_metadata'
 
 require_relative 'archive_index'
 

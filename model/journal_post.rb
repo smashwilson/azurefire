@@ -1,8 +1,8 @@
 require 'forwardable'
 
 require_relative '../settings'
-require_relative '../bakery/baker'
-require_relative '../bakery/comment_index'
+require_relative 'baker'
+require_relative 'comment_index'
 
 require_relative 'journal_post_metadata'
 

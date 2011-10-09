@@ -1,6 +1,6 @@
 require_relative 'web_test_case'
 
-require_relative '../bakery/baker'
+require_relative '../model/baker'
 
 class NewsTest < WebTestCase
 

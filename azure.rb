@@ -22,7 +22,6 @@ use Rack::Flash
 
 configure :development do |c|
   require 'sinatra/reloader'
-  c.also_reload 'bakery/*.rb'
   c.also_reload 'model/*.rb'
 
   # Keep debugging output nice and current in Eclipse.
@@ -38,7 +37,7 @@ end
 require_relative 'nav'
 require_relative 'model/comment'
 require_relative 'model/journal_post'
-require_relative 'bakery/archive_index'
+require_relative 'model/archive_index'
 
 # Site navigation.
 

@@ -2,7 +2,7 @@ require 'time'
 require 'nokogiri'
 
 require_relative 'storage_test_case'
-require_relative '../bakery/baker'
+require_relative '../model/baker'
 require_relative '../model/comment'
 require_relative '../model/journal_post'
 
