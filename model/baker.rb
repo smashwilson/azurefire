@@ -103,6 +103,12 @@ class Baker
       return nil
     end
 
+    unless m.tags.all? { |t| t =~ /^[a-zA-Z0-9-]+$/ }
+      errors << PostError.new(filename,
+          "Invalid character in tags of post \"#{filename}\".")
+      return nil
+    end
+
     dup_path = @filenames_by_slug[m.slug]
     if dup_path
       errors << PostError.new(filename,

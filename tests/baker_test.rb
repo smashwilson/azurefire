@@ -67,6 +67,15 @@ class BakerTest < StorageTestCase
     assert_equal('Post path "sample-post" is duplicated in "sample.md" and "sample-duplicate.md.err".', b.errors[0].reason)
   end
 
+  def test_invalid_tags
+    b = Baker.new
+    meta = b.bake_post(fixt_path 'invalid-tag-characters.md.err')
+
+    assert_nil meta
+    assert_equal(1, b.errors.size)
+    assert_equal('Invalid character in tags of post "invalid-tag-characters.md.err".', b.errors[0].reason)
+  end
+
   def test_bake
     b = Baker.new
 

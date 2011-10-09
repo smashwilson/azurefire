@@ -54,7 +54,7 @@ CSS work
     - json contains correct keys: no missing uninferred ones, no extra mistypes [*]
     - slug doesn't collide with a route [*]
     - slug doesn't collide with an existing post [*]
-    - tags do not contain invalid characters [..]
+    - tags do not contain invalid characters [*]
   - use haml template, write out to out dir [*]
    - data/posts/slug.html [*]
    - data/comments/slug/index << empty [*]
