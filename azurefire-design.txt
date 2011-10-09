@@ -17,7 +17,7 @@ layout
    - append data/comments/slug/index [*]
 archive/
  - list of most recent posts, ordered by date [*]
- - query by boolean tag exp (modifies rss feed)
+ - query by boolean tag exp (modifies rss feed) [...]
 about/
  - for each author, hardcoded:
   - picture
@@ -60,3 +60,4 @@ CSS work
    - data/posts/frontpage.index << "slug" for top 5 timestamps [*]
    - data/posts/archive.index << "timestamp \t tag,tag \t author \t slug \t Title" for all posts [*]
    - remember next/prev slugs while building index
+   - use basic file-based locking to protect concurrent index modifications
