@@ -50,7 +50,7 @@ CSS work
    - slug == title slugged [*]
    - verify: [*]
     - json is well-formed [*]
-    - json contains correct keys: no missing uninferred ones, no extra mistypes
+    - json contains correct keys: no missing uninferred ones, no extra mistypes [*]
     - slug doesn't collide with a route [*]
     - slug doesn't collide with an existing post
   - use haml template, write out to out dir [*]
