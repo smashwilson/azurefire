@@ -74,4 +74,12 @@ class SinglePostTest < WebTestCase
     assert_equal('Post 9', plink.content)
   end
 
+  def test_nav_news_active
+    get '/post-10'
+    ok!
+
+    news_nav = @doc.at_css('ul.navigation li a.current')
+    assert_equal('news', news_nav.content)
+  end
+
 end

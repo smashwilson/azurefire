@@ -81,12 +81,15 @@ get %r{/archive(/([^/]+))?} do |_, query|
 end
 
 # Live markdown preview
+
 post '/markdown-preview' do
   RDiscount.new(params[:body], :filter_html).to_html
 end
 
 # News post permalink
+
 get '/:slug' do |slug|
+  @navigate_as = '/news'
   @post = JournalPost.with_slug slug
   halt 404 unless @post
   @next, @prev = @post.next, @post.prev
