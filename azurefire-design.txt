@@ -2,9 +2,6 @@ azurefire design
 
 = outline
 
-layout
- - header: QOTD [*]
- - highlight "news" in single-post view
 about/
  - for each author, hardcoded:
   - picture
