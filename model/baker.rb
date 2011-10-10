@@ -42,13 +42,14 @@ class Baker
 
     tie_all metas
     @index.create! metas
+    bake_rss metas
   end
 
   def comment_engine
-    @comment_template_path ||= Settings.current.view_root + '/partial_comment.haml'
-    @comment_template ||= File.read(@comment_template_path)
-    @comment_engine ||= Haml::Engine.new(@comment_template,
-      :filename => @comment_template_path)
+    return @comment_engine if @comment_engine
+    comment_template_path = Settings.current.view_root + '/partial_comment.haml'
+    comment_template = File.read(comment_template_path)
+    @comment_engine = Haml::Engine.new(comment_template, :filename => comment_template_path)
   end
 
   def bake_comment! post, comment
@@ -64,10 +65,17 @@ class Baker
   end
 
   def post_engine
-    @post_template_path ||= Settings.current.view_root + '/partial_post.haml'
-    @post_template ||= File.read(@post_template_path)
-    @post_engine ||= Haml::Engine.new(@post_template,
-      :filename => @post_template_path)
+    return @post_engine if @post_engine
+    post_template_path = Settings.current.view_root + '/partial_post.haml'
+    post_template = File.read(post_template_path)
+    @post_engine = Haml::Engine.new(post_template, :filename => post_template_path)
+  end
+
+  def rss_engine
+    return @rss_engine if @rss_engine
+    rss_template_path = Settings.current.view_root + '/rss.haml'
+    rss_template = File.read(rss_template_path)
+    @rss_engine = Haml::Engine.new(rss_template, :filename => rss_template_path)
   end
 
   def bake_post path
@@ -150,6 +158,15 @@ class Baker
     prev_path = JournalPost.prev_path_for(current)
     FileUtils.mkdir_p(File.dirname(prev_path))
     File.open(prev_path, 'w') { |outf| outf << "#{prev.slug}\t#{prev.title}" }
+  end
+
+  def bake_rss metas
+    rss_path = Settings.current.rss_path
+    posts = metas.map { |m| JournalPost.new(m) }
+
+    File.open(rss_path, 'w') do |outf|
+      outf << rss_engine.render(Object.new, :posts => posts, :settings => Settings.current)
+    end
   end
 
   class BakerProgress

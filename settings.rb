@@ -1,20 +1,37 @@
 require 'json'
 
 class Settings
-  attr_reader :post_dirs, :post_ext, :data_root, :qotd_paths
+  attr_accessor :post_dirs, :post_ext, :data_root, :qotd_paths
+  attr_accessor :public_root, :base_url
 
   AzureRoot = File.dirname(__FILE__)
   DefaultPath = AzureRoot + '/settings.json'
 
   def initialize hash
-    @post_dirs = hash["post-dirs"] || ['.']
-    @post_ext = hash["post-ext"] || '.md'
-    @data_root = hash["data-root"] || raise('Missing data-root in settings.json')
-    @qotd_paths = hash["qotd-paths"] || raise('Missing qotd-paths in settings.json')
+    {
+      'post-dirs' => :post_dirs=, 'post-ext' => :post_ext=,
+      'data-root' => :data_root=, 'qotd-paths' => :qotd_paths=,
+      'public-root' => :public_root=, 'base-url' => :base_url=
+    }.each do |json_key, mutator|
+      send mutator, (hash[json_key] || raise("Missing #{json_key} in settings.json"))
+    end
   end
 
   def view_root
     AzureRoot + '/views'
+  end
+
+  def rss_path
+    File.join(@public_root, 'feed.rss')
+  end
+
+  def rss_href
+    url 'feed.rss'
+  end
+
+  # Convenience method to quickly generate URLs under the specified base.
+  def url *parts
+    (@base_url[-1] == '/' ? @base_url : @base_url + '/') + parts.join('/')
   end
 
   def self.load string

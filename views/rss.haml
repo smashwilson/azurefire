@@ -1,0 +1,12 @@
+!!! XML
+%rss{:version => "2.0", "xmlns:atom" => "http://www.w3.org/2005/Atom"}
+  %channel
+    %title Azurefire
+    %link= settings.base_url
+    %description Thoughts, captured digitally.
+    <atom:link href="#{settings.rss_href}" rel="self" type="application/rss+xml" />
+    - posts.each do |post|
+      %item
+        %title= post.title
+        %link #{settings.url(post.slug)}
+        %description&= post.content

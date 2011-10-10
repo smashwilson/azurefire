@@ -11,6 +11,8 @@ require 'rdiscount'
 
 configure :development do |c|
   require 'sinatra/reloader'
+  c.also_reload 'settings.rb'
+  c.also_reload 'nav.rb'
   c.also_reload 'model/*.rb'
 
   # Keep debugging output nice and current in Eclipse.

@@ -110,6 +110,8 @@ class BakerTest < StorageTestCase
     assert File.exist?(temp_path 'comments/third-post/index')
 
     assert File.exist?(temp_path 'posts/archive.index')
+
+    assert File.exist?(public_path 'feed.rss')
   end
 
   def test_bake_comment
