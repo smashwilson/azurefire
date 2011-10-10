@@ -1,0 +1,50 @@
+#!/bin/env ruby
+
+require 'optparse'
+
+require_relative '../settings'
+require_relative '../model/baker'
+
+verbose = false
+
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: #{$0} [-h] [-v]"
+  opts.separator ""
+  opts.separator "Process any Markdown files in the configured post directories, preparing"
+  opts.separator "them to be available on the site."
+  opts.separator ""
+  opts.separator "Post directories scanned for '*.#{Settings.current.post_ext}' files:"
+  Settings.current.post_dirs.each do |dir|
+    opts.separator " #{dir}"
+  end
+  opts.separator ""
+  opts.separator "Other options:"
+
+  opts.on("-v", "--[no-]verbose", "Output progress information.") do |v|
+    verbose = v
+  end
+
+  opts.on("-h", "--help", "Show this message.") do
+    puts opts
+    exit 0
+  end
+end
+
+opts.parse! ARGV
+
+b = Baker.new
+b.bake! do |p|
+  slug = p.meta ? p.meta.slug : 'error'
+  puts "Baking [#{slug}]: [#{p.current} / #{p.total}]" if verbose
+end
+
+# Report any posts that produced errors.
+unless b.errors.empty?
+  if verbose
+    $stderr.puts "\nERRORS:\n"
+    b.errors.each do |e|
+      $stderr.puts " - #{e.reason}"
+    end
+  end
+  exit 1
+end

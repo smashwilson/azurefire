@@ -10,6 +10,7 @@ about/
   - bio
 
 Future
+ - use a real issue tracker. Redmine maybe?
  - deploy posts via git push
   - auto-checkout, rebake, report errors
  - prettify azure- script output (console colors, etc)
@@ -27,6 +28,5 @@ CSS work
  - more space between posts
  - revamp .markdown styling
 
-= rake [*]
-  - replace with bin/ scripts
+= bin
   - use basic file-based locking to protect concurrent index modifications
