@@ -33,7 +33,8 @@ class StorageTestCase < Test::Unit::TestCase
     Settings.current = Settings.new({
       "post-dirs" => [fixt_root],
       "post-ext" => "md",
-      "data-root" => temp_root
+      "data-root" => temp_root,
+      "qotd-paths" => [File.join(File.dirname(__FILE__), 'fixtures/fake-quotes.qotd')]
     })
   end
 

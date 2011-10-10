@@ -10,10 +10,7 @@
     %title azurefire
   %body
     %h1.banner azure<span>f</span>ire
-    .user-display TODO Quote of the day goes here.
+    .qotd= @quote.to_s
     = navigation
-    - [:success, :error].each do |type|
-      - if flash.has? type
-        .flash{ :class => type }= flash[type]
     .content
       = yield

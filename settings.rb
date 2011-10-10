@@ -1,7 +1,7 @@
 require 'json'
 
 class Settings
-  attr_reader :post_dirs, :post_ext, :data_root
+  attr_reader :post_dirs, :post_ext, :data_root, :qotd_paths
 
   AzureRoot = File.dirname(__FILE__)
   DefaultPath = AzureRoot + '/settings.json'
@@ -10,6 +10,7 @@ class Settings
     @post_dirs = hash["post-dirs"] || ['.']
     @post_ext = hash["post-ext"] || '.md'
     @data_root = hash["data-root"] || raise('Missing data-root in settings.json')
+    @qotd_paths = hash["qotd-paths"] || raise('Missing qotd-paths in settings.json')
   end
 
   def view_root

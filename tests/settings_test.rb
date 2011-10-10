@@ -8,12 +8,14 @@ class SettingsTest < StorageTestCase
 {
   "post-dirs": ["foo", "bar", "baz"],
   "post-ext": "md",
-  "data-root": "hurf"
+  "data-root": "hurf",
+  "qotd-paths": ["one.qotd", "two.qotd"]
 }
 TEXT
-    assert settings.post_dirs == ['foo', 'bar', 'baz']
-    assert settings.post_ext == 'md'
-    assert settings.data_root == 'hurf'
+    assert_equal %w{foo bar baz}, settings.post_dirs
+    assert_equal 'md', settings.post_ext
+    assert_equal 'hurf', settings.data_root
+    assert_equal %w{one.qotd two.qotd}, settings.qotd_paths
   end
 
 end

@@ -32,4 +32,12 @@ class NewsTest < WebTestCase
     assert_equal(%w{numbered multiple-of-five}, tags)
   end
 
+  def test_show_qotd
+    get '/'
+    ok!
+
+    qotd = @doc.at_css('div.qotd').content
+    assert_match(/^This is the (first|second) quote in the quote file!$/, qotd)
+  end
+
 end

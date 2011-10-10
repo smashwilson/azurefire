@@ -34,19 +34,23 @@ configure :test do |c|
 end
 
 # Load required source files.
+
 require_relative 'nav'
 require_relative 'model/comment'
 require_relative 'model/journal_post'
 require_relative 'model/archive_index'
 require_relative 'model/archive_query'
+require_relative 'model/daily_quote'
 
-# Site navigation.
+# Site navigation and daily quote.
 
 helpers do
   include NavigationHelper
 end
 
 before do
+  @quote = DailyQuote.choose
+
   menu do
     nav 'news', :default => true
     nav 'archive'
