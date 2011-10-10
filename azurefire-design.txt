@@ -3,7 +3,8 @@ azurefire design
 = outline
 
 layout
- - header: QOTD
+ - header: QOTD [*]
+ - highlight "news" in single-post view
 about/
  - for each author, hardcoded:
   - picture
@@ -32,3 +33,4 @@ CSS work
   - use all posts to build indices [*]
    - remember next/prev slugs while building index [*]
    - use basic file-based locking to protect concurrent index modifications
+  - replace with bin/ scripts
