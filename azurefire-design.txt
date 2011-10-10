@@ -2,20 +2,20 @@ azurefire design
 
 = outline
 
+layout
+ - include an explicit RSS link, for Chrome, etc.
 about/
  - for each author, hardcoded:
   - picture
   - bio
-.rss
- - query by boolean tag exp
- - current archive query sets rss <link>
 
 Future
- - prettify rake output
- - highlight administrator comments
- - deploy to production via git push
  - deploy posts via git push
   - auto-checkout, rebake, report errors
+ - prettify azure- script output (console colors, etc)
+ - highlight administrator comments; comment via azure- script
+ - comment deletion via azure- script
+ - link to a custom RSS feed from the archive page that uses the current search
  - local post preview
  - spaces in tags (auto-convert to -)
 
@@ -23,11 +23,10 @@ CSS work
  - style author/timestamp line
  - style tag list, on news/ and archive/
  - style about page
+ - RSS link
  - more space between posts
- - doublecheck .markdown styling
+ - revamp .markdown styling
 
 = rake [*]
-  - use all posts to build indices [*]
-   - remember next/prev slugs while building index [*]
-   - use basic file-based locking to protect concurrent index modifications
   - replace with bin/ scripts
+  - use basic file-based locking to protect concurrent index modifications
