@@ -9,4 +9,5 @@
       %a{ :href => to(post.slug) }= post.title
       %ul.tags
         - post.tags.each do |tag|
-          %a{ :href => "/archive/#{tag}" }= tag
+          %li
+            %a{ :href => "/archive/#{tag}" }= tag

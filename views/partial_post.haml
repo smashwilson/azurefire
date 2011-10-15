@@ -6,4 +6,5 @@
   != body
 %ul.tags
   - meta.tags.each do |t|
-    %a{ :href => "/archive/#{t}" }= t
+    %li
+      %a{ :href => "/archive/#{t}" }= t
