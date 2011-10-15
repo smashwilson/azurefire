@@ -108,5 +108,5 @@ post '/:slug' do |slug|
   comment.name = params[:name]
   comment.content = params[:body]
   @post.add_comment comment
-  redirect to("/#{slug}")
+  redirect to("/#{slug}#comment-#{comment.number}")
 end
