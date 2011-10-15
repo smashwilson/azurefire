@@ -1,0 +1,242 @@
+$side-margin: 190px;
+$header-tail: 140px;
+$azure-color: #06f;
+$azure-bg-color: #cef;
+$fire-color: #f50;
+$dark-bg-color: #eee;
+$dark-color: #999;
+
+// Globally applicable styles
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Corbel, Verdana, Helvetica, sans-serif;
+}
+
+a {
+  color: $azure-color;
+  text-decoration: none;
+}
+
+a:hover, a.current {
+  text-decoration: underline;
+}
+
+ul.tags li {
+  list-style: none;
+  display: inline;
+  a {
+    background: $dark-bg-color;
+    border: 2px outset $dark-bg-color;
+    padding: 0 4px;
+  }
+}
+
+// Banner
+
+h1.banner {
+  padding-top: 10px;
+  height: 90px;
+  text-indent: $side-margin;
+  font-size: 35pt;
+  font-weight: normal;
+  font-family: Arial, sans-serif;
+  letter-spacing: 30px;
+  background: url(header.jpg) no-repeat center top;
+  span {
+    font-size: 50pt;
+    color: $azure-color;
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+  }
+}
+
+.qotd {
+  padding: 5px $side-margin;
+  font-size: 10pt;
+  text-align: right;
+  background: url(headerline.jpg) no-repeat center top;
+  font-style: italic;
+}
+
+// Site navigation
+
+ul.navigation {
+  padding: 3px $side-margin;
+  background-color: black;
+  li {
+    list-style: none;
+    display: inline;
+    padding: 3px 0;
+    a {
+      color: white;
+      padding: 3px 15px;
+      background: url(navbuttonup.gif) no-repeat;
+    }
+    a:hover {
+      background: url(navbuttondown.gif) no-repeat;
+    }
+  }
+}
+
+.content {
+  margin: 0 $side-margin;
+}
+
+// Markdown content
+
+.markdown {
+  p {
+    margin: 1em 0;
+  }
+}
+
+// News frontpage and single-post view
+
+a.rss {
+  margin-right: -$header-tail;
+  float: right;
+  padding-left: 25px;
+  background: url(feed-icon-16x16.png) no-repeat left center;
+}
+
+.local-nav {
+  margin-top: 15px ;
+  height: 20px;
+  a {
+    color: $dark-color;
+    height: 20px;
+    &.prev {
+      float: left;
+      padding-left: 20px;
+      background: url(prev-arrow.png) no-repeat left center;
+    }
+    &.next {
+      float: right;
+      padding-right: 20px;
+      background: url(next-arrow.png) no-repeat right center;
+    }
+  }
+}
+
+.post {
+  margin: 30px 0;
+  .header {
+    .author {
+      display: inline-block;
+      margin-left: -$header-tail;
+      width: $header-tail - 10px;
+      text-align: right;
+      font-weight: bold;
+    }
+    .timestamp {
+      display: inline-block;
+      background: $dark-bg-color url(post-banner.png) no-repeat left center;
+      padding-left: 35px;
+      width: 96%;
+      font-style: italic;
+    }
+    .title {
+      color: $fire-color;
+      width: 100%;
+      margin-top: 4pt;
+      font-size: 25pt;
+      font-family: Georgia, serif;
+    }
+  }
+}
+
+ul.controls {
+  list-style-type: none;
+  margin: 15px 0 3px 0;
+  li {
+    margin: 0 10px;
+    display: inline;
+  }
+  li:first-child {
+    margin-left: 0;
+  }
+}
+
+ul.comments {
+  list-style-type: none;
+  li {
+    margin: 1em 0;
+    padding: 0.5em 1em;
+    border: solid 1px #999;
+    .administrator {
+      background: #eee;
+    }
+    .name {
+      color: $fire-color;
+      font-size: 80%;
+      font-style: italic;
+    }
+  }
+  li.new {
+    background: #eee;
+    form {
+      p {
+        margin: 0.5em 0;
+      }
+      label {
+        margin-right: 5px;
+        font-size: 80%;
+        color: #999;
+      }
+      textarea {
+        width: 100%;
+        height: 10em;
+      }
+      input.submit {
+        padding: 3px 10px;
+      }
+    }
+    #comment-preview {
+      //
+    }
+  }
+}
+
+// Archive styles
+
+.query {
+  margin: 1em 0;
+  padding: 1em;
+  background: #eee;
+  border: solid 1px #999;
+  text-align: center;
+}
+
+ul.results {
+  list-style-type: none;
+  border: solid 1px #999;
+  li {
+    padding: 5px 0.5em;
+    span {
+      color: #999;
+    }
+    span.timestamp {
+      display: inline-block;
+      width: 180px;
+      margin-right: 2px;
+      text-align: right;
+    }
+    span.separator {
+      margin: 0 2px;
+    }
+    span.author {
+      margin: 0 10px 0 2px;
+    }
+    ul.tags {
+      float: right;
+      li {
+        padding: 0;
+      }
+    }
+  }
+  li.odd {
+    background: $azure-bg-color;
+  }
+}
