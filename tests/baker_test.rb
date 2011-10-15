@@ -126,7 +126,8 @@ class BakerTest < StorageTestCase
 
     b.bake_comment! post, comment0
 
-    comment_file = temp_path "comments/sample-post/#{comment0.hash}.html"
+    assert_equal("0000.html", comment0.filename)
+    comment_file = temp_path "comments/sample-post/#{comment0.filename}"
     assert File.exist?(comment_file)
     comment_doc = Nokogiri::HTML(File.read(comment_file))
     assert_equal('foo', comment_doc.at_css('p.name').content)
@@ -138,10 +139,11 @@ class BakerTest < StorageTestCase
 
     b.bake_comment! post, comment1
 
+    assert_equal("0001.html", comment1.filename)
     index_file = temp_path "comments/sample-post/index"
     assert File.exist?(index_file)
     entries = File.read(index_file).split("\n")
-    assert_equal([comment0.hash, comment1.hash], entries)
+    assert_equal([comment0.filename, comment1.filename], entries)
   end
 
 end

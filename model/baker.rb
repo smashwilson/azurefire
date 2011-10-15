@@ -55,16 +55,19 @@ class Baker
   end
 
   def bake_comment! post, comment
-    post.comment_index.lock do
+    index = post.comment_index
+    index.lock do
+      comment.number = index.unique_count
+
       FileUtils.mkdir_p(post.comment_path)
-      path = File.join(post.comment_path, "#{comment.hash}.html")
+      path = File.join(post.comment_path, comment.filename)
       File.open(path, 'w') do |cfile|
         body = RDiscount.new(comment.content, :filter_html).to_html
         cfile.print(comment_engine.render(Object.new,
           :comment => comment, :body => body))
       end
 
-      post.comment_index.append(comment)
+      index.append(comment)
     end # Release comment index lock
   end
 

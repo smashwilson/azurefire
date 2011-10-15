@@ -63,6 +63,8 @@ class JournalPostTest < StorageTestCase
     File.open(temp_path('posts/exists.html'), 'w') do |f|
       f.puts "Expected post content"
     end
+    FileUtils.mkdir_p(temp_path 'comments/exists')
+    File.open(temp_path('comments/exists/index'), 'w') { |f| }
 
     post = JournalPost.with_slug 'exists'
     ['one', 'two', 'three'].each do |num|
@@ -84,6 +86,8 @@ class JournalPostTest < StorageTestCase
     File.open(temp_path('posts/exists.html'), 'w') do |f|
       f.puts "Expected post content"
     end
+    FileUtils.mkdir_p(temp_path 'comments/exists')
+    File.open(temp_path('comments/exists/index'), 'w') { |f| }
 
     post = JournalPost.with_slug 'exists'
     ['one', 'two', 'three'].each do |num|

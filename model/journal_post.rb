@@ -46,7 +46,7 @@ class JournalPost
   end
 
   def comment_count
-    comment_index.size
+    comment_index.live_count
   end
 
   def add_comment comment
