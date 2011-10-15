@@ -51,11 +51,11 @@ end
 
 not_found { haml :'404' }
 
-# Run stylesheets through sass.
+# Run stylesheets through scss.
 
 get %r{/([^.]+).css} do |name|
   content_type 'text/css', :charset => 'utf-8'
-  sass name.to_sym
+  scss name.to_sym
 end
 
 # About page
