@@ -29,4 +29,6 @@ CSS work
  - revamp .markdown styling
 
 = bin
-  - use basic file-based locking to protect concurrent index modifications
+  - use basic file-based locking to protect concurrent index modifications [..]
+   - test on Linux
+  - one-up numbers for comments; reflect in div id [..]

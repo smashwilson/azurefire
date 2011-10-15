@@ -1,3 +1,5 @@
+require 'lockfile'
+
 require_relative '../settings'
 
 class CommentIndex
@@ -9,6 +11,13 @@ class CommentIndex
 
   def path
     File.join(@post.comment_path, 'index')
+  end
+
+  def lock
+    return yield if RUBY_PLATFORM =~ /w32$/
+    Lockfile("#{path}.lock", :min_sleep => 0.1, :sleep_inc => 0.1) do
+      yield
+    end
   end
 
   def path_for hash

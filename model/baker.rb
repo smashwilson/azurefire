@@ -27,22 +27,24 @@ class Baker
   def bake!
     reset
 
-    post_paths = Settings.current.post_dirs.map do |post_dir|
-      Dir["#{post_dir}/*.#{Settings.current.post_ext}"]
-    end.flatten
+    @index.lock do
+      post_paths = Settings.current.post_dirs.map do |post_dir|
+        Dir["#{post_dir}/*.#{Settings.current.post_ext}"]
+      end.flatten
 
-    progress = BakerProgress.new(post_paths.size)
-    metas = post_paths.map do |path|
-      meta = bake_post(path)
-      progress.increment meta
-      yield progress if block_given?
-      meta
-    end
-    metas = metas.reject { |e| e.nil? }.sort
+      progress = BakerProgress.new(post_paths.size)
+      metas = post_paths.map do |path|
+        meta = bake_post(path)
+        progress.increment meta
+        yield progress if block_given?
+        meta
+      end
+      metas = metas.reject { |e| e.nil? }.sort
 
-    tie_all metas
-    @index.create! metas
-    bake_rss metas
+      tie_all metas
+      @index.create! metas
+      bake_rss metas
+    end # Release archive index lock
   end
 
   def comment_engine
@@ -53,15 +55,17 @@ class Baker
   end
 
   def bake_comment! post, comment
-    FileUtils.mkdir_p(post.comment_path)
-    path = File.join(post.comment_path, "#{comment.hash}.html")
-    File.open(path, 'w') do |cfile|
-      body = RDiscount.new(comment.content, :filter_html).to_html
-      cfile.print(comment_engine.render(Object.new,
-        :comment => comment, :body => body))
-    end
+    post.comment_index.lock do
+      FileUtils.mkdir_p(post.comment_path)
+      path = File.join(post.comment_path, "#{comment.hash}.html")
+      File.open(path, 'w') do |cfile|
+        body = RDiscount.new(comment.content, :filter_html).to_html
+        cfile.print(comment_engine.render(Object.new,
+          :comment => comment, :body => body))
+      end
 
-    post.comment_index.append(comment)
+      post.comment_index.append(comment)
+    end # Release comment index lock
   end
 
   def post_engine

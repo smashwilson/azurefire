@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'lockfile'
 
 require_relative '../settings'
 require_relative '../model/journal_post'
@@ -14,6 +15,14 @@ class ArchiveIndex
   # data root.
   def path
     File.join(Settings.current.data_root, 'posts', 'archive.index')
+  end
+
+  # Call with a block to ensure that only one process is altering this index.
+  def lock
+    return yield if RUBY_PLATFORM =~ /w32$/
+    Lockfile("#{path}.lock", :min_sleep => 0.1, :sleep_inc => 0.1) do
+      yield
+    end
   end
 
   # Encode JournalPostMetadata as a tab-delimited string.

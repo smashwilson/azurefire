@@ -6,6 +6,7 @@ gem 'sass'
 gem 'rdiscount'
 gem 'nokogiri'
 gem 'json'
+gem 'lockfile'
 
 gem 'rack'
 gem 'rack-flash'
