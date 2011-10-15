@@ -2,8 +2,6 @@ azurefire design
 
 = outline
 
-layout
- - include an explicit RSS link, for Chrome, etc.
 about/
  - for each author, hardcoded:
   - picture
@@ -31,4 +29,3 @@ CSS work
 = bin
   - use basic file-based locking to protect concurrent index modifications [..]
    - test on Linux
-  - one-up numbers for comments; reflect in div id [..]
