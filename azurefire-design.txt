@@ -19,11 +19,7 @@ Future
  - spaces in tags (auto-convert to -)
 
 CSS work
- - style author/timestamp line
- - style tag list, on news/ and archive/
  - style about page
- - RSS link
- - more space between posts
  - revamp .markdown styling
 
 = bin
