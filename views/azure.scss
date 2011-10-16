@@ -90,6 +90,28 @@ ul.navigation {
   p {
     margin: 1em 0;
   }
+  ul {
+    margin-left: 1em;
+    list-style-type: square;
+  }
+  ol {
+    margin-left: 1em;
+  }
+  hr {
+    margin: 1em 0;
+  }
+  blockquote {
+    margin: 0.5em;
+    padding: 0.5em 1em;
+    background: $azure-bg-color;
+    p { margin: 0; }
+  }
+  pre {
+    margin: 5px;
+    padding: 10px;
+    background: $dark-bg-color;
+    code { font-family: Monaco, "Andale Mono", Courier, monospace; }
+  }
 }
 
 // News frontpage and single-post view
@@ -144,6 +166,9 @@ a.rss {
       font-size: 25pt;
       font-family: Georgia, serif;
     }
+  }
+  .markdown {
+    margin-bottom: 10px;
   }
 }
 

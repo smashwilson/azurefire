@@ -10,7 +10,7 @@
     = "comments (#{@post.comment_count})"
 %ul.comments
   - @post.each_rendered_comment do |c|
-    %li!= c
+    %li!~ c
   %li.new
     %form{ :method => 'post' }
       %p
