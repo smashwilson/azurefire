@@ -61,7 +61,7 @@ end
 # About page
 
 get '/about' do
-  haml '%p.empty about page'
+  haml :about
 end
 
 # News page

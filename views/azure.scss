@@ -199,27 +199,21 @@ ul.comments {
       font-style: italic;
     }
   }
-  li.new {
-    background: #eee;
-    form {
-      p {
-        margin: 0.5em 0;
-      }
-      label {
-        margin-right: 5px;
-        font-size: 80%;
-        color: #999;
-      }
-      textarea {
-        width: 100%;
-        height: 10em;
-      }
-      input.submit {
-        padding: 3px 10px;
-      }
+  li.new form {
+    p {
+      margin: 0.5em 0;
     }
-    #comment-preview {
-      //
+    label {
+      margin-right: 5px;
+      font-size: 80%;
+      color: #999;
+    }
+    textarea {
+      width: 100%;
+      height: 10em;
+    }
+    input.submit {
+      padding: 3px 10px;
     }
   }
 }
@@ -264,4 +258,30 @@ ul.results {
   li.odd {
     background: $azure-bg-color;
   }
+}
+
+// About styles
+
+.about {
+  margin: 1em 0;
+  h2 {
+    background: $dark-bg-color url(post-banner.png) no-repeat left center;
+    height: 19px;
+    margin: 0.5em 0 0.5em -30px;
+    padding-left: 35px;
+    font-size: 12pt;
+  }
+  ul.contact {
+    margin-top: 10px;
+    li {
+      display: inline;
+      margin-right: 10px;
+    }
+  }
+}
+
+.attribution {
+  color: $dark-color;
+  font-style: italic;
+  margin-top: 30px;
 }
