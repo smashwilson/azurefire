@@ -20,7 +20,6 @@ Future
 
 CSS work
  - style about page
- - revamp .markdown styling
 
 = bin
   - use basic file-based locking to protect concurrent index modifications [..]
