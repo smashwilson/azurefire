@@ -4,7 +4,10 @@
 
 # Ignore persisted data.
 settings.json
-data/
+data-root/
 
 # Ignore sass cache.
 .sass-cache/
+
+# Ignore the tmp/ folder, used to restart on production.
+tmp/
