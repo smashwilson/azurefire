@@ -7,6 +7,7 @@ GEM
     lockfile (1.4.3)
     monkey-lib (0.5.4)
       backports
+    nokogiri (1.5.0)
     nokogiri (1.5.0-x86-mingw32)
     rack (1.3.4)
     rack-flash (0.1.2)
@@ -34,6 +35,7 @@ GEM
     tilt (1.3.3)
 
 PLATFORMS
+  ruby
   x86-mingw32
 
 DEPENDENCIES
