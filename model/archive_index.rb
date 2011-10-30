@@ -19,6 +19,7 @@ class ArchiveIndex
 
   # Call with a block to ensure that only one process is altering this index.
   def lock
+    FileUtils.mkdir_p(File.dirname(path))
     return yield if RUBY_PLATFORM =~ /w32$/
     Lockfile("#{path}.lock", :min_sleep => 0.1, :sleep_inc => 0.1) do
       yield

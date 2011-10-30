@@ -60,7 +60,7 @@ class JournalPostMetadata
       else
         stat.mtime
       end
-      inst.author = data['author'] || Etc.getpwuid(stat.uid)
+      inst.author = data['author'] || Etc.getpwuid(stat.uid).name
       inst.tags = data['tags'] || []
     end
   end
