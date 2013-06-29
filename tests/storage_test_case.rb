@@ -52,7 +52,7 @@ class StorageTestCase < Test::Unit::TestCase
   end
 
   def teardown
-    FileUtils.rm_r(temp_root, :secure => true) if Dir.exists? temp_root
+    FileUtils.rm_r(temp_root, secure: true) if Dir.exists? temp_root
   end
 
 end

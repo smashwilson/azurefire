@@ -94,7 +94,7 @@ class ArchiveIndex
   # Utility method extracted from #each_post so that the iteration can be
   # terminated prematurely without leaving the file handle open.
   def each_post_from f
-    f.lines do |line|
+    f.each_line do |line|
       return if (yield JournalPost.new(read_meta line)) == :stop
     end
   end

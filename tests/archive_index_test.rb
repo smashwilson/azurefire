@@ -19,9 +19,9 @@ class ArchiveIndexTest < StorageTestCase
     end
 
     File.open(temp_path('posts/archive.index'), 'w') do |f|
-      f.puts "2011-09-03 16:00:00 -0400\ttagone,tagtwo\tauthor\tthird\tThird"
-      f.puts "2011-09-02 16:00:00 -0400\ttagone\tauthor\tsecond\tSecond"
-      f.puts "2011-09-01 16:00:00 -0400\ttagtwo\tauthor\tfirst\tFirst"
+      f.puts "2011-09-03 16:00:00 +0000\ttagone,tagtwo\tauthor\tthird\tThird"
+      f.puts "2011-09-02 16:00:00 +0000\ttagone\tauthor\tsecond\tSecond"
+      f.puts "2011-09-01 16:00:00 +0000\ttagtwo\tauthor\tfirst\tFirst"
     end
   end
 
@@ -35,7 +35,7 @@ class ArchiveIndexTest < StorageTestCase
 
     i = ArchiveIndex.new
     entry = i.write_meta(meta)
-    assert_equal("2011-09-18 16:00:00 -0400\tfoo,bar,baz\tauthor\ttitle\tTitle", entry)
+    assert_equal("2011-09-18 16:00:00 +0000\tfoo,bar,baz\tauthor\ttitle\tTitle", entry)
   end
 
   def test_index_all
@@ -57,8 +57,8 @@ class ArchiveIndexTest < StorageTestCase
     i.create! [meta0, meta1].sort
 
     lines = File.read(temp_path 'posts/archive.index').split("\n")
-    assert_equal("2011-09-19 16:00:00 -0400\tfoo,thing\tauthor\tsecond\tSecond", lines[0])
-    assert_equal("2011-09-18 16:00:00 -0400\tfoo,bar,baz\tauthor\tfirst\tFirst", lines[1])
+    assert_equal("2011-09-19 16:00:00 +0000\tfoo,thing\tauthor\tsecond\tSecond", lines[0])
+    assert_equal("2011-09-18 16:00:00 +0000\tfoo,bar,baz\tauthor\tfirst\tFirst", lines[1])
   end
 
   def test_enumerate_content

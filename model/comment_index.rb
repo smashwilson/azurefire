@@ -32,7 +32,7 @@ class CommentIndex
 
   def each
     File.open(path, 'r') do |f|
-      f.lines do |line|
+      f.each_line do |line|
         cpath = path_for line.chomp
         yield File.read(cpath) if File.exist?(cpath)
       end
