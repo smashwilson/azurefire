@@ -12,4 +12,5 @@ data-root/
 # Ignore the tmp/ folder, used to restart on production.
 tmp/
 
-unicorn.rb
+# Vagrant data
+.vagrant/
