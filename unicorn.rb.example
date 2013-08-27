@@ -1,0 +1,17 @@
+# The path that will be used to configure unicorn.
+@dir = "/var/webapp/azurefire/"
+
+worker_processes 2
+working_directory @dir
+
+timeout 30
+
+# Path to the domain socket that unicorn listens to.
+listen "#{@dir}tmp/sockets/unicorn.sock", backlog: 64
+
+# Process PID path
+pid "#{@dir}tmp/pids/unicorn.pid"
+
+# Log file paths
+stderr_path "#{@dir}log/unicorn.stderr.log"
+stdout_path "#{@dir}log/unicorn.stdout.log"
