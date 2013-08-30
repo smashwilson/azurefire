@@ -12,3 +12,5 @@ gem 'rack'
 gem 'rack-flash'
 gem 'rack-test'
 gem 'sinatra-reloader'
+
+gem 'unicorn'

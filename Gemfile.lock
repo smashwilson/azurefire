@@ -7,6 +7,7 @@ GEM
     haml (4.0.3)
       tilt
     json (1.8.0)
+    kgio (2.8.0)
     lockfile (2.1.0)
     mini_portile (0.5.0)
     nokogiri (1.6.0)
@@ -20,6 +21,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    raindrops (0.11.0)
     rdiscount (2.1.6)
     sass (3.2.9)
     sinatra (1.4.3)
@@ -36,6 +38,10 @@ GEM
     sinatra-reloader (1.0)
       sinatra-contrib
     tilt (1.4.1)
+    unicorn (4.6.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
 
 PLATFORMS
   ruby
@@ -53,3 +59,4 @@ DEPENDENCIES
   sass
   sinatra
   sinatra-reloader
+  unicorn
