@@ -6,19 +6,24 @@
     %a.next{ :href => "/#{@next.slug}" }= @next.title
 .post
   != @post.content
-%ul.controls
-  %li.comment-count
-    = "comments (#{@post.comment_count})"
 %ul.comments
-  - @post.each_rendered_comment do |c|
-    %li!~ c
-  %li.new
-    %form{ :method => 'post' }
-      %p
-        %label{ :for => 'name' } name (optional)
-        %input{ :type => 'text', :id => 'name', :class => 'name', :name => 'name' }
-      %p
-        %textarea{ :id => 'comment-body', :name => 'body' }
-      %p
-        %input{ :type => 'submit', :class => 'submit', :value => 'Submit' }
-    %div{ :id => 'comment-preview' }
+  %li{style: 'color: #333; font-style: italic; text-align: center'}
+    Sorry, comments temporarily disabled
+
+-#
+  %ul.controls
+    %li.comment-count
+      = "comments (#{@post.comment_count})"
+  %ul.comments
+    - @post.each_rendered_comment do |c|
+      %li!~ c
+    %li.new
+      %form{ :method => 'post' }
+        %p
+          %label{ :for => 'name' } name (optional)
+          %input{ :type => 'text', :id => 'name', :class => 'name', :name => 'name' }
+        %p
+          %textarea{ :id => 'comment-body', :name => 'body' }
+        %p
+          %input{ :type => 'submit', :class => 'submit', :value => 'Submit' }
+      %div{ :id => 'comment-preview' }

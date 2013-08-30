@@ -102,11 +102,12 @@ end
 # Comment post
 
 post '/:slug' do |slug|
-  @post = JournalPost.with_slug slug
-  halt 404 unless @post
-  comment = Comment.new
-  comment.name = params[:name]
-  comment.content = params[:body]
-  @post.add_comment comment
-  redirect to("/#{slug}#comment-#{comment.number}")
+  # @post = JournalPost.with_slug slug
+  # halt 404 unless @post
+  # comment = Comment.new
+  # comment.name = params[:name]
+  # comment.content = params[:body]
+  # @post.add_comment comment
+  # redirect to("/#{slug}#comment-#{comment.number}")
+  redirect to("/#{slug}") 
 end
