@@ -5,7 +5,7 @@ minimalist Sinatra app that I use to host my personal blog, or whatever else
 I want to do with that space in the future.
 
 Everything related to the blog engine is file-based. Markdown posts and
-comments are "baked" to html and rendered in-place in the haml views.
+comments are "baked" to html and rendered in-place by the haml templates.
 
 ## Why build my own blog engine?
 
