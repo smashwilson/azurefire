@@ -1,4 +1,0 @@
-#!/usr/bin/env ruby
-# Run all unit tests.
-
-require_relative '../tests/all'
