@@ -1,5 +1,7 @@
 # azurefire
 
+[![Build Status](https://travis-ci.org/smashwilson/azurefire.png?branch=master)](https://travis-ci.org/smashwilson/azurefire)
+
 This is the code that powers [azurefire.net](http://azurefire.net/). It's a
 minimalist Sinatra app that I use to host my personal blog, or whatever else
 I want to do with that space in the future.
