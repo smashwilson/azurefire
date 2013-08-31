@@ -1,5 +1,0 @@
-{
-  'this is incorrect JSON' => 'huh'
-}
-
-The parsing exception should be caught and recorded by the Baker.

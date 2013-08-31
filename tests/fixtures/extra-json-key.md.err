@@ -1,5 +1,0 @@
-{
-  "tiiiiitle": "This should raise an exception"
-}
-
-This post shouldn't be rendered, because it's JSON header contains an unrecognized key.
