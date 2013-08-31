@@ -30,6 +30,10 @@ module StorageHelpers
     File.join(public_path, *paths)
   end
 
+  def qotd_path
+    File.join(__dir__, '..', 'fixtures', 'fake-quotes.qotd')
+  end
+
   # Temporary storage filesystem manipulation.
 
   def clear_temp!
@@ -51,7 +55,7 @@ module StorageHelpers
       'data-root' => temp_root,
       'public-root' => public_root,
       'base-url' => 'http://example.com/',
-      'qotd-paths' => [fixt_path('fake-quotes.qotd')]
+      'qotd-paths' => [qotd_path]
     )
   end
 
