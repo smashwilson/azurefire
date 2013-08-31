@@ -1,0 +1,6 @@
+{
+  "title": "Post with invalid characters in its tags",
+  "tags": ["foo\tbar"]
+}
+
+This post shouldn't be baked because it has invalid characters in its tags.
