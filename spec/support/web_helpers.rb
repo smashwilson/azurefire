@@ -10,7 +10,7 @@ module WebHelpers
   end
 
   def ok!
-    puts last_response.errors if last_response.errors
+    puts last_response.errors unless last_response.errors.empty?
     last_response.should be_ok
     parse
   end
