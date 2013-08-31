@@ -1,6 +1,7 @@
 # Ignore Eclipse metadata.
 .project
 .loadpath
+*.swp
 
 # Ignore persisted data.
 settings.json
