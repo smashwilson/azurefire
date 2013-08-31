@@ -1,6 +1,5 @@
 azurefire design
 
-- Convert tests to rspec. [..]
 - Automate scss compilation and rspec execution with rake.
  - Add to azure-deploy.
 - Simple spam detection. A honeypot field, probably.
