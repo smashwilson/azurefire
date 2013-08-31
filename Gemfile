@@ -10,7 +10,14 @@ gem 'lockfile'
 
 gem 'rack'
 gem 'rack-flash'
-gem 'rack-test'
-gem 'sinatra-reloader'
 
 gem 'unicorn'
+
+group :development do
+  gem 'sinatra-reloader'
+end
+
+group :test do
+  gem 'rspec'
+  gem 'rack-test'
+end
