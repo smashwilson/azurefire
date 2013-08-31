@@ -5,11 +5,11 @@ module StorageHelpers
   # Common paths.
 
   def fixt_root
-    File.join(__dir__, 'fixtures')
+    File.join(__dir__, '..', 'fixtures')
   end
 
   def temp_root
-    File.join(__dir__, '..', 'tmp')
+    File.join(__dir__, '..', '..', 'tmp')
   end
 
   def public_root
