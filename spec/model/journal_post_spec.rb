@@ -5,6 +5,11 @@ require 'fileutils'
 require 'nokogiri'
 
 describe JournalPost do
+  include StorageHelpers
+
+  before { setup_storage }
+  after { teardown_storage }
+
   it 'generates its storage path' do
     meta = JournalPostMetadata.new
     meta.slug = 'hello'

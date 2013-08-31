@@ -3,6 +3,11 @@ require 'time'
 require 'fileutils'
 
 describe ArchiveIndex do
+  include StorageHelpers
+
+  before { setup_storage }
+  after { teardown_storage }
+
   it 'creates an index entry' do
     meta = JournalPostMetadata.new
     meta.author = 'author'
