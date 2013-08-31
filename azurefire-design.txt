@@ -1,14 +1,12 @@
 azurefire design
 
-= outline
-
-about/
- - for each author, hardcoded:
-  - picture
-  - bio
+- Convert tests to rspec.
+- Automate scss compilation and rspec execution with rake.
+ - Add to azure-deploy.
+- Simple spam detection. A honeypot field, probably.
 
 Future
- - use a real issue tracker. Redmine maybe?
+ - use a real issue tracker.
  - deploy posts via git push
   - auto-checkout, rebake, report errors
  - prettify azure- script output (console colors, etc)
@@ -17,10 +15,3 @@ Future
  - link to a custom RSS feed from the archive page that uses the current search
  - local post preview
  - spaces in tags (auto-convert to -)
-
-CSS work
- - style about page
-
-= bin
-  - use basic file-based locking to protect concurrent index modifications [..]
-   - test on Linux
