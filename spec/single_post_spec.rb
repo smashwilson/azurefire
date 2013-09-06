@@ -24,8 +24,6 @@ describe '/<post-slug>' do
   end
 
   it 'accepts a comment POST' do
-    pending 'comments disabled'
-
     post '/post-10', name: 'someone', body: "# heading\n\nbody"
     follow_redirect!
     ok!
@@ -37,15 +35,11 @@ describe '/<post-slug>' do
   end
 
   it 'gives a 404 when attempting to POST a comment to a missing post' do
-    pending 'comments disabled'
-
     post '/huuurf', name: 'me', body: 'in your face!'
     last_response.status.should == 404
   end
 
   it 'shows the current comment count' do
-    pending 'comments disabled'
-
     post '/post-10', name: 'first', body: 'First comment'
     post '/post-10', name: 'second', body: 'Second comment'
     post '/post-10', name: 'third', body: 'Third comment'
