@@ -59,10 +59,13 @@ describe '/<post-slug>' do
 
     it 'includes an obfuscated timestamp field' do
       ts_field = field_name(sp, 'timestamp')
-      @form.at_xpath("//input[@name='#{ts_field}']")[:value].should == Digest::SHA2.hexdigest(ts.to_s)
+      @form.at_xpath("//input[@name='#{ts_field}']")[:value].should == hash(ts.to_s)
     end
 
-    it 'includes an obfuscated entry slug'
+    it 'includes an obfuscated entry slug' do
+      slug_field = field_name(sp, 'slug')
+      @form.at_xpath("//input[@name='#{slug_field}']")[:value].should == hash('post-10')
+    end
 
     it 'conceals the input names of the name and body fields'
 
