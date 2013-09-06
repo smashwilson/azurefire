@@ -27,6 +27,8 @@ end
 # Load required source files.
 
 require_relative 'nav'
+require_relative 'honeypot'
+
 require_relative 'model/comment'
 require_relative 'model/journal_post'
 require_relative 'model/archive_index'
@@ -37,6 +39,7 @@ require_relative 'model/daily_quote'
 
 helpers do
   include NavigationHelper
+  include Honeypot
 end
 
 before do
@@ -104,9 +107,16 @@ end
 post '/:slug' do |slug|
   @post = JournalPost.with_slug slug
   halt 404 unless @post
-  comment = Comment.new
-  comment.name = params[:name]
-  comment.content = params[:body]
-  @post.add_comment comment
-  redirect to("/#{slug}#comment-#{comment.number}")
+
+  # Detect the RSpec token. If it's present (and matches the application secret),
+  # we're running in RSpec and can bypass spam detection.
+  if params[:rspec_secret] == secret
+    comment = Comment.new
+    comment.name = params[:name]
+    comment.content = params[:body]
+    @post.add_comment comment
+    redirect to("/#{slug}#comment-#{comment.number}")
+  else
+    # Spam detection.
+  end
 end

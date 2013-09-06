@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe '/<post-slug>' do
   include WebHelpers
+  include Honeypot
+
   before { setup_storage }
   after { teardown_storage }
 
@@ -24,7 +26,7 @@ describe '/<post-slug>' do
   end
 
   it 'accepts a comment POST' do
-    post '/post-10', name: 'someone', body: "# heading\n\nbody"
+    post '/post-10', name: 'someone', body: "# heading\n\nbody", rspec_secret: secret
     follow_redirect!
     ok!
 
@@ -40,9 +42,9 @@ describe '/<post-slug>' do
   end
 
   it 'shows the current comment count' do
-    post '/post-10', name: 'first', body: 'First comment'
-    post '/post-10', name: 'second', body: 'Second comment'
-    post '/post-10', name: 'third', body: 'Third comment'
+    post '/post-10', name: 'first', body: 'First comment', rspec_secret: secret
+    post '/post-10', name: 'second', body: 'Second comment', rspec_secret: secret
+    post '/post-10', name: 'third', body: 'Third comment', rspec_secret: secret
 
     follow_redirect!
     ok!
