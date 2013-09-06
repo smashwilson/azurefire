@@ -18,10 +18,10 @@
       %input{ :type => 'hidden', :name => field_name(@spinner, 'timestamp'), :value => hash(@ts) }
       %input{ :type => 'hidden', :name => field_name(@spinner, 'slug'), :value => hash(@post.slug) }
       %p
-        %label{ :for => 'name' } name (optional)
-        %input{ :type => 'text', :id => 'name', :class => 'name', :name => 'name' }
+        %label{ :for => @name_field } name (optional)
+        %input{ :type => 'text', :id => @name_field, :class => @name_css, :name => @name_field }
       %p
-        %textarea{ :id => 'comment-body', :name => 'body' }
+        %textarea{ :id => @body_field, :class => @body_css, :name => @body_field }
       %p
-        %input{ :type => 'submit', :class => 'submit', :value => 'Submit' }
+        %input{ :type => 'submit', :class => @submit_field, :name => @submit_field, :value => 'Submit' }
     %div{ :id => 'comment-preview' }

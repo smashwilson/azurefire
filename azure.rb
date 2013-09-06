@@ -109,6 +109,19 @@ get '/:slug' do |slug|
   @ts = timestamp
   @spinner = spinner(@ts, request.ip, slug)
 
+  # Generate the hashed field name and CSS class factor for the name field. The
+  # name CSS class should be a multiple of 5.
+  @name_field = field_name(@spinner, 'name')
+  @name_css = "comment-#{5 * (rand(10) + 1)}"
+
+  # Similarly generate the body factor. Body CSS classes are multiples of 3.
+  @body_field = field_name(@spinner, 'body')
+  @body_css = "comment-#{3 * (rand(33) + 1)}"
+
+  # And the submit button. The submit button's CSS class is a multiple of 7.
+  @submit_field = field_name(@spinner, 'submit')
+  @submit_css = "comment-#{7 * (rand(14) + 1)}"
+
   haml :single_post
 end
 

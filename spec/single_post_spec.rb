@@ -53,6 +53,15 @@ describe '/<post-slug>' do
       @form = @doc.at_css('ul.comments li.new form')
     end
 
+    def klass_modulo nodes, factor
+      nodes.should_not be_nil
+      klasses = nodes[:class].split
+      klasses.size.should == 1
+      klasses.map { |kls| kls[/comment-(\d+)/] }.each do |numeric|
+        (numeric.to_i % factor).should == 0
+      end
+    end
+
     it 'generates a spinner field' do
       @form.at_xpath('//input[@name="spinner"]')[:value].should == sp
     end
@@ -67,7 +76,16 @@ describe '/<post-slug>' do
       @form.at_xpath("//input[@name='#{slug_field}']")[:value].should == hash('post-10')
     end
 
-    it 'conceals the input names of the name and body fields'
+    it 'conceals the input names of the name and body fields, and the submit button' do
+      name_field = field_name(sp, 'name')
+      klass_modulo @form.at_xpath("//input[@name='#{name_field}']"), 5
+
+      body_field = field_name(sp, 'body')
+      klass_modulo @form.at_xpath("//textarea[@name='#{body_field}']"), 3
+
+      submit_field = field_name(sp, 'submit')
+      klass_modulo @form.at_xpath("//input[@name='#{submit_field}']"), 7
+    end
 
     it 'includes honeypot fields for the unwary bot'
   end
