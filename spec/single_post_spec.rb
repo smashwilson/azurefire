@@ -76,13 +76,17 @@ describe '/<post-slug>' do
       @form.at_xpath("//input[@name='#{slug_field}']")[:value].should == hash('post-10')
     end
 
-    it 'conceals the input names of the name and body fields, and the submit button' do
+    it 'conceals the input names of the name field' do
       name_field = field_name(sp, 'name')
       klass_modulo @form.at_xpath("//input[@name='#{name_field}']"), 5
+    end
 
+    it 'conceals the name of the comment body field' do
       body_field = field_name(sp, 'body')
       klass_modulo @form.at_xpath("//textarea[@name='#{body_field}']"), 3
+    end
 
+    it 'obfuscates the submit button' do
       submit_field = field_name(sp, 'submit')
       klass_modulo @form.at_xpath("//input[@name='#{submit_field}']"), 7
     end
