@@ -13,6 +13,7 @@ configure :development do |c|
   require 'sinatra/reloader'
   c.also_reload 'settings.rb'
   c.also_reload 'nav.rb'
+  c.also_reload 'honeypot.rb'
   c.also_reload 'model/*.rb'
 
   # Keep debugging output nice and current in Eclipse.
@@ -40,6 +41,10 @@ require_relative 'model/daily_quote'
 helpers do
   include NavigationHelper
   include Honeypot
+
+  def timestamp
+    Time.now
+  end
 end
 
 before do
@@ -97,8 +102,13 @@ get '/:slug' do |slug|
   @navigate_as = '/news'
   @post = JournalPost.with_slug slug
   halt 404 unless @post
+
   @next, @prev = @post.next, @post.prev
   @js = ['single-post']
+
+  @ts = timestamp
+  @spinner = spinner(@ts, request.ip, slug)
+
   haml :single_post
 end
 

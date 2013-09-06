@@ -41,6 +41,34 @@ describe '/<post-slug>' do
     last_response.status.should == 404
   end
 
+  context 'spam protection' do
+    let(:ts) { Time.parse('1 Jan 2013 1am GMT') }
+    let(:sp) { spinner(ts, '127.0.0.1', 'post-10') }
+
+    before do
+      Sinatra::Application.any_instance.stub(timestamp: ts)
+
+      get '/post-10'
+      ok!
+      @form = @doc.at_css('ul.comments li.new form')
+    end
+
+    it 'generates a spinner field' do
+      @form.at_xpath('//input[@name="spinner"]')[:value].should == sp
+    end
+
+    it 'includes an obfuscated timestamp field' do
+      ts_field = field_name(sp, 'timestamp')
+      @form.at_xpath("//input[@name='#{ts_field}']")[:value].should == Digest::SHA2.hexdigest(ts.to_s)
+    end
+
+    it 'includes an obfuscated entry slug'
+
+    it 'conceals the input names of the name and body fields'
+
+    it 'includes honeypot fields for the unwary bot'
+  end
+
   it 'shows the current comment count' do
     post '/post-10', name: 'first', body: 'First comment', rspec_secret: secret
     post '/post-10', name: 'second', body: 'Second comment', rspec_secret: secret
