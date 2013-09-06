@@ -45,6 +45,16 @@ helpers do
   def timestamp
     Time.now
   end
+
+  # Choose which of the three honeypot fields to display this rendering. Always
+  # include at least one.
+  def choose_honeypots
+    pots = (1..3).inject([]) do |chosen, current|
+      if rand <= 0.5 then chosen << current else chosen end
+    end
+    pots << rand(3) + 1 if pots.empty?
+    pots
+  end
 end
 
 before do
@@ -121,6 +131,12 @@ get '/:slug' do |slug|
   # And the submit button. The submit button's CSS class is a multiple of 7.
   @submit_field = field_name(@spinner, 'submit')
   @submit_css = "comment-#{7 * (rand(14) + 1)}"
+
+  # Generate names and classes for honeypot fields (multiple of 11), and
+  # determine which honeypots will be visible this rendering.
+  @honeypot_names = (1..3).map { |h| field_name(@spinner, "honeypot-#{h}") }
+  @honeypot_css = @honeypot_names.map { |_| "comment-#{11 * (rand(9) + 1)}" }
+  @honeypots_chosen = choose_honeypots
 
   haml :single_post
 end

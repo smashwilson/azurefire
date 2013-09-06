@@ -46,7 +46,7 @@ describe '/<post-slug>' do
     let(:sp) { spinner(ts, '127.0.0.1', 'post-10') }
 
     before do
-      Sinatra::Application.any_instance.stub(timestamp: ts)
+      Sinatra::Application.any_instance.stub(timestamp: ts, choose_honeypots: [1])
 
       get '/post-10'
       ok!
@@ -91,7 +91,10 @@ describe '/<post-slug>' do
       klass_modulo @form.at_xpath("//input[@name='#{submit_field}']"), 7
     end
 
-    it 'includes honeypot fields for the unwary bot'
+    it 'includes honeypot fields for the unwary bot' do
+      honeypot_field = field_name(sp, 'honeypot-1')
+      klass_modulo @form.at_xpath("//input[@name='#{honeypot_field}']"), 11
+    end
   end
 
   it 'shows the current comment count' do
