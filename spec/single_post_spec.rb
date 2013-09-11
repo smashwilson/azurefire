@@ -97,7 +97,7 @@ describe '/<post-slug>' do
     end
 
     it 'accepts comment POSTs that include the right fields' do
-      post '/post-10', 'spinner' => sp, 'timestamp' => ts.to_i,
+      post '/post-10', 'spinner' => sp, field_name(sp, 'timestamp') => ts.to_i,
         field_name(sp, 'name') => 'human',
         field_name(sp, 'body') => 'genuine message',
         field_name(sp, 'submit') => field_name(sp, 'submit')
@@ -108,11 +108,22 @@ describe '/<post-slug>' do
     end
 
     it 'rejects comment POSTs that include a honeypot field' do
-      post '/post-10', 'spinner' => sp, 'timestamp' => ts.to_i,
+      post '/post-10', 'spinner' => sp, field_name(sp, 'timestamp') => ts.to_i,
         field_name(sp, 'name') => 'not-a-spammer',
         field_name(sp, 'body') => 'enlarge your site!',
         field_name(sp, 'submit') => 'yep',
         field_name(sp, 'honeypot-1') => 'oops'
+
+      last_response.status.should == 400
+      JournalPost.with_slug('post-10').comment_count.should == 0
+    end
+
+    it 'rejects comment POSTs with timestamps out of range' do
+      bad_ts = Time.parse('1 Feb 2013 2am GMT')
+      post '/post-10', 'spinner' => sp, field_name(sp, 'timestamp') => bad_ts.to_i,
+        field_name(sp, 'name') => 'not-a-playback-attack',
+        field_name(sp, 'body') => 'totally not recorded a long time ago',
+        field_name(sp, 'submit') => 'yep'
 
       last_response.status.should == 400
       JournalPost.with_slug('post-10').comment_count.should == 0

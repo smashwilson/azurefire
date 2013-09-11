@@ -42,6 +42,7 @@ helpers do
   include NavigationHelper
   include Honeypot
 
+  # Extracted to a method so it can be stubbed.
   def timestamp
     Time.now
   end
@@ -154,9 +155,17 @@ post '/:slug' do |slug|
   if params[:rspec_secret] == secret
     name, body = params[:name], params[:body]
   else
-    # Extract the spinner and timestamp. Use them to construct the expected field
-    # names.
-    spinner, timestamp = params[:spinner], params[:timestamp]
+    # Extract the spinner and timestamp. Validate the them, then use them to
+    # construct the expected field names.
+    spinner = params[:spinner]
+    ts_value = params[field_name(spinner, 'timestamp')]
+
+    ts = Time.at(ts_value.to_i)
+    diff = timestamp - ts
+    halt 400 if diff < 0 || diff >= 14400 # In the future, or over four hours old
+
+    expected_spinner = spinner(ts, request.ip, slug)
+    halt 404 unless spinner == expected_spinner
 
     name_field = field_name(spinner, 'name')
     body_field = field_name(spinner, 'body')
