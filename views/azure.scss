@@ -193,7 +193,8 @@ ul.comments {
     .administrator {
       background: #eee;
     }
-    .name {
+    .name, .comment-15, .comment-30, .comment-45, .comment-60, .comment-75,
+    .comment-90 {
       color: $fire-color;
       font-size: 80%;
       font-style: italic;
@@ -212,7 +213,13 @@ ul.comments {
       width: 100%;
       height: 10em;
     }
-    input.submit {
+    input.comment-11, input.comment-22, input.comment-33, input.comment-44,
+    input.comment-55, input.comment-66, input.comment-77, input.comment-88,
+    input.comment-99 {
+      display: none;
+    }
+    input.comment-17, input.comment-34, input.comment-51, input.comment-68,
+    input.comment-85 {
       padding: 3px 10px;
     }
   }
