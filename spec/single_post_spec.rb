@@ -66,9 +66,9 @@ describe '/<post-slug>' do
       @form.at_xpath('//input[@name="spinner"]')[:value].should == sp
     end
 
-    it 'includes an obfuscated timestamp field' do
+    it 'includes a timestamp field' do
       ts_field = field_name(sp, 'timestamp')
-      @form.at_xpath("//input[@name='#{ts_field}']")[:value].should == hash(ts.to_s)
+      @form.at_xpath("//input[@name='#{ts_field}']")[:value].should == ts.to_i.to_s
     end
 
     it 'includes an obfuscated entry slug' do
@@ -94,6 +94,16 @@ describe '/<post-slug>' do
     it 'includes honeypot fields for the unwary bot' do
       honeypot_field = field_name(sp, 'honeypot-1')
       klass_modulo @form.at_xpath("//input[@name='#{honeypot_field}']"), 11
+    end
+
+    it 'rejects comment POSTs that include a honeypot field' do
+      post '/post-10', field_name(sp, 'name') => 'not-a-spammer',
+        field_name(sp, 'body') => 'enlarge your site!',
+        field_name(sp, 'submit') => 'yep',
+        field_name(sp, 'honeypot-1') => 'oops'
+
+      last_response.status.should == 400
+      JournalPost.with_slug('post-10').comment_count.should == 0
     end
   end
 

@@ -147,15 +147,34 @@ post '/:slug' do |slug|
   @post = JournalPost.with_slug slug
   halt 404 unless @post
 
+  name, body = nil, nil
+
   # Detect the RSpec token. If it's present (and matches the application secret),
   # we're running in RSpec and can bypass spam detection.
   if params[:rspec_secret] == secret
-    comment = Comment.new
-    comment.name = params[:name]
-    comment.content = params[:body]
-    @post.add_comment comment
-    redirect to("/#{slug}#comment-#{comment.number}")
+    name, body = params[:name], params[:body]
   else
-    # Spam detection.
+    # Extract the spinner and timestamp. Use them to construct the expected field
+    # names.
+    spinner, timestamp = params[:spinner], params[:timestamp]
+
+    name_field = field_name(spinner, 'name')
+    body_field = field_name(spinner, 'body')
+    submit_field = field_name(spinner, 'submit')
+
+    # Extract matching fields from the parameters. If any honeypot fields are
+    # present, or if the submit field is missing, fail the POST.
+    1.upto(3) do |honeypot|
+      halt 400 if params.has_key?(field_name(spinner, "honeypot-#{honeypot}"))
+    end
+    halt 400 unless params.has_key?(submit_field)
+
+    name, body = params[name_field], params[body_field]
   end
+
+  comment = Comment.new
+  comment.name = name
+  comment.content = body
+  @post.add_comment comment
+  redirect to("/#{slug}#comment-#{comment.number}")
 end

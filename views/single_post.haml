@@ -15,7 +15,7 @@
   %li.new
     %form{ :method => 'post' }
       %input{ :type => 'hidden', :name => 'spinner', :value => @spinner }
-      %input{ :type => 'hidden', :name => field_name(@spinner, 'timestamp'), :value => hash(@ts) }
+      %input{ :type => 'hidden', :name => field_name(@spinner, 'timestamp'), :value => @ts.to_i }
       %input{ :type => 'hidden', :name => field_name(@spinner, 'slug'), :value => hash(@post.slug) }
       - if @honeypots_chosen.include? 1
         %input{ :type => 'text', :name => @honeypot_names[0], :class => @honeypot_css[0] }
