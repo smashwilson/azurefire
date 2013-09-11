@@ -78,17 +78,17 @@ describe '/<post-slug>' do
 
     it 'conceals the input names of the name field' do
       name_field = field_name(sp, 'name')
-      klass_modulo @form.at_xpath("//input[@name='#{name_field}']"), 5
+      klass_modulo @form.at_xpath("//input[@name='#{name_field}']"), 15
     end
 
     it 'conceals the name of the comment body field' do
       body_field = field_name(sp, 'body')
-      klass_modulo @form.at_xpath("//textarea[@name='#{body_field}']"), 3
+      klass_modulo @form.at_xpath("//textarea[@name='#{body_field}']"), 13
     end
 
     it 'obfuscates the submit button' do
       submit_field = field_name(sp, 'submit')
-      klass_modulo @form.at_xpath("//input[@name='#{submit_field}']"), 7
+      klass_modulo @form.at_xpath("//input[@name='#{submit_field}']"), 17
     end
 
     it 'includes honeypot fields for the unwary bot' do

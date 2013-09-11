@@ -121,17 +121,17 @@ get '/:slug' do |slug|
   @spinner = spinner(@ts, request.ip, slug)
 
   # Generate the hashed field name and CSS class factor for the name field. The
-  # name CSS class should be a multiple of 5.
+  # name CSS class should be a multiple of 15.
   @name_field = field_name(@spinner, 'name')
-  @name_css = "comment-#{5 * (rand(10) + 1)}"
+  @name_css = "comment-#{15 * (rand(6) + 1)}"
 
-  # Similarly generate the body factor. Body CSS classes are multiples of 3.
+  # Similarly generate the body factor. Body CSS classes are multiples of 13.
   @body_field = field_name(@spinner, 'body')
-  @body_css = "comment-#{3 * (rand(33) + 1)}"
+  @body_css = "comment-#{13 * (rand(7) + 1)}"
 
-  # And the submit button. The submit button's CSS class is a multiple of 7.
+  # And the submit button. The submit button's CSS class is a multiple of 17.
   @submit_field = field_name(@spinner, 'submit')
-  @submit_css = "comment-#{7 * (rand(14) + 1)}"
+  @submit_css = "comment-#{17 * (rand(5) + 1)}"
 
   # Generate names and classes for honeypot fields (multiple of 11), and
   # determine which honeypots will be visible this rendering.
