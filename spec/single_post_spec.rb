@@ -96,8 +96,20 @@ describe '/<post-slug>' do
       klass_modulo @form.at_xpath("//input[@name='#{honeypot_field}']"), 11
     end
 
+    it 'accepts comment POSTs that include the right fields' do
+      post '/post-10', 'spinner' => sp, 'timestamp' => ts.to_i,
+        field_name(sp, 'name') => 'human',
+        field_name(sp, 'body') => 'genuine message',
+        field_name(sp, 'submit') => field_name(sp, 'submit')
+      follow_redirect!
+      ok!
+
+      JournalPost.with_slug('post-10').comment_count.should == 1
+    end
+
     it 'rejects comment POSTs that include a honeypot field' do
-      post '/post-10', field_name(sp, 'name') => 'not-a-spammer',
+      post '/post-10', 'spinner' => sp, 'timestamp' => ts.to_i,
+        field_name(sp, 'name') => 'not-a-spammer',
         field_name(sp, 'body') => 'enlarge your site!',
         field_name(sp, 'submit') => 'yep',
         field_name(sp, 'honeypot-1') => 'oops'

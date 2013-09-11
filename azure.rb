@@ -165,7 +165,8 @@ post '/:slug' do |slug|
     # Extract matching fields from the parameters. If any honeypot fields are
     # present, or if the submit field is missing, fail the POST.
     1.upto(3) do |honeypot|
-      halt 400 if params.has_key?(field_name(spinner, "honeypot-#{honeypot}"))
+      hn = field_name(spinner, "honeypot-#{honeypot}")
+      halt 400 unless params[hn].nil? || params[hn].empty?
     end
     halt 400 unless params.has_key?(submit_field)
 
