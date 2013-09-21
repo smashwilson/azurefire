@@ -15,13 +15,10 @@ configure :development do |c|
   c.also_reload 'nav.rb'
   c.also_reload 'honeypot.rb'
   c.also_reload 'model/*.rb'
-
-  # Keep debugging output nice and current in Eclipse.
-  $stdout.sync = true
 end
 
 configure :test do |c|
-  # Don't produce log messages among that nice row of "rake test" dots.
+  # Don't produce log messages among that nice row of "rake spec" dots.
   c.disable :logging
 end
 
@@ -69,13 +66,6 @@ before do
 end
 
 not_found { haml :'404' }
-
-# Run stylesheets through scss.
-
-get %r{/([^.]+).css} do |name|
-  content_type 'text/css', :charset => 'utf-8'
-  scss name.to_sym
-end
 
 # About page
 
