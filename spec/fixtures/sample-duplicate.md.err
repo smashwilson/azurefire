@@ -1,8 +1,0 @@
-{
-  "author": "sample",
-  "title": "Sample Post",
-  "timestamp": "8am 17 Sept 2011",
-  "tags": ["sample", "lorem"]
-}
-
-This post should not be baked, because it has the same post slug as sample.md.

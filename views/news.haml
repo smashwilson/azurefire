@@ -1,7 +1,0 @@
-%a{ :class => 'rss', :href => '/feed.rss' } subscribe
-- @posts.each do |p|
-  .post
-    !~ p.content
-    %ul.controls
-      %li
-        %a{ :href => "/#{p.slug}" }= "comments (#{p.comment_count})"
