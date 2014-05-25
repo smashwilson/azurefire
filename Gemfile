@@ -1,24 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'sinatra'
-gem 'haml'
-gem 'sass'
-gem 'rdiscount'
-gem 'nokogiri'
-gem 'json'
-gem 'lockfile'
+gem 'jekyll'
+gem 'jekyll-assets'
+gem 'jekyll-coffeescript'
 
-gem 'rack'
-gem 'rack-flash'
-
-gem 'unicorn'
-
-group :development do
-  gem 'sinatra-reloader'
-end
-
-group :test do
-  gem 'rake'
-  gem 'rspec'
-  gem 'rack-test'
-end
+gem 'less'
