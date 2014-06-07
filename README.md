@@ -9,14 +9,20 @@ It's built on [Jekyll](http://jekyllrb.com/) and based on the [HMFAYSAL V2](http
 If you've got a relatively sane Ruby install, previewing new content is as easy as:
 
 ```bash
+# Once
 bundle install
+
+# See your changes at http://localhost:4000/
 bundle exec jekyll serve
 ```
 
 If you're editing stylesheets or assets, you'll need to use `grunt`:
 
 ```bash
+# Once
 npm install -g grunt-cli
 npm install .
+
+# See your changes
 grunt
 ```
