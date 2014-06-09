@@ -1,0 +1,27 @@
+<div id="outer-wrap">
+<div id="inner-wrap">
+
+    <header id="top" role="banner">
+        <div class="block">
+            <h1 class="block-title">
+              azure<span class="callout">f</span>ire
+            </h1>
+            <a class="nav-btn" id="nav-open-btn" href="#nav">Navigation</a>
+        </div>
+    </header>
+
+    <nav id="nav" role="navigation">
+        <div class="block">
+            <ul>
+                {% for link in site.links %}
+                  <li>
+                    <a href="{% if link.external %}{{ link.url }}{% else %}{{ site.url }}{{ link.url }}{% endif %}" {% if link.external %}target="_blank"{% endif %}>{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+                <li>
+                  <a href="{{ site.url }}/feed.xml" title="Atom/RSS feed">Feed</a>
+                </li>
+            </ul>
+            <a class="close-btn" id="nav-close-btn" href="#top">Return to Content</a>
+        </div>
+    </nav>

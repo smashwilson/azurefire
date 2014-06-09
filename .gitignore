@@ -1,26 +1,2 @@
-# Ignore Eclipse metadata.
-.project
-.loadpath
-*.swp
-
-# Ignore persisted data.
-settings.json
-data-root/
-
-# Ignore sass cache.
-.sass-cache/
-public/azure.css
-
-# Ignore the tmp/ folder, used to restart on production.
-tmp/
-log/
-
-unicorn.rb
-
-bin/
-.bundle/
-vendor/
-
-.vagrant/
-
-.secret
+node_modules
+_site
