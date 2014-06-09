@@ -37,8 +37,8 @@ bing_verify:
 links:
   - title: Home
     url: /
-  - title: News
-    url: /news/
+  - title: Archive
+    url: /archive/
   - title: Tags
     url: /tags/
   - title: About
