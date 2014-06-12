@@ -10,7 +10,7 @@ module AssetPublisher
       fog_yml = File.join(site.source, FOG_CONFIG)
 
       unless File.exist? fog_yml
-        site.data['asset.url'] = site.data['site.url']
+        site.config['asset'] = { 'url' => site.config['url'] }
         return
       end
 
@@ -57,7 +57,7 @@ module AssetPublisher
 
       puts
 
-      site.data['asset.url'] = @directory.public_url
+      site.config['asset'] = { 'url' => @directory.public_url }
     end
   end
 end
