@@ -7,12 +7,14 @@ FOG_CONFIG = 'fog.yml'
 module AssetPublisher
   class Generator < Jekyll::Generator
     def generate(site)
-      unless File.exist? FOG_CONFIG
+      fog_yml = File.join(site.source, FOG_CONFIG)
+
+      unless File.exist? fog_yml
         site.data['asset.url'] = site.data['site.url']
         return
       end
 
-      @fog = YAML.load_file FOG_CONFIG
+      @fog = YAML.load_file fog_yml
 
       @storage = Fog::Storage.new(
         provider: :rackspace,
@@ -33,7 +35,7 @@ module AssetPublisher
 
       # Upload each file listed in 'files'
       @fog['files'].each do |path|
-        File.open(path) do |inf|
+        File.open(File.join site.source, path) do |inf|
           @directory.files.create(key: path, body: inf)
           print '.'
         end
@@ -41,11 +43,12 @@ module AssetPublisher
 
       # Recursively upload each file listed in 'directories'
       @fog['directories'].each do |root|
-        Find.find(root) do |path|
-          next unless File.file?(path)
+        Find.find(File.join site.source, root) do |fullpath|
+          next unless File.file?(fullpath)
+          relpath = fullpath[(site.source.size + 1)..-1]
 
-          File.open(path) do |inf|
-            @directory.files.create(key: path, body: inf)
+          File.open(fullpath) do |inf|
+            @directory.files.create(key: relpath, body: inf)
             print '.'
           end
         end
