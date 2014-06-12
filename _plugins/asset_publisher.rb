@@ -9,7 +9,7 @@ module AssetPublisher
     def generate(site)
       unless File.exist? FOG_CONFIG
         puts "No config."
-        site.data['assets.url'] = site.data['site.url']
+        site.data['asset.url'] = site.data['site.url']
         return
       end
 
@@ -49,7 +49,7 @@ module AssetPublisher
         end
       end
 
-      site.data['assets.url'] = @directory.public_url
+      site.data['asset.url'] = @directory.public_url
     end
   end
 end
