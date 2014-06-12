@@ -20,7 +20,8 @@ module AssetPublisher
         provider: :rackspace,
         rackspace_username: @fog['account']['username'],
         rackspace_api_key: @fog['account']['api_key'],
-        rackspace_region: @fog['account']['region']
+        rackspace_region: @fog['account']['region'],
+        rackspace_cdn_ssl: true
       )
 
       @directory = @storage.directories.new(key: @fog['container'])
