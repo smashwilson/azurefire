@@ -8,13 +8,10 @@ module AssetPublisher
   class Generator < Jekyll::Generator
     def generate(site)
       unless File.exist? FOG_CONFIG
-        puts "No config."
         site.data['asset.url'] = site.data['site.url']
         return
       end
 
-      puts "Publishing assets!"
-      puts "Got the fog config!"
       @fog = YAML.load_file FOG_CONFIG
 
       @storage = Fog::Storage.new(
@@ -24,7 +21,7 @@ module AssetPublisher
         rackspace_region: @fog['account']['region']
       )
 
-      @directory = @storage.directories.new(@fog['container'])
+      @directory = @storage.directories.new(key: @fog['container'])
       if @directory.nil?
         @directory = @storage.directories.create(key: @fog['container'])
       end
@@ -32,10 +29,13 @@ module AssetPublisher
       @directory.public = true
       @directory.save
 
+      print "Publishing static assets: "
+
       # Upload each file listed in 'files'
       @fog['files'].each do |path|
         File.open(path) do |inf|
           @directory.files.create(key: path, body: inf)
+          print '.'
         end
       end
 
@@ -46,9 +46,12 @@ module AssetPublisher
 
           File.open(path) do |inf|
             @directory.files.create(key: path, body: inf)
+            print '.'
           end
         end
       end
+
+      puts
 
       site.data['asset.url'] = @directory.public_url
     end
