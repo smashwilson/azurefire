@@ -34,7 +34,7 @@ module AssetPublisher
       print "Publishing static assets: "
 
       # Upload each file listed in 'files'
-      @fog['files'].each do |path|
+      (@fog['files'] || []).each do |path|
         File.open(File.join site.source, path) do |inf|
           @directory.files.create(key: path, body: inf)
           print '.'
@@ -42,7 +42,7 @@ module AssetPublisher
       end
 
       # Recursively upload each file listed in 'directories'
-      @fog['directories'].each do |root|
+      (@fog['directories'] || []).each do |root|
         Find.find(File.join site.source, root) do |fullpath|
           next unless File.file?(fullpath)
           relpath = fullpath[(site.source.size + 1)..-1]
