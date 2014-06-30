@@ -1,11 +1,21 @@
 // Enable Disqus comments at an <div id="disqus_thread"></div> element.
 
 $(function () {
-  if ($('#disqus_thread').length) {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  var root = document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0];
+
+  if ($('div#disqus_thread').length) {
+    var embed = document.createElement('script');
+    embed.type = 'text/javascript';
+    embed.async = true;
+    embed.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    root.appendChild(embed);
+  }
+
+  if ($('a.disqus_count').length) {
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    root.appendChild(s);
   }
 });
