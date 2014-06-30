@@ -33,13 +33,13 @@ bing_verify:
 # Links to include in top navigation
 # For external links add external: true
 links:
-  - title: Home
+  - title: home
     url: /
-  - title: Archive
+  - title: archive
     url: /archive/
-  - title: Tags
+  - title: tags
     url: /tags/
-  - title: About
+  - title: about
     url: /about/
 
 
