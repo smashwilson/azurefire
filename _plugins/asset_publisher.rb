@@ -2,7 +2,7 @@ require 'fog'
 require 'yaml'
 require 'find'
 
-FOG_CONFIG = 'fog.yml'
+FOG_CONFIG = '_fog.yml'
 
 module AssetPublisher
   class Generator < Jekyll::Generator
