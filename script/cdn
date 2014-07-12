@@ -7,6 +7,8 @@ require 'fog'
 require 'find'
 
 fog_yml = File.join __dir__, '..', '_fog.yml'
+asset_yml = ARGV[0] || File.join(__dir__, '..', '_site', 'assets')
+
 exit 0 unless File.exist? fog_yml
 
 @fog = YAML.load_file fog_yml
@@ -23,7 +25,7 @@ exit 0 unless File.exist? fog_yml
 
 puts 'Publishing static assets to cloud files:'
 
-Find.find(File.join __dir__, '..', '_site', 'assets') do |path|
+Find.find(asset_path) do |path|
   next unless File.file? path
 
   remote = File.basename path
