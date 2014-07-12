@@ -36,10 +36,10 @@
 <!-- Google Webfonts -->
 <link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700|PT+Serif:400,700,400italic|Alex+Brush' rel='stylesheet' type='text/css'>
 <!-- For all browsers -->
-<link rel="stylesheet" href="{{ site.asset.url }}/assets/css/main.min.css">
+{% stylesheet app %}
 
 <!--[if (lt IE 9) & (!IEMobile)]>
-<link rel="stylesheet" href="{{ site.asset.url }}/assets/css/ie.min.css">
+{% stylesheet ie %}
 <![endif]-->
 
 <meta http-equiv="cleartype" content="on">
