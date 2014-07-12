@@ -38,7 +38,7 @@ body {
 		display: inline;
 		margin-right: 25px;
 		white-space: nowrap;
-		a { 
+		a {
 			decoration: none;
 			border-bottom: 0 solid transparent;
 			.transition(all .2s);
@@ -75,6 +75,11 @@ body {
 		h2 {
 			margin-bottom: 4px;
 			.font-rem(20);
+			a.disqus_count {
+				margin-left: 1em;
+				font-size: 80%;
+				color: lighten(@link-color,40);
+			}
 		}
 		p {
 			.font-rem(14);
@@ -173,7 +178,7 @@ body {
 			border-bottom-style: solid;
 		}
 	}
-	p > a.reversefootnote, 
+	p > a.reversefootnote,
 	li > a.reversefootnote {
 		border-bottom-width: 0;
 	}
@@ -246,7 +251,7 @@ body {
 	margin: 1em 0;
 	li {
 		display: inline;
-		a { 
+		a {
 			border-bottom: 0 solid transparent;
 			&:hover {
 				border-bottom: 0 solid transparent;
@@ -275,12 +280,12 @@ body {
 	a.jp-current {
 		font-weight: bold;
 	}
-	a.jp-disabled, 
+	a.jp-disabled,
 	a.jp-disabled:hover {
 	}
-	a.jp-current, 
-	a.jp-current:hover,  
-	a.jp-disabled, 
+	a.jp-current,
+	a.jp-current:hover,
+	a.jp-disabled,
 	a.jp-disabled:hover {
 		cursor: default;
 		background: none;
@@ -301,7 +306,7 @@ body {
 	h4,
 	h5,
 	h6,
-	span { 
+	span {
 		.font-rem(14);
 	}
 	footer {
@@ -316,7 +321,7 @@ body {
 	.suffix(12,1);
 	margin-bottom: 2em;
 	h4 {
-		
+
 		text-transform: uppercase;
 		margin-bottom: 0;
 	}
