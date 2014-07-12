@@ -1,6 +1,8 @@
 title: azurefire
 tagline: Life without Pants!
+logo: default-thumb.png
 description: An awesome Jekyll theme by Engineer Hossain Mohd Faysal featuring a slide out drawer navigation for mobile browsers.
+
 # Your site's domain goes here. Leave localhost server or blank when working locally.
 url: https://azurefire.net
 
@@ -67,5 +69,21 @@ kramdown:
     coderay_bold_every: 10
     coderay_css: class
 
-include: [".htaccess"]
-exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
+include:
+- .htaccess
+exclude:
+- '*.sh'
+- README.md
+- LICENSE
+- Gemfile*
+
+assets:
+  sources:
+  - _assets/javascripts
+  - _assets/stylesheets
+  - _assets/images
+  - _assets/fonts
+  cache: true
+  gzip: false
+  js_compressor: uglifier
+  css_compressor: sass
