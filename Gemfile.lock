@@ -13,6 +13,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     colorator (0.1)
+    commonjs (0.2.7)
     excon (0.37.0)
     execjs (2.2.0)
     fast-stemmer (1.0.2)
@@ -62,7 +63,11 @@ GEM
     jekyll-minibundle (1.4.6)
     jekyll-sass-converter (1.0.0)
       sass (~> 3.2)
+    json (1.8.1)
     kramdown (1.3.3)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
+    libv8 (3.16.14.3)
     liquid (2.5.5)
     listen (2.7.7)
       celluloid (>= 0.15.2)
@@ -89,6 +94,7 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     redcarpet (3.1.2)
+    ref (1.0.5)
     safe_yaml (1.0.3)
     sass (3.3.8)
     sprockets (2.12.1)
@@ -101,10 +107,16 @@ GEM
     sprockets-sass (1.2.0)
       sprockets (~> 2.0)
       tilt (~> 1.1)
+    therubyracer (0.12.1)
+      libv8 (~> 3.16.14.0)
+      ref
     tilt (1.4.1)
     timers (1.1.0)
     toml (0.1.1)
       parslet (~> 1.5.0)
+    uglifier (2.5.1)
+      execjs (>= 0.3.0)
+      json (>= 1.8.0)
     yajl-ruby (1.1.0)
 
 PLATFORMS
@@ -116,4 +128,7 @@ DEPENDENCIES
   jekyll
   jekyll-assets
   jekyll-minibundle
+  less
   rake
+  therubyracer
+  uglifier
