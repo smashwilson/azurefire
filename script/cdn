@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+#
+# Publish all compiled assets to the CDN.
+
+require 'yaml'
+require 'fog'
+require 'find'
+
+fog_yml = File.join __dir__, '..', '_fog.yml'
+exit 0 unless File.exist? fog_yml
+
+@fog = YAML.load_file fog_yml
+
+@storage = Fog::Storage.new(
+  provider: :rackspace,
+  rackspace_username: @fog['account']['username'],
+  rackspace_api_key: @fog['account']['api_key'],
+  rackspace_region: @fog['account']['region'],
+  rackspace_cdn_ssl: true
+)
+
+@directory = @storage.directories.new(key: @fog['container'])
+
+puts 'Publishing static assets to cloud files:'
+
+Find.find(File.join __dir__, '..', '_site', 'assets') do |path|
+  next unless File.file? path
+
+  remote = File.basename path
+
+  File.open(path) do |inf|
+    @directory.files.create(key: remote, body: inf)
+  end
+  print '.'
+end
+puts
+
+puts "Complete."
