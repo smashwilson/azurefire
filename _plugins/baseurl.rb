@@ -1,7 +1,6 @@
 require 'fog'
 require 'yaml'
 require 'find'
-require 'pry'
 
 FOG_CONFIG = '_fog.yml'
 
