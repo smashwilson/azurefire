@@ -31,7 +31,11 @@ Find.find(asset_root) do |path|
   remote = File.basename path
 
   File.open(path) do |inf|
-    @directory.files.create(key: remote, body: inf)
+    @directory.files.create(
+      key: remote,
+      body: inf,
+      access_control_allow_origin: 'https://azurefire.net'
+    )
   end
   print '.'
 end
