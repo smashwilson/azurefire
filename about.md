@@ -33,7 +33,7 @@ I'm a bit of a polyglot when it comes to programming languages. Since we're alre
 
 **Active set languages** that are resident in my memory. I should be able to pick these up and start coding with minimal "wait what's that standard library function" moments.
 
-*Ruby*, *Python*, *Smalltalk*, *C*, *JavaScript*, *CoffeeScript*, *Java*, *Scala*
+*Ruby*, *Python*, *Smalltalk*, *C*, *Go*, *JavaScript*, *CoffeeScript*, *Java*, *Scala*
 
 **Languages I've known well** are the ones that I've built something more substantial than a tutorial with in the recent past. I might need a little refresher before I could get going again.
 
@@ -41,7 +41,7 @@ I'm a bit of a polyglot when it comes to programming languages. Since we're alre
 
 **Languages I've read about** but haven't really properly put through their paces yet.
 
-*Go*, *C#*
+*C#*
 
 The **dusty corners of my brain** are for languages I haven't touched for years and major versions.
 
