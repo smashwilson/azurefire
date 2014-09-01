@@ -1,0 +1,33 @@
+---
+layout: post
+title: Implicit Knowledge and Shaving Yaks
+date: 2014-09-01
+category: news
+tags:
+- software
+- ruby
+- yak shaving
+image:
+  feature: texture-gb-lake.jpg
+---
+
+Let's say that you want to start contributing to an open-source project in a programming language that's new to you. If it's written in a modern language, it'll be easy to get started, right? It's a healthy project with an organized codebase and a solid base of tests, so all that you'll need to do is clone it and start hacking. You'll have a lot of real-world, idiomatic examples of source code to use as a reference, so between that and the tutorials you've just read, the language itself shouldn't be a barrier for long, and that's the hard part, isn't it? Just look for the phrase "it's easy" in the setup bit of someone's README. [I'm as guilty as anyone, here.](https://github.com/rackerlabs/peril/blob/04c2cc80101618273ee07d8e25f10aa9720f0d08/README.md#hacking)
+
+Of course this is a complete fiction. In reality, whatever your development environment du jour happens to be, there's a daunting tower of auxiliary software and must-have utilities that you'll need to install, configure, and learn before you can get started. (If you're unusually lucky, there'll be only *one* tower, and its pieces will have good SEO.) Each piece will make assumptions and follow conventions that are as invisible as air to those who live and breathe in these circles. Look carefully at any programming community and you'll find pockets of tribal knowledge that few bother to document in a `CONTRIBUTING.md`, but that somehow define the elusive core of what constitutes a "sane" development environment.
+
+Take Ruby for example. If you want to write Ruby you can just slap some code in an `.rb` file and run it, right? Well, not quite. Before you can start building something real, you'll need to know:
+
+ * Nobody actually uses the system Ruby, if you're even on a system that ships with one. Any Ruby you get from your local package manager will be woefully out of date. These days it'll at least be something in the 1.9.x line, although if you're stuck on an older CentOS box you might get 1.8.7, which is a decade old and completely unsupported, even for security updates. Yikes. Instead, you'll want to use a **version manager** of some kind, like [rvm](http://rvm.io/), or [rbenv](https://github.com/sstephenson/rbenv), or [chruby](https://github.com/postmodern/chruby). Which one is better, you ask? Hope you have time for a few hours of hunting around FAQs trying to understand what they all do well enough to understand the differences.
+ * If you want to use anything but the standard library, you'll need to learn about the **package manager**, [RubyGems](http://rubygems.org/). Fortunately, you probably won't need to dig too deep right away, since you'll most likely be using other people's gems for a while before you start writing your own. So you'll learn how to install gems, and where to find new ones, and what to do when you see the dread message, "Building native extensions. This could take a while." You'll learn that you *must* use `sudo` if you didn't follow the first point and you're running a system install, but you *can't* use `sudo` if you did, and that it's a silent failure if you used it and you shouldn't have. Maybe you'll also learn to set up a [`.gemrc` file](https://github.com/smashwilson/dev-playbook/blob/master/files/gemrc) so that it won't spend minutes building documentation you'll never see every time you install a package. Okay, great. Except...
+ * Now you'll learn that nobody actually uses `gem` on its own. Or rather, you'll use it exactly once: to install [bundler](http://bundler.io/) for **dependency management**. You'll learn how to write a `Gemfile`, so other programmers can use the same set of dependencies that you use, even if they also work on other projects that have different versions of the same dependencies. You'll learn about the `Gemfile.lock` file, and when you should commit it into source control, and when you shouldn't. And you'll learn the set of `bundle` commands that you need to know, to install everything you need for a certain project, and to use that project's dependency set to run programs in that project.
+ * All bets are off if you're on Windows. Use [pik](https://github.com/vertiginous/pik) maybe?
+
+I'm picking on Ruby here because it's what I'm most familiar with, but every language I've ever learned had its own unique ecosystem that newcomers need to learn before they can get to the point where they're actually running tests and writing code. Python had a cavalcade of different package managers -- just a year or two ago, you needed to use one, `easy_install` to install the other, `pip` -- and a version split a mile wide between Python 2 and Python 3 that makes the answer to the question "which version do I install?" a noncommital "it depends." There are [eight ways](https://gist.github.com/isaacs/579814) to install Node.js on a \*nix system, some of which involve things like chown'ing your `/usr/local` directories; the [node frontpage](http://nodejs.org/) only links a tarball. Go has its own [very opinionated set of workspace directories and environment variables](https://golang.org/doc/code.html) to work properly that you need to understand before you can build anything. C#, being steeped in Microsoft-monoculture, has a relatively consolidated toolbase, but not even Windows actually *ships* with the tools you need to build it, and its [de facto package manager](http://docs.nuget.org/docs/start-here/installing-nuget) is another download you need to know to install. And so on, and so on.
+
+We haven't even gotten to more fundamental beginner issues like "using git" yet, or "picking an IDE."
+
+The astonishing thing is that we often don't even think about any of this. Once you've been working in an ecosystem for a while and have internalized all of the latent background knowledge, all that you see is the code, and the rest fades out of the picture. If I was handed a brand new laptop tomorrow, I'd have all of this set up on it without a second thought. It's oddly easy to claim that it's simple to understand things that you already know.
+
+What I'd like to see is a solution for making this implicit background knowledge explicit, to speed and guide the ritualistic [yak shaving](http://en.wiktionary.org/wiki/yak_shaving) that every newcomer must encounter before they can be productive in a new environment. It's hard because, as a developer, my first instinct is to write a tool to accomplish it; but ultimately, all that would accomplish is adding one more yak to the herd.
+
+In the meantime, I'm going to at least try not to claim that it's easy to get started.
