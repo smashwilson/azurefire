@@ -21,7 +21,7 @@ To start, we chose to target an existing client SDK, Python's [multyvac](https:/
 
  1. It gave me a concrete spec to target while I was mapping out the endpoints for the API server. This saved us a lot of bikeshedding in the early days.
  2. It let me start backend-first and test things with real code, just as a user would experience them. Otherwise, I would have had to use awkward `curl` scripts until we could design and put together a decent SDK.
- 3. In theory, people are [already using](https://github.com/search?utf8=%E2%9C%93&q=import+multyvac&type=Code&ref=searchresults) the SDK. (If that search is any indication, though, in retrospect we should have stuck with its predecessor, [cloud](https://github.com/search?utf8=%E2%9C%93&q=import+cloud&type=Code&ref=searchresults), instead.)
+ 3. In theory, people are [already using](https://github.com/search?utf8=%E2%9C%93&q=import+multyvac&type=Code&ref=searchresults) the SDK. (If that search is any indication, though, we should have stuck with its predecessor, [cloud](https://github.com/search?utf8=%E2%9C%93&q=import+cloud&type=Code&ref=searchresults), instead.)
 
 As a result, the only client SDK that exists today is for Python (and Python 2, at that). That's going to change, though - we've been planning to [write our own client for Python](https://github.com/cloudpipe/cloudpipe/issues/17) and [Shaunak Kashyap](https://github.com/ycombinator) is already working on [an SDK for node.js](https://github.com/cloudpipe/sdk-node). We're also likely to diverge more and more from multyvac as we move on.
 
