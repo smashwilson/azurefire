@@ -86,7 +86,7 @@ Finally, all of these services are themselves running in [Docker containers](htt
 
 Here's how it all fits together:
 
-*Put a diagram here*
+![Cloudpipe architecture]({{ "cloudpipe-compute-on-demand/cloudpipe-arch.png" | asset_path }})
 
 ## Into the Future
 
