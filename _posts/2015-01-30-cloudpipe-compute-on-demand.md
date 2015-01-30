@@ -68,6 +68,8 @@ Behind that URL, Cloudpipe is built from a small set of parts, all written in Go
 
 The **API server** is an HTTPS server that hosts a JSON API. It's a fairly thin layer that performs  CRUD operations on job models persisted in a MongoDB instance.
 
+We're using Mongo because it's [convenient for us](https://objectrocket.com/), by the way: storage operations are performed through an interface, so implementations built on other databases are possible and welcome.
+
 The **job runner** is a separate goroutine within the same process as each API server. It polls a queue of submitted jobs in MongoDB and uses the [go-dockerclient library](https://github.com/fsouza/go-dockerclient) to launch each one. The runner creates a container from the requested image, attaches to its stdin, stdout and stderr, and starts it. Any provided stdin is fed in to the process; stdout and stderr are collected and used to update the job's model in Mongo as it executes.
 
 In development mode, the container is launched on the same server that you're running everything else on, but in any "real" setting user jobs should run on a different machine. We're planning to use [swarm](https://github.com/docker/swarm) as a way to manage submitting jobs to a cluster.
