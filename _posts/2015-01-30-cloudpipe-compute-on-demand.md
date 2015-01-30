@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Put that in your cloud and smoke it"
+title: "Cloudpipe: Compute on Demand"
 date: "2015-01-30"
 category: news
 tags:
