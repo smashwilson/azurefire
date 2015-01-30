@@ -96,6 +96,8 @@ I'm also interested in extending the base API to support:
 
  * Configurable sources of input and output. Run jobs to and from a Cloud Files container, or a database, or mount volumes into your container's filesystem from a block volume.
 
+ * Constructing derived images from the provided base images.
+
  * Job lifecycle management. Run jobs on a schedule. Save jobs and re-run them by name.
 
 Additionally, we're going to start writing some [Ansible roles](http://www.ansible.com/home) to help bootstrap servers as API hosts, authentication hosts, or user job hosts.
