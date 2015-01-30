@@ -80,7 +80,7 @@ The authentication protocol consists of [two calls](https://github.com/cloudpipe
 
 *[cloudpipe/runner-py2](https://github.com/cloudpipe/runner-py2)*
 
-A **runner image** is used to spawn a container that understands what the SDK is sending in. The Python one unpickles stdin and calls the resulting function, writing the result to a fixed location on the filesystem.
+A **runner image** is used to spawn a container that understands what the SDK is sending in and executes it as a non-root user. The Python one unpickles stdin and calls the resulting function, writing the result to a fixed location on the filesystem. Not bad for [four lines of code](https://github.com/cloudpipe/runner-py2/blob/master/multyvacinit/pybootstrap.py#L10-L13).
 
 Finally, all of these services are themselves running in [Docker containers](https://registry.hub.docker.com/repos/cloudpipe/), because why not.
 
