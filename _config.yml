@@ -11,7 +11,9 @@ owner:
   name: Ash Wilson
   avatar: cat-sniffer.jpg
   bio: >
-    Ash Wilson is a Developer Support Engineer at Rackspace, a Ruby hacker, and a Dad.
+    Ash Wilson writes code at Rackspace. His specialties include: developer tooling, from SDKs to
+    Atom packages; plugging things into other things (they had to cover all the electrical sockets);
+    and eggs benedict.
   email: smashwilson@gmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
   # To register at HMFAYSAL SOCIAL, visit http://social.hmfaysal.tk
