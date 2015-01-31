@@ -41,7 +41,7 @@ I'm a bit of a polyglot when it comes to programming languages. Since we're alre
 
 **Languages I've read about** but haven't really properly put through their paces yet.
 
-*C#*
+*C#*, *Rust*, *Haskell*
 
 The **dusty corners of my brain** are for languages I haven't touched for years and major versions.
 
