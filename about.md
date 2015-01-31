@@ -9,7 +9,7 @@ image:
   feature: texture-nevada-road.jpg
 ---
 
-I'm **Ash Wilson**, a Developer Support Engineer at [Rackspace](http://rackspace.com/). Basically, that means that I help people build awesome things, build awesome things of my own, and provide support for Rackspace SDKs and APIs.
+I'm **Ash Wilson**, a software developer at [Rackspace](http://rackspace.com/). Basically, I help people build awesome things, build awesome things of my own, and provide support for Rackspace SDKs and APIs.
 
 I have particular interests in:
 
