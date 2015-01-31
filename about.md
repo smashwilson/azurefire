@@ -9,7 +9,7 @@ image:
   feature: texture-nevada-road.jpg
 ---
 
-I'm **Ash Wilson**, a Developer Support Engineer at [Rackspace](http://rackspace.com/). Basically, that means that I help people build awesome things, build awesome things of my own, and provide support for Rackspace SDKs and APIs.
+I'm **Ash Wilson**, a software developer at [Rackspace](http://rackspace.com/). Basically, I help people build awesome things, build awesome things of my own, and provide support for Rackspace SDKs and APIs.
 
 I have particular interests in:
 
@@ -41,7 +41,7 @@ I'm a bit of a polyglot when it comes to programming languages. Since we're alre
 
 **Languages I've read about** but haven't really properly put through their paces yet.
 
-*C#*
+*C#*, *Rust*, *Haskell*
 
 The **dusty corners of my brain** are for languages I haven't touched for years and major versions.
 
