@@ -3,6 +3,7 @@ layout: post
 title: "Cloudpipe: Compute on Demand"
 date: "2015-01-30"
 category: news
+description: Batch jobs for millenials.
 tags:
 - software
 - go
