@@ -28,13 +28,59 @@ The best way that I've found to learn something new is to use it to build someth
 
 It's a lot of fun! Depending on who's writing, the results can range from hilarious to bizarre.
 
-The Ruby version was quick, dirty, and full of bugs and race conditions. For its Rust incarnation, I'm adding some features: OAuth logins from GitHub or Google, multiple concurrent stories, and real persistence via PostgreSQL instead of just using the raw filesystem.
+The Ruby version was quick, dirty, and full of bugs and race conditions. For its Rust incarnation, I'm adding some features: OAuth logins from GitHub or Google, multiple concurrent stories, and real persistence via PostgreSQL instead of just using the raw filesystem. I'm not horribly far along with development. If you're interested in following along, the source is [on GitHub](https://github.com/smashwilson/collaborative-fiction).
+
+I should note that this is actually an awful use case for Rust. At its peak, I had maybe a dozen casual users, rarely concurrent. A single-threaded Sinatra application on the cheapest cloud server can easily handle the load. Using Rust here is massive overkill, but the point is to learn Rust rather than ship something.
 
 ## Ownership and the Borrow Checker
 
+The ownership system is the mechanism that Rust uses for memory management. Essentially, the compiler infers the exact lifetime of each object, so that a `free()` call (or more commonly a stack deallocation) can unambiguously be performed as soon as no more references remain.
+
 {% highlight rust %}
-fn something(i: int) -> bool {
-  true
+fn caller() -> {
+  let t = Thing::new();
+
+  takesOwnership(t);
+
+  // You can't use t here
+}
+
+fn takesOwnership(t: Thing) -> {
+  println!("I got {:?}", t);
+
+  // t gets destroyed here!
+}
+{% endhighlight %}
+
+<!-- Borrowing -->
+
+{% highlight rust %}
+fn caller() -> {
+  let t = Thing::new();
+
+  borrows(t);
+
+  println!("I've still got a {:?}", t);
+}
+
+fn borrows(s: &Thing) -> {
+  println!("I borrowed {:?}", s);
+}
+{% endhighlight %}
+
+<!-- Returning references -->
+
+{% highlight rust %}
+fn caller() -> {
+  let t = returns();
+
+  println!("I have a {:?}", t);
+}
+
+fn returns() -> Thing {
+  Thing{
+    field: 1
+  }
 }
 {% endhighlight %}
 
