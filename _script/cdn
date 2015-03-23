@@ -6,22 +6,20 @@ require 'yaml'
 require 'fog'
 require 'find'
 
-fog_yml = File.join __dir__, '..', '_fog.yml'
 asset_root = ARGV[0] || File.join(__dir__, '..', '_site', 'assets')
 
-exit 0 unless File.exist? fog_yml
-
-@fog = YAML.load_file fog_yml
+vars = %w{RACKSPACE_USERNAME RACKSPACE_APIKEY RACKSPACE_REGION RACKSPACE_CONTAINER}
+exit 0 if vars.any? { |v| ENV[v].nil? || ENV[v].empty? }
 
 @storage = Fog::Storage.new(
   provider: :rackspace,
-  rackspace_username: @fog['account']['username'],
-  rackspace_api_key: @fog['account']['api_key'],
-  rackspace_region: @fog['account']['region'],
+  rackspace_username: ENV["RACKSPACE_USERNAME"],
+  rackspace_api_key: ENV["RACKSPACE_APIKEY"],
+  rackspace_region: ENV["RACKSPACE_REGION"],
   rackspace_cdn_ssl: true
 )
 
-@directory = @storage.directories.new(key: @fog['container'])
+@directory = @storage.directories.new(key: ENV["RACKSPACE_CONTAINER"])
 
 puts 'Publishing static assets to cloud files:'
 

@@ -2,30 +2,28 @@ require 'fog'
 require 'yaml'
 require 'find'
 
-FOG_CONFIG = '_fog.yml'
-
 # Derive the asset base URL from a Cloud Files container.
 #
 module BaseUrl
   class Generator < Jekyll::Generator
 
     def generate(site)
-      fog_yml = File.join(site.source, FOG_CONFIG)
-      return unless File.exist? fog_yml
+      vars = %w{RACKSPACE_USERNAME RACKSPACE_APIKEY RACKSPACE_REGION RACKSPACE_CONTAINER}
+      return if vars.any? { |v| ENV[v].nil? || ENV[v].empty? }
 
       @fog = YAML.load_file fog_yml
 
       @storage = Fog::Storage.new(
         provider: :rackspace,
-        rackspace_username: @fog['account']['username'],
-        rackspace_api_key: @fog['account']['api_key'],
-        rackspace_region: @fog['account']['region'],
+        rackspace_username: ENV["RACKSPACE_USERNAME"],
+        rackspace_api_key: ENV["RACKSPACE_APIKEY"],
+        rackspace_region: ENV["RACKSPACE_REGION"],
         rackspace_cdn_ssl: true
       )
 
-      @directory = @storage.directories.new(key: @fog['container'])
+      @directory = @storage.directories.new(key: ENV["RACKSPACE_CONTAINER"])
       if @directory.nil?
-        @directory = @storage.directories.create(key: @fog['container'])
+        @directory = @storage.directories.create(key: ENV["RACKSPACE_CONTAINER"])
       end
 
       @directory.public = true
