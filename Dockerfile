@@ -1,10 +1,19 @@
 FROM ruby:2.2.1
 MAINTAINER Ash Wilson <smashwilson@gmail.com>
 
-RUN gem install jekyll fog therubyracer
 RUN useradd --no-create-home azure
-ADD . /usr/src/page
-RUN chown -R azure:azure /usr/src/page
+
 WORKDIR /usr/src/page
 
+ADD Gemfile /usr/src/page/Gemfile
+ADD Gemfile.lock /usr/src/page/Gemfile.lock
+RUN bundle install
+ADD . /usr/src/page
+
+RUN mkdir /var/www/
+RUN chown -R azure:azure /usr/src/page /var/www/
+
+VOLUME /var/www/
 USER azure
+
+ENTRYPOINT ["jekyll", "build", "--destination", "/var/www"]
