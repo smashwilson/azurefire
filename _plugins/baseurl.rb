@@ -2,8 +2,6 @@ require 'fog'
 require 'yaml'
 require 'find'
 
-FOG_CONFIG = '_fog.yml'
-
 # Derive the asset base URL from a Cloud Files container.
 #
 module BaseUrl
