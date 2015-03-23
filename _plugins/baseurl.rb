@@ -11,7 +11,7 @@ module BaseUrl
 
     def generate(site)
       vars = %w{RACKSPACE_USERNAME RACKSPACE_APIKEY RACKSPACE_REGION RACKSPACE_CONTAINER}
-      return unless vars.all? { |v| ENV[v] }
+      return if vars.any? { |v| ENV[v].nil? || ENV[v].empty? }
 
       @fog = YAML.load_file fog_yml
 
