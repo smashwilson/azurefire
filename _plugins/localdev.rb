@@ -2,7 +2,8 @@
 module BaseUrl
   class Generator < Jekyll::Generator
     def generate(site)
-      site.config['url'] = nil unless File.exist?(File.join(site.source, FOG_CONFIG))
+      vars = %w{RACKSPACE_USERNAME RACKSPACE_APIKEY RACKSPACE_REGION RACKSPACE_CONTAINER}
+      site.config['url'] = nil unless vars.any? { |v| ENV[v].nil? || ENV[v].empty? }
     end
   end
 end
