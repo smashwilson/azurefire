@@ -1,5 +1,7 @@
 # azurefire.net
 
+[![Docker Repository on Quay.io](https://quay.io/repository/smashwilson/azurefire/status "Docker Repository on Quay.io")](https://quay.io/repository/smashwilson/azurefire)
+
 This is the source for [smashwilson's](https://github.com/smashwilson) static site, on which he blogs about various shenanigans that may or may not be interesting for anyone else.
 
 It's built on [Jekyll](http://jekyllrb.com/) and based on the [HMFAYSAL V2](http://v2.theevilgenius.tk) theme.
