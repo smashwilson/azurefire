@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# Wrap the entire (production) build and CDN publish process.
+
+set -euo pipefail
+
+ROOT=$(cd $(dirname $0)/..; pwd)
+
+bundle exec jekyll build --destination /var/www
+
+${ROOT}/_script/cdn
