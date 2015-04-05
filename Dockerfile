@@ -16,4 +16,4 @@ RUN chown -R azure:azure /usr/src/page /var/www/
 VOLUME /var/www/
 USER azure
 
-ENTRYPOINT ["jekyll", "build", "--destination", "/var/www"]
+ENTRYPOINT ["_script/build"]
