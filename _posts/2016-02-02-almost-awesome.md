@@ -8,7 +8,7 @@ tags:
 - software
 - personal
 image:
-  feature: texture-rainier-treetops.jpg
+  feature: texture-street.jpg
 ---
 
 I feel like most things that I build fall into a state of perpetually being almost awesome.
